@@ -5,6 +5,7 @@
 
 # Maven / build outputs
 target/
+target/*
 pom.xml.tag
 pom.xml.releaseBackup
 pom.xml.versionsBackup
