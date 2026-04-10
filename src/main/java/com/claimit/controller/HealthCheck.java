@@ -41,7 +41,8 @@ public class HealthCheck extends HttpServlet {
 		out.println("<head>");
 		out.println("<title>claimit : Health Check</title>");
 		out.println("<style>");
-		out.println("  html, body { height:100%; margin:0; display:flex; flex-direction:column; justify-content:center; align-items:center; background:#111; color:#0f0; font-family:Arial, sans-serif; }");
+		out.println(
+				"  html, body { height:100%; margin:0; display:flex; flex-direction:column; justify-content:center; align-items:center; background:#111; color:#0f0; font-family:Arial, sans-serif; }");
 		out.println("</style>");
 		out.println("</head>");
 		out.println("<body>");
