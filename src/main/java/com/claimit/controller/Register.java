@@ -81,11 +81,15 @@ public class Register extends HttpServlet {
 			user.setPassword(confirmPassword);
 			user.setStatus(Status.INACTIVE.name());
 			user.setApproveStatus(RegistrationStatus.PENDING.name());
-
-			service.insertUser(user);
-			msg = "Registration pending review. We'll update you shortly.";
+			
+			msg = service.insertUser(user) ;  // calling insertUser method from UserService Class 
 			request.setAttribute("msg", msg);
-			request.getRequestDispatcher("/public_pages/Login.jsp").forward(request, response);
+			if (msg == "Registration pending review. We'll update you shortly.") {
+				request.getRequestDispatcher("/public_pages/Login.jsp").forward(request, response);
+				return;
+			}
+			
+			request.getRequestDispatcher("/public_pages/Register.jsp").forward(request, response);
 			return;
 		}
 		catch(NullPointerException e) {

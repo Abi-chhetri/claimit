@@ -119,7 +119,6 @@ public class User {
 	public String getApproveStatus() {
 		return approveStatus;
 	}
-
 	public void setApproveStatus(String approveStatus) {
 		this.approveStatus = approveStatus;
 	}
