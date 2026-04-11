@@ -8,10 +8,10 @@ public class UserService {
 	private HashPasswordUtil hash=new HashPasswordUtil();
 	private UserDao userDao=new UserDao();
 	
-	public void insertUser(User user) {
+	public String insertUser(User user) {
 		String password = hash.encryptPassword(user.getPassword());
 		user.setPassword(password);
-		userDao.createUser(user);
+		return userDao.createUser(user);
 	}
 	
 }
