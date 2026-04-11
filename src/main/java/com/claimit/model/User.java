@@ -20,7 +20,7 @@ public class User {
 	// Constructors
 	public User() {
 	}
-
+	
 	// Timestamp for createdAt,updatedAt and userId will be given by sql automatically rest of other setting their values
 	public User(String fullName, String email, String phoneNumber, String password, String profilePhoto, String status,
 			Integer approvedBy, String approveStatus, Timestamp approvedAt) {
