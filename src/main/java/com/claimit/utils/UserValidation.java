@@ -1,7 +1,10 @@
 package com.claimit.utils;
 
-public class UserValidation {
+import com.claimit.services.UserService;
 
+public class UserValidation {
+	
+	private static UserService userService =new UserService();
 	//this is the regex code that can check if (the string contains special characters and 0-9 any one numbers ) or not
 	private static String regex= "(?=.*[0-9])(?=.*[!@#$%^&*()_+\\-=\\[\\]{}]).*";
 	
@@ -24,6 +27,10 @@ public class UserValidation {
         if (!password.equals(confirmPassword)) {
             return "Please ensure both passwords are identical.";
         }
+        if(userService.getUserByEmail(email) != null) {
+        	return "An account with this email already exists. Please use a different email.";
+        }
+
         return null; 
     }
 	

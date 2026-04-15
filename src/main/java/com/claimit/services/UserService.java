@@ -14,4 +14,18 @@ public class UserService {
 		return userDao.createUser(user);
 	}
 	
+	public User getUserByID(String userId) {
+		if (!userId.isEmpty() && userId !=null) {
+			return userDao.findUserById(userId);
+		}
+		return null;
+	}
+	
+	public User getUserByEmail(String email) {
+		if (!email.isEmpty() && email !=null) {
+			System.out.print("If block returned user");
+			return userDao.findUserByEmail(email);
+		}
+		return null;
+	}
 }

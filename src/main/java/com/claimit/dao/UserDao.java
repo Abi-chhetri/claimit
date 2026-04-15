@@ -2,6 +2,7 @@ package com.claimit.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 
@@ -12,6 +13,9 @@ public class UserDao {
 	private String insertQuery = "insert into users (Full_Name, Email, Phone_Number, Password, "
 			+ "Profile_Photo, Status, Created_At, Updated_At, Approved_By, Approve_Status, Approved_At) "
 			+ "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+	
+	private String selectUserByIdQuery= "SELECT * FROM USERS WHERE User_ID = ?";
+	private String selectUserByEmailQuery= "SELECT * FROM USERS WHERE Email = ?";
 	
 	public String createUser(User user) {
 		try {
@@ -40,6 +44,9 @@ public class UserDao {
 			}
 			int result = ps.executeUpdate();
 
+			ps.close();
+			con.close();
+			
 			if (result > 0) {
 			    return "Registration pending review. We'll update you shortly.";
 			} else {
@@ -53,6 +60,72 @@ public class UserDao {
 		catch(ClassNotFoundException cne) {
 			cne.printStackTrace(); 
 		    return "Driver Error";
+		}
+		
+	}
+	
+	public User findUserById(String userId) {
+		try {
+			Connection con= DataBase_Config.getConection();
+			PreparedStatement ps = con.prepareStatement(selectUserByIdQuery);
+			ps.setString(1, userId);
+			ResultSet rs=ps.executeQuery();
+			User user = new User();
+			if (rs.next()) {
+	            user.setUserId(rs.getInt("User_ID"));
+	            user.setFullName(rs.getString("Full_Name"));
+	            user.setEmail(rs.getString("Email"));
+	            user.setPhoneNumber(rs.getString("Phone_Number"));
+	            user.setPassword(rs.getString("Password"));
+	            user.setProfilePhoto(rs.getString("Profile_Photo"));
+	            user.setStatus(rs.getString("Status"));
+	            user.setCreatedAt(rs.getTimestamp("Created_At"));
+	            user.setUpdatedAt(rs.getTimestamp("Updated_At"));
+	            user.setApprovedBy(rs.getObject("Approved_By", Integer.class));
+	            user.setApproveStatus(rs.getString("Approve_Status"));
+	            user.setApprovedAt(rs.getTimestamp("Approved_At"));
+	        }
+			rs.close();
+			ps.close();
+			con.close();
+			return user;
+		}
+		catch(SQLException | ClassNotFoundException se) {
+			se.printStackTrace(); 
+		    return null;
+		}
+	}
+	
+	
+	public User findUserByEmail(String email) {
+		try {
+			Connection con= DataBase_Config.getConection();
+			PreparedStatement ps = con.prepareStatement(selectUserByEmailQuery);
+			ps.setString(1, email);
+			ResultSet rs=ps.executeQuery();
+			User user = new User();
+			if (rs.next()) {
+	            user.setUserId(rs.getInt("User_ID"));
+	            user.setFullName(rs.getString("Full_Name"));
+	            user.setEmail(rs.getString("Email"));
+	            user.setPhoneNumber(rs.getString("Phone_Number"));
+	            user.setPassword(rs.getString("Password"));
+	            user.setProfilePhoto(rs.getString("Profile_Photo"));
+	            user.setStatus(rs.getString("Status"));
+	            user.setCreatedAt(rs.getTimestamp("Created_At"));
+	            user.setUpdatedAt(rs.getTimestamp("Updated_At"));
+	            user.setApprovedBy(rs.getObject("Approved_By", Integer.class));
+	            user.setApproveStatus(rs.getString("Approve_Status"));
+	            user.setApprovedAt(rs.getTimestamp("Approved_At"));
+	        }
+			rs.close();
+			ps.close();
+			con.close();
+			return user;
+		}
+		catch(SQLException | ClassNotFoundException se) {
+			se.printStackTrace(); 
+		    return null;
 		}
 	}
 }
