@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ClaimIt - Register</title>
-    <link rel="stylesheet" href="Register.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/Register.css">
 </head>
 <body>
     <header class="site-header">
@@ -22,13 +22,14 @@
 
     <main class="register-page">
         <section class="register-card">
-
             <div class="card-brand">
-                <img src="logo.png" alt="ClaimIt logo" class="brand-logo" />
+                <% String msg=(String) request.getAttribute("msg"); if(msg != null){ %>
+			    	<p style="color: red; text-align: center; margin-bottom:10px;"> <%= msg %> </p>
+			    <%} %>
+                <img src="${pageContext.request.contextPath}/images/logo.png" alt="ClaimIt logo" class="brand-logo" />
                 <span class="card-brand-name">ClaimIt</span>
                 <span class="card-brand-subtitle">Digital Concierge for Lost &amp; Found</span>
             </div>
-
             <h1>Create your portal account</h1>
             <p class="register-subtitle">Join the network to track your items and receive instant recovery alerts.</p>
 
@@ -37,21 +38,21 @@
                 <div class="field-group">
                     <label for="full-name">Full Name</label>
                     <div class="input-wrapper">
-                        <input type="text" id="full-name" name="full_name" placeholder="Shivam Jaiswal" autocomplete="name" required />
+                        <input type="text" id="full-name" name="full_name" placeholder="Full Name" autocomplete="name" required />
                     </div>
                 </div>
 
                 <div class="field-group">
                     <label for="email">Email</label>
                     <div class="input-wrapper">
-                        <input type="email" id="email" name="email" placeholder="Shivjswl@gmail.com" autocomplete="email" required />
+                        <input type="email" id="email" name="email" placeholder="abcd123@gmail.com" autocomplete="email" required />
                     </div>
                 </div>
 
                 <div class="field-group">
                     <label for="phone">Phone Number</label>
                     <div class="input-wrapper">
-                        <input type="tel" id="phone" name="phone" placeholder="(+977)9808085274" autocomplete="tel" />
+                        <input type="tel" id="phone" name="phone" placeholder="(+977) 9808085274" autocomplete="tel" />
                     </div>
                 </div>
 
