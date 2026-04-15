@@ -16,7 +16,9 @@ import java.io.IOException;
 @WebFilter("/AuthFilter")
 public class AuthFilter extends HttpFilter implements Filter {
        
-    /**
+    private static final long serialVersionUID = 1L;
+
+	/**
      * @see HttpFilter#HttpFilter()
      */
     public AuthFilter() {
