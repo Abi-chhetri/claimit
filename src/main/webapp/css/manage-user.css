@@ -1,0 +1,324 @@
+@charset "UTF-8";
+
+*{
+
+    font-family: sans-serif;
+}
+
+.admin-main-outer {
+    padding: 28px;
+    background-color: #ffffff;
+    min-height: 100%;
+    overflow-x: hidden;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* ── Header ── */
+.mu-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 24px;
+    /* border: 3px solid black; */
+
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.mu-title {
+    font-size: 36px;
+    font-weight: 800;
+    color: #191C23;
+}
+
+.mu-subtitle {
+    font-size: 16px;
+    color: #414754;
+    font-weight: 400;
+    margin-top: 4px;
+}
+
+.mu-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.mu-search {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    background: #E0E2EC ;
+    border: 1px solid #E2E8F0;
+    border-radius: 8px;
+    padding: 8px 12px;
+    width: 180px;
+    height: 26px;
+    width: 200px;
+}
+
+.mu-search input {
+    border: none;
+    outline: none;
+    font-size: 12px;
+    color: #475569;
+    background: transparent;
+    width: 100%;
+}
+
+.mu-search input::placeholder {
+    color: #727785;
+}
+
+/* ── Filter checkbox hack ── */
+.mu-filter-checkbox {
+    display: none;
+}
+
+.mu-filter-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: #E0E2EC;
+    border: 1px solid #E2E8F0;
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-size: 13px;
+    height: 26px;
+
+    font-weight: 500;
+    color: #475569;
+    cursor: pointer;
+}
+
+.mu-filter-btn:hover {
+
+    color: #1D4ED8;
+}
+
+.mu-filter-panel {
+    display: none;
+    background: #ffffff;
+    border: 1px solid #E2E8F0;
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin-bottom: 16px;
+    gap: 16px;
+    flex-wrap: wrap;
+    align-items: flex-end;
+}
+
+.mu-filter-checkbox:checked ~ .mu-table-section .mu-filter-panel {
+    display: flex;
+}
+
+.mu-filter-group label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #475569;
+    margin-bottom: 4px;
+    display: block;
+}
+
+.mu-filter-group select {
+    border: 1px solid #E2E8F0;
+    border-radius: 6px;
+    padding: 6px 10px;
+    font-size: 12px;
+    color: #475569;
+    background: #F8FAFC;
+    outline: none;
+    cursor: pointer;
+}
+
+/* ── Stats ── */
+.mu-stats {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 14px;
+    margin-bottom: 24px;
+}
+
+.mu-stat-card {
+    background: #ffffff;
+    border: 1px solid #E2E8F0;
+    border-radius: 10px;
+    padding: 16px 18px;
+}
+
+.mu-stat-label {
+    font-size: 10px;
+    font-weight: 600;
+    color: #94A3B8;
+    letter-spacing: 0.06em;
+    margin-bottom: 6px;
+}
+
+.mu-stat-value {
+    font-size: 28px;
+    font-weight: 700;
+    color: #0F172A;
+    line-height: 1;
+    margin-bottom: 6px;
+}
+
+.mu-stat-value.red {
+    color: #DC2626;
+}
+
+.mu-stat-note {
+    font-size: 11px;
+}
+
+.mu-stat-note.green {
+    color: #16A34A;
+    font-weight: 600;
+}
+
+.mu-stat-note.gray {
+    color: #94A3B8;
+}
+
+/* ── Table ── */
+.mu-table-wrap {
+    background: #ffffff;
+    border: 1px solid #E2E8F0;
+    border-radius: 10px;
+    overflow-x: auto;
+    width: 100%;
+}
+
+.mu-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.mu-table thead tr {
+    background: #F8FAFC;
+    border-bottom: 1px solid #E2E8F0;
+}
+
+.mu-table thead th {
+    text-align: left;
+    padding: 11px 16px;
+    font-size: 10px;
+    font-weight: 600;
+    color: #94A3B8;
+    letter-spacing: 0.07em;
+    white-space: nowrap;
+}
+
+.mu-table tbody tr {
+    border-bottom: 1px solid #F1F5F9;
+}
+
+.mu-table tbody tr:last-child {
+    /* border-bottom: none; */
+}
+
+.mu-table tbody tr:hover {
+    background: #F8FAFC;
+}
+
+.mu-table td {
+    padding: 20px 16px;
+}
+
+.mu-uid {
+    font-size: 11px;
+    color: #94A3B8;
+    font-family: monospace;
+}
+
+.mu-user-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.mu-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+.mu-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: #0F172A;
+}
+
+.mu-verified {
+    font-size: 11px;
+    color: #16A34A;
+    margin-top: 2px;
+}
+
+.mu-email {
+    font-size: 12.5px;
+    color: #334155;
+}
+
+.mu-phone {
+    font-size: 11px;
+    color: #94A3B8;
+    margin-top: 2px;
+}
+
+.mu-date {
+    font-size: 12.5px;
+    color: #334155;
+}
+
+.mu-time {
+    font-size: 11px;
+    color: #94A3B8;
+    margin-top: 2px;
+}
+
+.mu-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+}
+
+.mu-badge.active {
+    background: #DCFCE7;
+    color: #166534;
+}
+
+.mu-badge.blocked {
+    background: #FEE2E2;
+    color: #991B1B;
+}
+
+.mu-actions {
+    display: flex;
+    gap: 6px;
+}
+
+.mu-btn {
+    background: #ffffff;
+    border: 1px solid #E2E8F0;
+    border-radius: 6px;
+    padding: 5px 12px;
+    font-size: 11.5px;
+    font-weight: 500;
+    color: #475569;
+    cursor: pointer;
+    transition: background 0.15s;
+}
+
+.mu-btn:hover {
+    background: #F1F5F9;
+}

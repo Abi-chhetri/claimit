@@ -8,7 +8,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="user_dashboard.css">
+    <link rel="stylesheet" href=<%= request.getContextPath() %>g>
     <link rel="stylesheet" href="header-footer.css">
 </head>
 
