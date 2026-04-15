@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My_Claim</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/My_claim.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/My_Claim.css">
 </head>
 
 <body>
