@@ -1,0 +1,140 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width>, initial-scale=1.0">
+    <title>FonudItem</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/found_item.css">
+</head>
+
+<body>
+    <header class="header">
+        <div class="header1">
+            <span class="claimit-onheader">ClaimIt</span>
+            <nav class="navbar">
+                <a href="#">Home</a>
+                <a href="#">Browse</a>
+                <a href="#">Dashboard</a>
+                <a href="#">Report</a>
+                <a href="#">Claims</a>
+                <a href="#">About</a>
+            </nav>
+        </div>
+        <div class="header2">
+            <button class="noti-acc-button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                    <path fill="currentColor"
+                        d="M19.29 17.29L18 16v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-1.29 1.29c-.63.63-.19 1.71.7 1.71h13.17c.9 0 1.34-1.08.71-1.71M16 17H8v-6c0-2.48 1.51-4.5 4-4.5s4 2.02 4 4.5zm-4 5c1.1 0 2-.9 2-2h-4a2 2 0 0 0 2 2" />
+                </svg>
+            </button>
+            <button class="noti-acc-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                    viewBox="0 0 24 24">
+                    <path fill="currentColor"
+                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10s10-4.48 10-10S17.52 2 12 2m0 4c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6m0 14c-2.03 0-4.43-.82-6.14-2.88a9.95 9.95 0 0 1 12.28 0C16.43 19.18 14.03 20 12 20" />
+                </svg></button>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <nav class="tabs-cont">
+            <div class="tabs">
+                <a href="#" class="tab-act">Report Found Item</a>
+                <a href="../lost_item/lost_item.html" class="tab">Report Lost Item</a>
+            </div>
+        </nav>
+
+        <header1 class="main-container">
+
+            <aside class="sidebar">
+                <h1>Report Found Item</h1>
+                <p class="description">Help reunite someone with their lost property. Your detailed report acts as a
+                    digital beacon for
+                    the rightful owner.</p>
+
+                <section class="content">
+                    <div class="secure">
+                        <strong>Secure Handling</strong>
+                        <p>We verify claims through specific item
+                            details only you and the owner would know.</p>
+                    </div>
+                    <div class="secure">
+                        <strong>Location Privacy</strong>
+                        <p>Exact street address are only shared once a claim is verified by our team</p>
+                    </div>
+                </section>
+
+                <div class="image">
+                    <img src="image/found_item.png" alt="lost item image">
+                </div>
+            </aside>
+
+            <section class="right_side">
+
+                <form method="post" action="${contextPage.request.contextPath}">
+                    <h1 class="section-title">Item Details</h1>
+
+
+                    <div class="form-group">
+                        <label for="Item Name">Item Name</label>
+                        <input type="text" id="item-name" name="item-name" placeholder="eg.Blue Leather Wallet"
+                            required>
+                    </div>
+
+
+
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea id="description" name="description" rows="4"
+                            placeholder="Describe unique markings, brand, color, or condition..." required></textarea>
+                    </div>
+
+                    <h2 class="section-title">Time & Place</h2>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="date-found">Date Found</label>
+                            <input type="date" id="date-found" name="date-found" placeholder="mm/dd/yyyy" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="location">Location Found</label>
+                            <input type="text" id="location" name="location_found"
+                                placeholder="e.g Central Park West Entrance" required>
+                        </div>
+                    </div>
+                    <h2 class="section-title">Media</h2>
+
+                    <div class="upload-area">
+                        <p><strong>Upload Image (Optional)</strong></p>
+                        <p class="upload-sub">Drag and drop or click to browse files. Max size: 5MB.</p>
+                        <input type="file" id="image-upload" name="item_image" accept="image/png, image/jpeg">
+                    </div>
+
+                    <div class="button">
+                        <button type="button" class="cancel-btn">Cancel</button>
+                        <button type="submit" class="submit-btn">Submit Report</button>
+                    </div>
+                </form>
+            </section>
+        </header1>
+    </main>
+    <footer class="site-footer">
+        <div class="footer-left">
+            <span class="footer-brand">ClaimIt</span>
+        </div>
+        <div class="footer-middle">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+            <a href="#">Help Center</a>
+            <a href="#">Contact Us</a>
+        </div>
+        <div class="footer-right">
+            <p>&copy; 2026 ClaimIt Protocol. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+
+</html>
