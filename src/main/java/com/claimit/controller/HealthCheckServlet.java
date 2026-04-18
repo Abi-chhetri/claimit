@@ -13,10 +13,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 @WebServlet("/HealthCheck")
-public class HealthCheck extends HttpServlet {
+public class HealthCheckServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public HealthCheck() {
+	public HealthCheckServlet() {
 		super();
 	}
 

@@ -9,9 +9,22 @@
     <title> Admin Dashboard </title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin-dashboard-nav.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin-dashboard.css">
+    <% String flash = (String) session.getAttribute("flashMessage"); if (flash !=null) { %>
+    <meta http-equiv="refresh" content="3;url=${pageContext.request.contextPath}/AdminDashBoard">
+    <% } %>
 </head>
 
 <body>
+		<%
+		if (flash != null) {
+		%>
+		<div class="msg-box">
+			<%=flash%>
+			<%session.removeAttribute("flashMessage"); %>
+		</div>
+		<%
+		}
+		%>
     <aside>
         <section class="admin-aside-outer">
             <div class="admin-aside-claimit-console">
@@ -76,7 +89,7 @@
 
 
                 <div class="admin-aside-admin-function">
-                    <a href="manage-user.html" class="admin-functions">
+                    <a href="${pageContext.request.contextPath}/ManageUser" class="admin-functions">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="21" viewBox="0 0 21 21">
                             <rect width="21" height="21" fill="none" />
                             <g fill="none" fill-rule="evenodd" stroke="#000" stroke-linecap="round"
@@ -134,7 +147,7 @@
             <div class="admin-aside-admin-logout">
 
                 <div id="admin-logo" class="">
-                    <a href="#" class="admin-logo">
+                    <a href="${pageContext.request.contextPath}/Logout" class="admin-logo">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                             <rect width="24" height="24" fill="none" />
                             <g fill="#475569">
@@ -209,8 +222,8 @@
                         </a>
 
                         <span class="admin-dashboard-nav-txt">
-                            <p class="admin-dashboard-name">Alexander Thorne</p>
-                            <p class="admin-dashboard-type">Super Admin</p>
+                            <p class="admin-dashboard-name">${admin.fullName}</p>
+                            <p class="admin-dashboard-type">${admin.role}</p>
                         </span>
 
                         <a href="" class="admin-dashboard-admin-logo">
