@@ -11,13 +11,13 @@ import java.io.IOException;
  * Servlet implementation class DashBoard
  */
 @WebServlet(asyncSupported = true, urlPatterns = { "/DashBoard" })
-public class DashBoard extends HttpServlet {
+public class DashBoardServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DashBoard() {
+    public DashBoardServlet() {
         super();
     }
 

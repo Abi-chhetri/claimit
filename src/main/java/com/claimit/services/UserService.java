@@ -1,15 +1,17 @@
 package com.claimit.services;
 
+import java.util.List;
+
 import com.claimit.dao.UserDao;
 import com.claimit.model.User;
 import com.claimit.utils.HashPasswordUtil;
 
 public class UserService {
-	private HashPasswordUtil hash=new HashPasswordUtil();
+	
 	private UserDao userDao=new UserDao();
 	
 	public String insertUser(User user) {
-		String password = hash.encryptPassword(user.getPassword());
+		String password = HashPasswordUtil.encryptPassword(user.getPassword());
 		user.setPassword(password);
 		return userDao.createUser(user);
 	}
@@ -23,9 +25,16 @@ public class UserService {
 	
 	public User getUserByEmail(String email) {
 		if (!email.isEmpty() && email !=null) {
-			System.out.print("If block returned user");
-			return userDao.findUserByEmail(email);
+//			System.out.print("If block returned user");
+			User user = userDao.findUserByEmail(email);
+			if(user != null) {
+				return user;
+			}
 		}
 		return null;
+	}
+	
+	public List<User> getAllUser(){
+		return userDao.fetchAll();
 	}
 }

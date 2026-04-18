@@ -4,7 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Types;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.claimit.model.User;
 import com.claimit.utils.DataBase_Config;
@@ -16,6 +19,7 @@ public class UserDao {
 	
 	private String selectUserByIdQuery= "SELECT * FROM USERS WHERE User_ID = ?";
 	private String selectUserByEmailQuery= "SELECT * FROM USERS WHERE Email = ?";
+	private String selectAll="SELECT * FROM USERS";
 	
 	public String createUser(User user) {
 		try {
@@ -68,10 +72,11 @@ public class UserDao {
 		try {
 			Connection con= DataBase_Config.getConection();
 			PreparedStatement ps = con.prepareStatement(selectUserByIdQuery);
-			ps.setString(1, userId);
+			ps.setInt(1, Integer.parseInt(userId));
 			ResultSet rs=ps.executeQuery();
-			User user = new User();
+			User user = null;
 			if (rs.next()) {
+			    user = new User();
 	            user.setUserId(rs.getInt("User_ID"));
 	            user.setFullName(rs.getString("Full_Name"));
 	            user.setEmail(rs.getString("Email"));
@@ -103,8 +108,9 @@ public class UserDao {
 			PreparedStatement ps = con.prepareStatement(selectUserByEmailQuery);
 			ps.setString(1, email);
 			ResultSet rs=ps.executeQuery();
-			User user = new User();
+			User user = null;
 			if (rs.next()) {
+			    user = new User();
 	            user.setUserId(rs.getInt("User_ID"));
 	            user.setFullName(rs.getString("Full_Name"));
 	            user.setEmail(rs.getString("Email"));
@@ -122,6 +128,39 @@ public class UserDao {
 			ps.close();
 			con.close();
 			return user;
+		}
+		catch(SQLException | ClassNotFoundException se) {
+			se.printStackTrace(); 
+		    return null;
+		}
+	}
+	
+	public List<User> fetchAll(){
+		try {
+			Connection con= DataBase_Config.getConection();
+			Statement st = con.createStatement();
+			ResultSet rs=st.executeQuery(selectAll);
+			List<User> users = new ArrayList();
+			while (rs.next()) {
+			    User user = new User();
+	            user.setUserId(rs.getInt("User_ID"));
+	            user.setFullName(rs.getString("Full_Name"));
+	            user.setEmail(rs.getString("Email"));
+	            user.setPhoneNumber(rs.getString("Phone_Number"));
+	            user.setPassword(rs.getString("Password"));
+	            user.setProfilePhoto(rs.getString("Profile_Photo"));
+	            user.setStatus(rs.getString("Status"));
+	            user.setCreatedAt(rs.getTimestamp("Created_At"));
+	            user.setUpdatedAt(rs.getTimestamp("Updated_At"));
+	            user.setApprovedBy(rs.getObject("Approved_By", Integer.class));
+	            user.setApproveStatus(rs.getString("Approve_Status"));
+	            user.setApprovedAt(rs.getTimestamp("Approved_At"));
+	            users.add(user);
+	        }
+			rs.close();
+			st.close();
+			con.close();
+			return users;
 		}
 		catch(SQLException | ClassNotFoundException se) {
 			se.printStackTrace(); 

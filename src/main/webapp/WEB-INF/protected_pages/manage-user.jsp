@@ -1,7 +1,13 @@
+<%@page import="com.claimit.enums.Status"%>
+<%@page import="com.claimit.enums.RegistrationStatus"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="com.claimit.model.User" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.sql.Timestamp" %>
     
-    <!DOCTYPE html>
+<%List<User> users=(List<User>) request.getAttribute("users");%>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -263,26 +269,47 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td class="mu-uid">#USR-82910</td>
+                            <% for(User user:users) { %>
+                             <tr>
+                                <td class="mu-uid">#<%=user.getUserId() %></td>
                                 <td>
                                     <div class="mu-user-info">
-                                        <div class="mu-avatar" style="background:#dbeafe;color:#1e40af;">MC</div>
+                                        <div class="mu-avatar" style="background:#fce7f3;color:#9d174d;">
+                                        	<%= user.getFullName().trim().substring(0,1).toUpperCase() + user.getFullName().trim().split(" ")[1].substring(0,1).toUpperCase() %>
+                                        </div>
                                         <div>
-                                            <p class="mu-name">Marcus Chambers</p>
-                                            <p class="mu-verified">✔ Verified</p>
+                                            <p class="mu-name"><%= user.getFullName() %></p>
+                                            <p class="mu-verified">
+                                            	<%= user.getApprovedAt() != null ? "✔ Verified" : " ❌ Un-Verified" %>
+                                            </p>
                                         </div>
                                     </div>
                                 </td>
                                 <td>
-                                    <p class="mu-email">m.chambers@example.com</p>
-                                    <p class="mu-phone">+1 (555) 234-8901</p>
+                                    <p class="mu-email"><%=user.getEmail() %></p>
+                                    <p class="mu-phone"><%=user.getPhoneNumber() %></p>
                                 </td>
                                 <td>
-                                    <p class="mu-date">Oct 12, 2023</p>
-                                    <p class="mu-time">14:22 PM</p>
+                                    <p class="mu-date">
+                                    	<%= user.getApprovedAt() != null ? user.getApprovedAt().toString().substring(0, 10) : "N/A" %>
+                                    </p>
+                                    <%
+									    Timestamp ts = user.getApprovedAt();
+									    String formattedTime = ts != null ? new java.text.SimpleDateFormat("hh:mm a").format(ts) : "";
+									%>
+                                    <p class="mu-time"> 
+                                    	<%= formattedTime %>
+                                    </p>
                                 </td>
-                                <td><span class="mu-badge active">ACTIVE</span></td>
+                                <td>
+                                <%if(user.getStatus().equals(Status.SUSPENDED.name())) {%>
+                                	<span class="mu-badge blocked"><%=user.getStatus() %></span>
+                                <%}else if(user.getStatus().equals( Status.ACTIVE.name())) {%>
+                                	<span class="mu-badge active"><%=user.getStatus() %></span>
+                                <%}else if(user.getStatus().equals(Status.INACTIVE.name())){ %>
+                                	<span class="mu-badge blocked"><%=user.getStatus() %></span>
+                                <%}%>
+                                </td>
                                 <td>
                                     <div class="mu-actions">
                                         <button class="mu-btn">View</button>
@@ -290,87 +317,8 @@
                                     </div>
                                 </td>
                             </tr>
-                            <tr>
-                                <td class="mu-uid">#USR-71283</td>
-                                <td>
-                                    <div class="mu-user-info">
-                                        <div class="mu-avatar" style="background:#fce7f3;color:#9d174d;">ER</div>
-                                        <div>
-                                            <p class="mu-name">Elena Rodriguez</p>
-                                            <p class="mu-verified">✔ Verified</p>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <p class="mu-email">e.rodriguez@domain.io</p>
-                                    <p class="mu-phone">+34 912 345 678</p>
-                                </td>
-                                <td>
-                                    <p class="mu-date">Sep 28, 2023</p>
-                                    <p class="mu-time">09:15 AM</p>
-                                </td>
-                                <td><span class="mu-badge blocked">BLOCKED</span></td>
-                                <td>
-                                    <div class="mu-actions">
-                                        <button class="mu-btn">View</button>
-                                        <button class="mu-btn">Edit</button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="mu-uid">#USR-99012</td>
-                                <td>
-                                    <div class="mu-user-info">
-                                        <div class="mu-avatar" style="background:#d1fae5;color:#065f46;">JV</div>
-                                        <div>
-                                            <p class="mu-name">Julian Vance</p>
-                                            <p class="mu-verified">✔ Verified</p>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <p class="mu-email">j.vance@techcorp.com</p>
-                                    <p class="mu-phone">+44 20 7846 0123</p>
-                                </td>
-                                <td>
-                                    <p class="mu-date">Aug 05, 2023</p>
-                                    <p class="mu-time">16:40 PM</p>
-                                </td>
-                                <td><span class="mu-badge active">ACTIVE</span></td>
-                                <td>
-                                    <div class="mu-actions">
-                                        <button class="mu-btn">View</button>
-                                        <button class="mu-btn">Edit</button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="mu-uid">#USR-18293</td>
-                                <td>
-                                    <div class="mu-user-info">
-                                        <div class="mu-avatar" style="background:#fef3c7;color:#92400e;">SJ</div>
-                                        <div>
-                                            <p class="mu-name">Sarah Jenkins</p>
-                                            <p class="mu-verified">✔ Verified</p>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <p class="mu-email">jenkins.sarah@gmail.com</p>
-                                    <p class="mu-phone">+1 (555) 443-2210</p>
-                                </td>
-                                <td>
-                                    <p class="mu-date">Jun 19, 2023</p>
-                                    <p class="mu-time">11:02 AM</p>
-                                </td>
-                                <td><span class="mu-badge active">ACTIVE</span></td>
-                                <td>
-                                    <div class="mu-actions">
-                                        <button class="mu-btn">View</button>
-                                        <button class="mu-btn">Edit</button>
-                                    </div>
-                                </td>
-                            </tr>
+                            <% } %>
+                            
                         </tbody>
                     </table>
                 </div>

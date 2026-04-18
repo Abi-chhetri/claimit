@@ -8,7 +8,7 @@
         <title>Login</title>
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/login.css">
         <% String msg=(String) request.getAttribute("msg"); if (msg !=null) { %>
-            <meta http-equiv="refresh" content="3;url=${pageContext.request.contextPath}/public_pages/Login.jsp">
+            <meta http-equiv="refresh" content="3;url=${pageContext.request.contextPath}/Login">
             <% } %>
     </head>
 
@@ -16,45 +16,48 @@
         <header class="Desktop_header">
             <div class="logo">ClaimIt</div>
             <nav>
-                <a href="#">Home</a> <a href="#">About</a> <a href="#" class="active">
-                    Login</a> <a href="#">Registration</a>
+                <a href="${pageContext.request.contextPath}/Home">Home</a> <a href="${pageContext.request.contextPath}/About">About</a> <a href="#" class="active">
+                    Login</a> <a href="${pageContext.request.contextPath}/Register">Registration</a>
             </nav>
         </header>
 
         <header class="mobile_header">
-            <img src="../images/logo.jpeg" alt="logo" class="mobile-logo">
+            <img src="${pageContext.request.contextPath}/images/logo.jpeg" alt="logo" class="mobile-logo">
             <h2>ClaimIt</h2>
             <p class="portal">Digital Concierge Portal</p>
         </header>
-
-        <section class="container">
+		<%
+		if (msg != null) {
+		%>
+		<div class="msg-box">
+			<%=msg%>
+		</div>
+		<%
+		}
+		%>
+	<section class="container">
             <aside class="image">
-                <img src="../images/left.png" alt="logo">
+                <img src="${pageContext.request.contextPath}/images/left.png" alt="logo">
             </aside>
 
             <aside class="right">
                 <div class="login-box">
                     <div class="form-header">
-                        <img src="../images/logo.jpeg" alt="ClaimIt Logo" class="form-logo">
+                        <img src="${pageContext.request.contextPath}/images/logo.jpeg" alt="ClaimIt Logo" class="form-logo">
                         <h2>ClaimIt</h2>
                     </div>
 
                     <h1>Welcome back</h1>
                     <p class="subtitle">Enter your credentials to access the portal</p>
                     
-                    <%
-					    if (msg != null) {
-					%>
-					    <div class="msg-box">
-					        <%= msg %>
-					    </div>
-					<%
-					    }
-					%>
-                    <form method="post" action="">
+                <% String errorMsg=(String) request.getAttribute("error msg"); if(errorMsg != null){ %>
+			    	<p style="color: red; text-align: center; margin-bottom:10px;"> <%= errorMsg %> </p>
+			    <%} %>
+                    <form method="POST">
                         <div class="input-group">
                             <label for="email">Email</label> <input type="email" name="email" id="email"
-                                placeholder="Email" required> <label for="password">Password</label> <input
+                                placeholder="Email" required> 
+                                <label for="password">Password</label> <input
                                 type="password" name="password" id="password" placeholder="password"> <a href="#"
                                 class="forgot-pass">Forgot Password?</a>
                         </div>
@@ -66,9 +69,8 @@
                         <button type="submit">Login →</button>
                     </form>
 
-
                     <p class="register">
-                        Don't have an account? <a href="#" class="register-link">Register</a>
+                        Don't have an account? <a href="${pageContext.request.contextPath}/Register" class="register-link">Register</a>
                     </p>
                 </div>
             </aside>

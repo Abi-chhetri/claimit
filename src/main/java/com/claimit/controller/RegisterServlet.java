@@ -19,13 +19,13 @@ import com.claimit.utils.UserValidation;
  * password hashing, and forwarding to appropriate pages based on result.
  */
 @WebServlet(asyncSupported = true, urlPatterns = { "/Register" })
-public class Register extends HttpServlet {
+public class RegisterServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private User user=new User();
 	private UserService service=new UserService();
 
 	//@see HttpServlet#HttpServlet()
-	public Register() {
+	public RegisterServlet() {
 		super();
 	}
 	
