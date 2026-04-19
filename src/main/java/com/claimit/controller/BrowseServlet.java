@@ -7,20 +7,17 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import com.claimit.utils.CookieManager;
-import com.claimit.utils.SessionManager;
-
 /**
- * Servlet implementation class LogoutServlet
+ * Servlet implementation class BrowseServlet
  */
-@WebServlet(asyncSupported = true, urlPatterns = { "/Logout" })
-public class LogoutServlet extends HttpServlet {
+@WebServlet(asyncSupported = true, name = "Browse", urlPatterns = { "/Browse" })
+public class BrowseServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LogoutServlet() {
+    public BrowseServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,10 +26,7 @@ public class LogoutServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		SessionManager.invalidate(request);
-	    CookieManager.deleteCookie(response, "userId");
-	    CookieManager.deleteCookie(response, "adminId");
-		response.sendRedirect(request.getContextPath()+"/Login");
+		request.getRequestDispatcher("/WEB-INF/protected_pages/Browse.jsp").forward(request, response);
 	}
 
 	/**

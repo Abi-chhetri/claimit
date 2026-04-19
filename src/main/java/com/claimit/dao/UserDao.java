@@ -13,13 +13,14 @@ import com.claimit.model.User;
 import com.claimit.utils.DataBase_Config;
 
 public class UserDao {
-	private String insertQuery = "insert into users (Full_Name, Email, Phone_Number, Password, "
+	private final String insertQuery = "insert into users (Full_Name, Email, Phone_Number, Password, "
 			+ "Profile_Photo, Status, Created_At, Updated_At, Approved_By, Approve_Status, Approved_At) "
 			+ "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 	
-	private String selectUserByIdQuery= "SELECT * FROM USERS WHERE User_ID = ?";
-	private String selectUserByEmailQuery= "SELECT * FROM USERS WHERE Email = ?";
-	private String selectAll="SELECT * FROM USERS";
+	private final String selectUserByIdQuery= "SELECT * FROM USERS WHERE User_ID = ?";
+	private final String selectUserByEmailQuery= "SELECT * FROM USERS WHERE Email = ?";
+	private final String selectAll="SELECT * FROM USERS";
+	private final String counter = "select count(*) from USERS";
 	
 	public String createUser(User user) {
 		try {
@@ -161,6 +162,29 @@ public class UserDao {
 			st.close();
 			con.close();
 			return users;
+		}
+		catch(SQLException | ClassNotFoundException se) {
+			se.printStackTrace(); 
+		    return null;
+		}
+	}
+	
+	public Integer findUserCount() {
+		try {
+			Connection con= DataBase_Config.getConection();
+			Statement st = con.createStatement();
+			ResultSet rs=st.executeQuery(counter);
+			if (rs.next()) {
+	            int count = rs.getInt(1);
+	            rs.close();
+	            st.close();
+	            con.close();
+	            return count;
+	        }
+	        rs.close();
+	        st.close();
+	        con.close();
+	        return 0;
 		}
 		catch(SQLException | ClassNotFoundException se) {
 			se.printStackTrace(); 

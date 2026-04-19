@@ -6,23 +6,25 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-import com.claimit.model.Admin;
-import com.claimit.services.AdminService;
-import com.claimit.utils.SessionManager;
+import com.claimit.model.Claim;
+import com.claimit.services.ClaimServices;
 
 /**
- * Servlet implementation class AdminServlet
+ * Servlet implementation class ManageClaimServlet
  */
-@WebServlet(asyncSupported = true, urlPatterns = { "/AdminDashBoard" })
-public class AdminServlet extends HttpServlet {
+@WebServlet("/ManageClaim")
+public class ManageClaimServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private AdminService adminService=new AdminService();
+	private ClaimServices claimServices=new ClaimServices();
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AdminServlet() {
+    public ManageClaimServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,13 +33,13 @@ public class AdminServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		String adminId = String.valueOf(SessionManager.getAttribute(request, "adminId"));
-		if(adminId != null) {
-			Admin admin=adminService.getAdminByID(adminId);
-			request.setAttribute("admin", admin);
-		}
-		request.getRequestDispatcher("/WEB-INF/protected_pages/admin-dashboard.jsp").forward(request, response);
+		List<Claim> claims=(List<Claim>) claimServices.getAllClaims();
+		HashMap <Integer,Double> approvedClaim = claimServices.getApprovedClaims();
+		Map.Entry<Integer, Double> approvedEntry = approvedClaim.entrySet().iterator().next();
+		request.setAttribute("claims", claims);
+		request.setAttribute("approvedCount", approvedEntry.getKey());
+		request.setAttribute("approvedPercentage", approvedEntry.getValue());
+		request.getRequestDispatcher("/WEB-INF/protected_pages/manage-claim.jsp").forward(request, response);
 	}
 
 	/**
