@@ -2,6 +2,7 @@ package com.claimit.controller;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -39,8 +40,49 @@ public class LoginServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
+		// if already logged in via session
+		Integer userId = (Integer) SessionManager.getAttribute(request, "userId");
+		Integer adminId = (Integer) SessionManager.getAttribute(request, "adminId");
+
+		if (userId != null) {
+			response.sendRedirect(request.getContextPath() + "/DashBoard");
+			return;
+		}
+		if (adminId != null) {
+			response.sendRedirect(request.getContextPath() + "/AdminDashBoard");
+			return;
+		}
+
+		// check cookie
+		Cookie[] cookies = request.getCookies();
+		if (cookies != null) {
+			for (Cookie cookie : cookies) {
+				if (cookie.getName().equals("userId")) {
+					try {
+						int cookieUserId = Integer.parseInt(cookie.getValue());
+						SessionManager.setAttribute(request, "userId", cookieUserId);
+						response.sendRedirect(request.getContextPath() + "/DashBoard");
+						return;
+					} catch (NumberFormatException e) {
+						// invalid, ignore
+					}
+				} else if (cookie.getName().equals("adminId")) {
+					try {
+						int cookieAdminId = Integer.parseInt(cookie.getValue());
+						SessionManager.setAttribute(request, "adminId", cookieAdminId);
+						response.sendRedirect(request.getContextPath() + "/AdminDashBoard");
+						return;
+					} catch (NumberFormatException e) {
+						// invalid, ignore
+					}
+				}
+			}
+		}
+
 		request.getRequestDispatcher("/public_pages/Login.jsp").forward(request, response);
 	}
+	
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse

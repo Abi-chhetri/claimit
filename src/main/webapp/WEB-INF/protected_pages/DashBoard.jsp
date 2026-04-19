@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="com.claimit.model.User" %>
+<% User user= (User) request.getAttribute("user");%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -33,7 +35,7 @@
             <span class="claimit-onheader">ClaimIt</span>
             <nav class="navbar">
                 <a href="#">Home</a>
-                <a href="#">Browse</a>
+                <a href="${pageContext.request.contextPath}/Browse">Browse</a>
                 <a href="#">Dashboard</a>
                 <a href="#">Report</a>
                 <a href="#">About</a>
@@ -50,14 +52,16 @@
                     <path fill="currentColor"
                         d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10s10-4.48 10-10S17.52 2 12 2m0 4c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6m0 14c-2.03 0-4.43-.82-6.14-2.88a9.95 9.95 0 0 1 12.28 0C16.43 19.18 14.03 20 12 20" />
                 </svg></button>
-            <a href="${pageContext.request.contextPath}/Logout" class="logout-button">Logout</a>
+            <form action="${pageContext.request.contextPath}/Logout" method="post">
+			    <button type="submit" class="logout-button">Logout</button>
+			</form>
         </div>
     </header>
     <main>
         <article class="main-page">
             <div class="wel-nor-message">
 
-                <p class="wel"> Welcome back, Alex </p>
+                <p class="wel"> Welcome back, <%= user.getFullName() %> </p>
                 <p class="nor">Your concierge for lost and found belongings.</p>
 
             </div>
@@ -67,7 +71,7 @@
                 <div class="report-box">
                     <a href="" class="report-box-txt-num">
                         <span class="report-box-txt">TOTAL REPORTED</span> <br>
-                        <span class="report-box-number">12</span>
+                        <span class="report-box-number">${userReportCount}</span>
                     </a>
 
                     <svg xmlns="http://www.w3.org/2000/svg" width="56" height="40" viewBox="0 0 32 32">
@@ -82,7 +86,7 @@
                 <div class="pending-box">
                     <a href="" class="report-box-txt-num">
                         <span class="pending-box-txt">PENDING CLAIMS</span> <br>
-                        <span class="pending-box-number">4</span>
+                        <span class="pending-box-number">${pending}</span>
                     </a>
 
                     <svg xmlns="http://www.w3.org/2000/svg" width="56" height="40" viewBox="0 0 24 24">
@@ -95,7 +99,7 @@
                 <div class="found-box">
                     <a href="" class="report-box-txt-num">
                         <span class="found-box-txt">ACCEPTED CLAIMS</span> <br>
-                        <span class="found-box-number">8</span>
+                        <span class="found-box-number">${approved}</span>
                     </a>
 
                     <svg xmlns="http://www.w3.org/2000/svg" width="56" height="40" viewBox="0 0 24 24">

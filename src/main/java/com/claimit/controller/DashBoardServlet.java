@@ -6,6 +6,14 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.security.KeyStore.Entry;
+import java.util.Map;
+
+import com.claimit.model.User;
+import com.claimit.services.ClaimServices;
+import com.claimit.services.ItemReportServices;
+import com.claimit.services.UserService;
+import com.claimit.utils.SessionManager;
 
 /**
  * Servlet implementation class DashBoard
@@ -13,6 +21,9 @@ import java.io.IOException;
 @WebServlet(asyncSupported = true, urlPatterns = { "/DashBoard" })
 public class DashBoardServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private UserService userService=new UserService();
+	private ClaimServices claimServices=new ClaimServices();
+	private ItemReportServices itemReportServices=new ItemReportServices();
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -25,6 +36,20 @@ public class DashBoardServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String userId= String.valueOf(SessionManager.getAttribute(request, "userId"));
+		if(userId != null) {
+			User user=userService.getUserByID(userId);
+			request.setAttribute("user", user);
+			
+			Map<String,Integer> userClamStat= claimServices.getUserClaimStat(Integer.parseInt(userId));
+			for(Map.Entry<String, Integer> eachEntry: userClamStat.entrySet()) {
+				request.setAttribute(eachEntry.getKey(), eachEntry.getValue());
+			}
+			
+			Integer userReportCount= itemReportServices.getUserReportCount(Integer.parseInt(userId));
+			request.setAttribute("userReportCount", userReportCount);
+			
+		}
 		request.getRequestDispatcher("/WEB-INF/protected_pages/DashBoard.jsp").forward(request, response);
 	}
 

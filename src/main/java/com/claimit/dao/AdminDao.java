@@ -9,8 +9,8 @@ import com.claimit.model.Admin;
 import com.claimit.utils.DataBase_Config;
 
 public class AdminDao {
-	private String selectAdminByEmailQuery= "SELECT * FROM ADMINS WHERE Email = ?";
-	private String selectAdminByIdQuery= "SELECT * FROM ADMINS WHERE Admin_ID = ?";
+	private final String selectAdminByEmailQuery= "SELECT * FROM ADMINS WHERE Email = ?";
+	private final String selectAdminByIdQuery= "SELECT * FROM ADMINS WHERE Admin_ID = ?";
 	
 	public Admin findAdminById(String userId) {
 		try {

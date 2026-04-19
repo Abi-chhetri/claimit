@@ -28,19 +28,21 @@
 
             <div class="admin-aside-admin-function-outer">
 
-                <div class="admin-aside-admin-function">
-                    <a href="admin-dashboard.html" class="admin-functions">
+            	<div class="admin-aside-admin-function">
+                    <a href="${pageContext.request.contextPath}/AdminDashBoard" class="admin-functions">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
                             <rect width="24" height="24" fill="none" />
                             <path fill="#475569"
                                 d="M13 9V3h8v6zM3 13V3h8v10zm10 8V11h8v10zM3 21v-6h8v6zm2-10h4V5H5zm10 8h4v-6h-4zm0-12h4V5h-4zM5 19h4v-2H5zm4-2" />
                         </svg>
+
                         <p class="admin-function-name">Dashboard</p>
                     </a>
                 </div>
 
+
                 <div class="admin-aside-admin-function">
-                    <a href="manage-item.html" class="admin-functions">
+                    <a href="${pageContext.request.contextPath}/ManageItem" class="admin-functions">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 32 32">
                             <rect width="32" height="32" fill="none" />
                             <path fill="#475569"
@@ -48,12 +50,14 @@
                             <path fill="#475569"
                                 d="M28 4H4a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2v16a2 2 0 0 0 2 2h20a2 2 0 0 0 2-2V12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2m-2 24H6V12h20Zm2-18H4V6h24z" />
                         </svg>
+
                         <p class="admin-function-name">Manage Items</p>
                     </a>
                 </div>
 
+
                 <div class="admin-aside-admin-function">
-                    <a href="manage-claim.html" class="admin-functions">
+                    <a href="${pageContext.request.contextPath}/ManageClaim" class="admin-functions">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
                             <rect width="24" height="24" fill="none" />
                             <path fill="#475569" fill-rule="evenodd"
@@ -64,8 +68,9 @@
                     </a>
                 </div>
 
+
                 <div class="admin-aside-admin-function">
-                    <a href="manage-report.html" class="admin-functions">
+                    <a href="${pageContext.request.contextPath}/ManageReports" class="admin-functions">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="16" viewBox="0 0 16 16">
                             <rect width="16" height="16" fill="none" />
                             <path fill="#475569"
@@ -75,8 +80,9 @@
                     </a>
                 </div>
 
+
                 <div class="admin-aside-admin-function">
-                    <a href="manage-user.html" class="admin-functions">
+                    <a href="${pageContext.request.contextPath}/ManageUser" class="admin-functions">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="21" viewBox="0 0 21 21">
                             <rect width="21" height="21" fill="none" />
                             <g fill="none" fill-rule="evenodd" stroke="#000" stroke-linecap="round"
@@ -87,47 +93,54 @@
                                     d="M12.52 2.678A3 3 0 0 1 14.5 5.5v1c0 1.297-.848 2.581-2 3q1.01-1.379 1.01-3.5c0-2.122-.331-2.523-.99-3.322M17.5 17.5h1a1 1 0 0 0 1-1v-.728c0-2.17-1.71-3.83-3.847-4.667c0 0 2.847 2.395 1.847 6.395" />
                             </g>
                         </svg>
-                        <p class="admin-function-name">Mange Users</p>
+
+                        <p class="admin-function-name">Manage Users</p>
                     </a>
                 </div>
 
+
                 <div class="admin-aside-admin-function">
-                    <a href="manage-moderators.html" class="admin-functions">
+                    <a href="${pageContext.request.contextPath}/ManageModerators" class="admin-functions">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="18" viewBox="0 0 8 8">
                             <rect width="8" height="8" fill="none" />
                             <path fill="#475569" d="M4 4v3q2 0 3-3M4 4V1L1 2v2m3-4l4 2c0 8-8 8-8 0" />
                         </svg>
+
                         <p class="admin-function-name">Manage Moderators</p>
                     </a>
                 </div>
 
                 <div class="admin-aside-admin-function">
-                    <a href="contact-message.html" class="admin-functions">
+                    <a href="${pageContext.request.contextPath}/ContactMessage" class="admin-functions">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 32 32">
                             <rect width="32" height="32" fill="none" />
                             <path fill="#475569"
                                 d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z" />
                         </svg>
+
                         <p class="admin-function-name">Contact Messages</p>
                     </a>
                 </div>
 
+
                 <div class="admin-aside-admin-function">
-                    <a href="admin-logs.html" class="admin-functions">
+                    <a href="${pageContext.request.contextPath}/AdminLogs" class="admin-functions">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
                             <rect width="24" height="24" fill="none" />
                             <path fill="#475569"
                                 d="M12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12h2a8 8 0 1 0 1.385-4.5H8v2H2v-6h2V6a9.99 9.99 0 0 1 8-4m1 5v4.585l3.243 3.243l-1.415 1.415L11 12.413V7z" />
                         </svg>
+
                         <p class="admin-function-name">Admin Logs</p>
                     </a>
                 </div>
-
             </div>
 
+
             <div class="admin-aside-admin-logout">
-                <div id="admin-logo">
-                    <a href="#" class="admin-logo">
+
+                <div id="admin-logo" class="">
+                    <a href="${pageContext.request.contextPath}/Logout" class="admin-logo">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                             <rect width="24" height="24" fill="none" />
                             <g fill="#475569">
@@ -137,7 +150,8 @@
                                     d="M16.53 7.97a.75.75 0 0 0-1.06 0v3.276H9.5a.75.75 0 0 0 0 1.5h5.97v3.284a.75.75 0 0 0 1.06 0l3.5-3.5a.75.75 0 0 0 .22-.532v-.002a.75.75 0 0 0-.269-.575z" />
                             </g>
                         </svg>
-                        <p class="admin-dash-logout-txt">Logout</p>
+
+                        <p class="">Logout</p>
                     </a>
                 </div>
 
@@ -206,26 +220,47 @@
                 <div class="mu-stats">
                     <div class="mu-stat-card">
                         <p class="mu-stat-label">TOTAL USERS</p>
-                        <p class="mu-stat-value">12,842</p>
-                        <p class="mu-stat-note green">↗ +8% this month</p>
+                        <p class="mu-stat-value"><%= users.size() %></p>
+                        <p class="mu-stat-note green">↗ Increased </p>
                     </div>
                     <div class="mu-stat-card">
                         <p class="mu-stat-label">ACTIVE NOW</p>
-                        <p class="mu-stat-value">492</p>
+                        <p class="mu-stat-value">
+                        <%
+                        int verifiedRegistration=0;
+                        int activeUsers=0;
+                        int pendingRequest=0;
+                        for(User user:users){
+                        	if(user.getStatus().equals("ACTIVE")){
+                        		activeUsers++;
+                        	}
+                        	if(user.getApproveStatus().equals("PENDING")){
+                        		pendingRequest++;
+                        	}
+                        	
+                        	if(user.getApprovedAt() != null){
+                        		verifiedRegistration++;
+                        	}
+                        }
+                       	%>
+                        <%= activeUsers%>
+                        </p>
                         <p class="mu-stat-note gray">Real-time engagement</p>
                     </div>
                     <div class="mu-stat-card">
-                        <p class="mu-stat-label">NEW TODAY</p>
-                        <p class="mu-stat-value">158</p>
+                        <p class="mu-stat-label">Total</p>
+                        <p class="mu-stat-value"><%= verifiedRegistration %></p>
                         <p class="mu-stat-note green">Verified registrations</p>
                     </div>
                     <div class="mu-stat-card">
                         <p class="mu-stat-label">REQUEST</p>
-                        <p class="mu-stat-value red">24</p>
+                        <p class="mu-stat-value red">
+                        <%= pendingRequest %>
+                        </p>
                         <p class="mu-stat-note gray">Pending review</p>
                     </div>
                 </div>
-
+                
                 <!-- Filter Panel -->
                 <div class="mu-filter-panel">
                     <div class="mu-filter-group">

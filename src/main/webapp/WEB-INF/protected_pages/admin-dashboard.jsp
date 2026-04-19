@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
+<%Integer totalUsers=(Integer) request.getAttribute("userCount"); %>
 
 <head>
     <meta charset="UTF-8">
@@ -36,7 +37,7 @@
             <div class="admin-aside-admin-function-outer">
 
                 <div class="admin-aside-admin-function">
-                    <a href="admin-dashboard.html" class="admin-functions">
+                    <a href="${pageContext.request.contextPath}/AdminDashBoard" class="admin-functions">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
                             <rect width="24" height="24" fill="none" />
                             <path fill="#475569"
@@ -49,7 +50,7 @@
 
 
                 <div class="admin-aside-admin-function">
-                    <a href="manage-item.html" class="admin-functions">
+                    <a href="${pageContext.request.contextPath}/ManageItem" class="admin-functions">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 32 32">
                             <rect width="32" height="32" fill="none" />
                             <path fill="#475569"
@@ -64,7 +65,7 @@
 
 
                 <div class="admin-aside-admin-function">
-                    <a href="manage-claim.html" class="admin-functions">
+                    <a href="${pageContext.request.contextPath}/ManageClaim" class="admin-functions">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
                             <rect width="24" height="24" fill="none" />
                             <path fill="#475569" fill-rule="evenodd"
@@ -77,7 +78,7 @@
 
 
                 <div class="admin-aside-admin-function">
-                    <a href="manage-report.html" class="admin-functions">
+                    <a href="${pageContext.request.contextPath}/ManageReports" class="admin-functions">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="16" viewBox="0 0 16 16">
                             <rect width="16" height="16" fill="none" />
                             <path fill="#475569"
@@ -107,7 +108,7 @@
 
 
                 <div class="admin-aside-admin-function">
-                    <a href="manage-moderators.html" class="admin-functions">
+                    <a href="${pageContext.request.contextPath}/ManageModerators" class="admin-functions">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="18" viewBox="0 0 8 8">
                             <rect width="8" height="8" fill="none" />
                             <path fill="#475569" d="M4 4v3q2 0 3-3M4 4V1L1 2v2m3-4l4 2c0 8-8 8-8 0" />
@@ -118,7 +119,7 @@
                 </div>
 
                 <div class="admin-aside-admin-function">
-                    <a href="contact-message.html" class="admin-functions">
+                    <a href="${pageContext.request.contextPath}/ContactMessage" class="admin-functions">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 32 32">
                             <rect width="32" height="32" fill="none" />
                             <path fill="#475569"
@@ -131,7 +132,7 @@
 
 
                 <div class="admin-aside-admin-function">
-                    <a href="admin-logs.html" class="admin-functions">
+                    <a href="${pageContext.request.contextPath}/AdminLogs" class="admin-functions">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
                             <rect width="24" height="24" fill="none" />
                             <path fill="#475569"
@@ -247,8 +248,8 @@
                             <p class="admin-dashboard-all-item-overview-total-items">Total Items</p>
 
                             <span class="admin-dashboard-all-items-overview-total-item-num-status">
-                                <p class="admin-dashboard-all-item-overview-total-items-num">1,284</p>
-                                <p class="admin-dashboard-all-items-overview-total-item-status-only">12%</p>
+                                <p class="admin-dashboard-all-item-overview-total-items-num"></p>
+                                <p class="admin-dashboard-all-items-overview-total-item-status-only">${totalItem} ↗</p>
                             </span>
 
                         </div>
@@ -258,9 +259,9 @@
                             <p class="admin-dashboard-all-item-overview-total-items">Pending Claims</p>
 
                             <span class="admin-dashboard-all-items-overview-total-item-num-status">
-                                <p class="admin-dashboard-all-item-overview-total-items-num">42</p>
+                                <p class="admin-dashboard-all-item-overview-total-items-num">${pendingCount}</p>
                                 <p id="admin-dashboard-all-items-overview-total-item-status-only-two"
-                                    class="admin-dashboard-all-items-overview-total-item-status-only">!5</p>
+                                    class="admin-dashboard-all-items-overview-total-item-status-only"> ${pendingPercentage}% </p>
                             </span>
 
                         </div>
@@ -270,9 +271,9 @@
                             <p class="admin-dashboard-all-item-overview-total-items">Resolved Claims</p>
 
                             <span class="admin-dashboard-all-items-overview-total-item-num-status">
-                                <p class="admin-dashboard-all-item-overview-total-items-num">921</p>
+                                <p class="admin-dashboard-all-item-overview-total-items-num">${approvedCount}</p>
                                 <p id="admin-dashboard-all-items-overview-total-item-status-only-three"
-                                    class="admin-dashboard-all-items-overview-total-item-status-only">98%</p>
+                                    class="admin-dashboard-all-items-overview-total-item-status-only">${approvedPercentage}%</p>
                             </span>
                         </div>
 
@@ -281,9 +282,9 @@
                             <p class="admin-dashboard-all-item-overview-total-items">Total Users</p>
 
                             <span class="admin-dashboard-all-items-overview-total-item-num-status">
-                                <p class="admin-dashboard-all-item-overview-total-items-num">5,102</p>
+                                <p class="admin-dashboard-all-item-overview-total-items-num"> <%= totalUsers %> </p>
                                 <p id="admin-dashboard-all-items-overview-total-item-status-only-four"
-                                    class="admin-dashboard-all-items-overview-total-item-status-only">+140</p>
+                                    class="admin-dashboard-all-items-overview-total-item-status-only">↗</p>
                             </span>
 
                         </div>
@@ -295,7 +296,7 @@
 
                             <span class="admin-dashboard-all-items-overview-total-item-num-status">
                                 <p id="admin-dashboard-all-item-overview-five-txt"
-                                    class="admin-dashboard-all-item-overview-total-items-num">18</p>
+                                    class="admin-dashboard-all-item-overview-total-items-num">${totalReport}</p>
                                 <p id="admin-dashboard-all-items-overview-total-item-status-only-five"
                                     class="admin-dashboard-all-items-overview-total-item-status-only">urgent</p>
                             </span>
@@ -422,7 +423,7 @@
                                 </span>
 
                                 <section class="ad-items-outer">
-                                    <a href="#" class="admin-dash-qa-item-outer">
+                                    <a href="${pageContext.request.contextPath}/ManageItem" class="admin-dash-qa-item-outer">
                                         <p class="admin-dash-ri-main-txt">Review Items</p>
 
                                         <span class="admin-dash-items-main-logo">
@@ -436,7 +437,7 @@
                                     </a>
 
 
-                                    <a href="#" class="admin-dash-qa-item-outer">
+                                    <a href="${pageContext.request.contextPath}/ManageClaim" class="admin-dash-qa-item-outer">
                                         <p class="admin-dash-ri-main-txt">Review Claims</p>
 
                                         <span class="admin-dash-items-main-logo">
@@ -450,7 +451,7 @@
                                     </a>
 
                                     <!--  -->
-                                    <a href="#" class="admin-dash-qa-item-outer">
+                                    <a href="${pageContext.request.contextPath}/ManageReports" class="admin-dash-qa-item-outer">
                                         <p class="admin-dash-ri-main-txt">View Reports</p>
 
                                         <span class="admin-dash-items-main-logo">

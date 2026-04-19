@@ -37,4 +37,8 @@ public class UserService {
 	public List<User> getAllUser(){
 		return userDao.fetchAll();
 	}
+	
+	public Integer getUserCount() {
+		return userDao.findUserCount();
+	}
 }
