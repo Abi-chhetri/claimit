@@ -1,5 +1,5 @@
 package com.claimit.dao;
 
-public class Browse {
-
+public class BrowseDao {
+	
 }
