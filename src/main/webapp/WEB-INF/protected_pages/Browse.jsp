@@ -18,7 +18,7 @@
             <nav class="navbar">
                 <a href="#">Home</a>
                 <a href="#" class="Active">Browse</a>
-                <a href="#">Dashboard</a>
+                <a href="${pageContext.request.contextPath}/DashBoard">Dashboard</a>
                 <a href="#">Report</a>
                 <a href="#">Claims</a>
                 <a href="#">About</a>

@@ -141,7 +141,7 @@ public class UserDao {
 			Connection con= DataBase_Config.getConection();
 			Statement st = con.createStatement();
 			ResultSet rs=st.executeQuery(selectAll);
-			List<User> users = new ArrayList();
+			List<User> users = new ArrayList<>();
 			while (rs.next()) {
 			    User user = new User();
 	            user.setUserId(rs.getInt("User_ID"));

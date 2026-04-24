@@ -6,12 +6,11 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.security.KeyStore.Entry;
 import java.util.Map;
 
 import com.claimit.model.User;
-import com.claimit.services.ClaimServices;
-import com.claimit.services.ItemReportServices;
+import com.claimit.services.ClaimService;
+import com.claimit.services.ItemReportService;
 import com.claimit.services.UserService;
 import com.claimit.utils.SessionManager;
 
@@ -22,8 +21,8 @@ import com.claimit.utils.SessionManager;
 public class DashBoardServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private UserService userService=new UserService();
-	private ClaimServices claimServices=new ClaimServices();
-	private ItemReportServices itemReportServices=new ItemReportServices();
+	private ClaimService claimServices=new ClaimService();
+	private ItemReportService itemReportServices=new ItemReportService();
        
     /**
      * @see HttpServlet#HttpServlet()

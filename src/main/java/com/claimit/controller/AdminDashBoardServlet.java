@@ -11,8 +11,8 @@ import java.util.Map;
 
 import com.claimit.model.Admin;
 import com.claimit.services.AdminService;
-import com.claimit.services.ClaimServices;
-import com.claimit.services.ItemReportServices;
+import com.claimit.services.ClaimService;
+import com.claimit.services.ItemReportService;
 import com.claimit.services.UserService;
 import com.claimit.utils.SessionManager;
 
@@ -24,8 +24,8 @@ public class AdminDashBoardServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private AdminService adminService=new AdminService();
 	private UserService userService =new UserService();
-	private ClaimServices claimServices=new ClaimServices();
-	private ItemReportServices itemReportServices=new ItemReportServices();
+	private ClaimService claimServices=new ClaimService();
+	private ItemReportService itemReportServices=new ItemReportService();
    
     /**
      * @see HttpServlet#HttpServlet()

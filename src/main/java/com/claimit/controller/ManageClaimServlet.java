@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.claimit.model.Claim;
-import com.claimit.services.ClaimServices;
+import com.claimit.services.ClaimService;
 
 /**
  * Servlet implementation class ManageClaimServlet
@@ -19,7 +19,7 @@ import com.claimit.services.ClaimServices;
 @WebServlet("/ManageClaim")
 public class ManageClaimServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private ClaimServices claimServices=new ClaimServices();
+	private ClaimService claimServices=new ClaimService();
        
     /**
      * @see HttpServlet#HttpServlet()

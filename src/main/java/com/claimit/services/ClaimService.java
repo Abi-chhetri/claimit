@@ -5,10 +5,9 @@ import java.util.List;
 import java.util.Map;
 
 import com.claimit.dao.ClaimsDao;
-import com.claimit.model.Admin;
 import com.claimit.model.Claim;
 
-public class ClaimServices {
+public class ClaimService {
 	private ClaimsDao claimDao=new ClaimsDao();
 	
 	public List<Claim> getAllClaims(){
