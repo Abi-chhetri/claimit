@@ -37,7 +37,7 @@
                 <a href="#">Home</a>
                 <a href="${pageContext.request.contextPath}/Browse">Browse</a>
                 <a href="#">Dashboard</a>
-                <a href="#">Report</a>
+                <a href="${pageContext.request.contextPath}/ReportFoundItem">Report</a>
                 <a href="#">About</a>
             </nav>
         </div>

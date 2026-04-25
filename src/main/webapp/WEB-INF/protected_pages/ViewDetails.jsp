@@ -1,8 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="com.claimit.model.User" %>
+<%@ page import="com.claimit.model.ItemImage" %>
+<%@ page import="java.util.List" %>
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -38,31 +41,40 @@
         </div>
     </header>
     <main class="main-page">
-        <a href="../BrowsePage/Browse.html" class="back-link">
+        <a href="${pageContext.request.contextPath}/Browse" class="back-link">
             <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 24 24">
                 <path fill="#005BBF" d="M20 11H7.83l5.59-5.59L12 4l-8 8l8 8l1.41-1.41L7.83 13H20z" />
             </svg>Back to Browse
         </a>
         <section class="detail-section">
-
+            <% List<ItemImage> images = (List<ItemImage>) request.getAttribute("itemImages");%>
             <div class="detail-left">
                 <figure class="main-image">
                     <div class="main-image-bg">
+                        <img src="${pageContext.request.contextPath}/<%=!images.isEmpty() ? images.get(0).getImagePath():""%>" alt="">
                         <span class="badge found">Found</span>
                     </div>
                 </figure>
                 <div class="thumbnails">
-                    <figure class="thumb"></figure>
-                    <figure class="thumb"></figure>
-                    <figure class="thumb-more">+2 more</figure>
+                <%int len=0; 
+                if(images.size()<3) {
+                	len=images.size();
+                }
+                else{
+                	len=3;
+                }
+                %>
+                    <%for(int i=1; i<len; i++){%>
+                    <figure class="thumb"><img src="${pageContext.request.contextPath}/<%= images.get(i).getImagePath()%>" alt=""></figure>
+                    <%}%>
+                    <figure class="thumb-more"><%=len-3 < 0 ? 0:len-3 %>+ more</figure>
                 </div>
             </div>
 
             <article class="detail-right">
-                <p class="item-id">FOUND ITEM #CF-8821</p>
-                <h1 class="item-title">iPhone 14 Pro Space Black</h1>
-                <p class="item-desc">Found this high-quality brown leather bag left on a park bench near the Central
-                    Fountain. It appears to be in excellent condition and has distinctive brass hardware.</p>
+                <p class="item-id">${item.type} ITEM #${item.itemId}</p>
+                <h1 class="item-title">${item.title}</h1>
+                <p class="item-desc">${item.description}</p>
 
                 <dl class="info-rows">
 
@@ -76,7 +88,7 @@
                         </div>
                         <div class="info-text">
                             <dt class="info-label">CATEGORY</dt>
-                            <dd class="info-value">Personal Accessories</dd>
+                            <dd class="info-value">${item.category}</dd>
                         </div>
                     </div>
 
@@ -90,7 +102,7 @@
                         </div>
                         <div class="info-text">
                             <dt class="info-label">DATE FOUND</dt>
-                            <dd class="info-value">October 24, 2023 &bull; 4:15 PM</dd>
+                            <dd class="info-value">${item.lostFoundDate}</dd>
                         </div>
                     </div>
 
@@ -104,7 +116,7 @@
                         </div>
                         <div class="info-text">
                             <dt class="info-label">LOCATION</dt>
-                            <dd class="info-value">Central Park West, Entrance 4</dd>
+                            <dd class="info-value">${item.location}</dd>
                         </div>
                     </div>
 
@@ -114,7 +126,7 @@
                     <figure class="avatar"></figure>
                     <div class="poster-info">
                         <span class="poster-label">POSTED BY</span>
-                        <span class="poster-name">Sarah Miller</span>
+                        <span class="poster-name">${user.fullName}</span>
                     </div>
                     <div class="verified">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"

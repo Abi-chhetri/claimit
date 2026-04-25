@@ -12,7 +12,7 @@ import java.util.Map;
 import com.claimit.model.Admin;
 import com.claimit.services.AdminService;
 import com.claimit.services.ClaimService;
-import com.claimit.services.ItemReportService;
+import com.claimit.services.ItemService;
 import com.claimit.services.UserService;
 import com.claimit.utils.SessionManager;
 
@@ -25,7 +25,7 @@ public class AdminDashBoardServlet extends HttpServlet {
 	private AdminService adminService=new AdminService();
 	private UserService userService =new UserService();
 	private ClaimService claimServices=new ClaimService();
-	private ItemReportService itemReportServices=new ItemReportService();
+	private ItemService itemReportServices=new ItemService();
    
     /**
      * @see HttpServlet#HttpServlet()

@@ -8,6 +8,9 @@
     <meta name="viewport" content="width=device-width>, initial-scale=1.0">
     <title>FonudItem</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/found_item.css">
+     <% String msg=(String) request.getAttribute("msg"); if (msg !=null) { %>
+            <meta http-equiv="refresh" content="3;url=${pageContext.request.contextPath}/ReportFoundItem">
+      <% } %>
 </head>
 
 <body>
@@ -18,7 +21,7 @@
                 <a href="#">Home</a>
                 <a href="#">Browse</a>
                 <a href="#">Dashboard</a>
-                <a href="#">Report</a>
+                <a href="${pageContext.request.contextPath}/ReportFoundItem">Report</a>
                 <a href="#">Claims</a>
                 <a href="#">About</a>
             </nav>
@@ -39,10 +42,18 @@
     </header>
 
     <main class="container">
-
+            <%
+		if (msg != null) {
+		%>
+		<div class="msg-box">
+			<%=msg%>
+		</div>
+		<%
+		}
+		%>
         <nav class="tabs-cont">
             <div class="tabs">
-                <a href="#" class="tab-act">Report Found Item</a>
+                <a href="${pageContext.request.contextPath}/ReportFoundItem" class="tab-act">Report Found Item</a>
                 <a href="../lost_item/lost_item.html" class="tab">Report Lost Item</a>
             </div>
         </nav>
@@ -73,8 +84,8 @@
             </aside>
 
             <section class="right_side">
-
-                <form method="post" action="${contextPage.request.contextPath}">
+            
+                <form method="post" action="${pageContext.request.contextPath}/ReportFoundItem"  enctype="multipart/form-data">
                     <h1 class="section-title">Item Details</h1>
 
 
@@ -83,8 +94,20 @@
                         <input type="text" id="item-name" name="item-name" placeholder="eg.Blue Leather Wallet"
                             required>
                     </div>
-
-
+                    
+                    <div class="form-group">
+					    <label for="category">Category</label>
+					    <select id="category" name="category" required>
+					    	<option value="" disabled selected>Select a category</option>
+					        <option value="ELECTRONICS">ELECTRONICS</option>
+							<option value="ACCESSORIES">ACCESSORIES</option>
+							<option value="BAGS">BAGS</option>
+							<option value="KEYS">KEYS</option>
+							<option value="DOCUMENTS">DOCUMENTS & ID</option>
+							<option value="JEWELRY">JEWELRY</option>
+							<option value="OTHER">OTHER</option>
+					    </select>
+					</div>
 
                     <div class="form-group">
                         <label for="description">Description</label>
@@ -106,12 +129,17 @@
                         </div>
                     </div>
                     <h2 class="section-title">Media</h2>
-
-                    <div class="upload-area">
-                        <p><strong>Upload Image (Optional)</strong></p>
-                        <p class="upload-sub">Drag and drop or click to browse files. Max size: 5MB.</p>
-                        <input type="file" id="image-upload" name="item_image" accept="image/png, image/jpeg">
-                    </div>
+					
+					<div class="upload-area">
+					    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24">
+					        <path fill="#4A90D9" d="M19.35 10.04A7.49 7.49 0 0 0 12 4C9.11 4 6.6 5.64 5.35 8.04A5.994 5.994 0 0 0 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5c0-2.64-2.05-4.78-4.65-4.96M14 13v4h-4v-4H7l5-5l5 5z"/>
+					    </svg>
+					    <p><strong>Upload Image (Optional)</strong></p>
+					    <p class="upload-sub">Max size: 100MB. PNG and JPEG only.</p>
+					    <p class="upload-sub" id="file-info">No files selected</p> 
+					    <label for="image-upload" class="browse-btn">Browse Files</label>
+					    <input type="file" id="image-upload" name="item_image" accept="image/png, image/jpeg" multiple>
+					</div>
 
                     <div class="button">
                         <button type="button" class="cancel-btn">Cancel</button>
@@ -135,6 +163,20 @@
             <p>&copy; 2026 ClaimIt Protocol. All rights reserved.</p>
         </div>
     </footer>
+    
+    <script>
+	    document.getElementById("image-upload").addEventListener("change", function() {
+	        const fileInfo = document.getElementById("file-info");
+	        const count = this.files.length;
+	        if (count === 0) {
+	            fileInfo.textContent = "No files selected";
+	        } else if (count === 1) {
+	            fileInfo.textContent = this.files[0].name;
+	        } else {
+	            fileInfo.textContent = count + " files selected";
+	        }
+	    });
+	</script>
 </body>
 
 </html>
