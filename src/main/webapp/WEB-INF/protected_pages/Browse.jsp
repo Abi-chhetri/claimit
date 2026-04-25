@@ -1,5 +1,9 @@
+<%@page import="com.claimit.services.ItemImageService"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ page import="com.claimit.model.Item, java.util.List ,com.claimit.model.ItemImage" %>
+    
+	<% List<Item> items = (List<Item>) request.getAttribute("items"); %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -70,32 +74,49 @@
 
         <section class="cards-section">
             <div class="cards-grid">
+            <% for(Item item:items){ 
+            	ItemImageService itemImageService=new ItemImageService();
+            	List<ItemImage> images=itemImageService.getImagesByItemId(item.getItemId());
+            	if(item.getType().equals("FOUND")){
+            %>
+                <article class="item-card">
+                    <div class="card-image">
+                     	<img src="${pageContext.request.contextPath}/<%=!images.isEmpty() ? images.get(0).getImagePath() : ""%>" 
+						     style="width:100%; height:100%; object-fit:cover; display:block;">
+                        <span class="badge found"><%= item.getType() %></span>
+                    </div>
+                    <div class="card-body">
+                        <span class="card-category"><%= item.getCategory() %></span>
+                        <h2 class="card-title"><%= item.getTitle() %></h2>
+                        <p class="card-location">&#128205; <%= item.getLocation()%></p>
+                        <p class="card-date">&#128336; <%= item.getLostFoundDate() %></p>
+                        <form action="${pageContext.request.contextPath}/ViewDetails" method="POST">
+						    <input type="hidden" name="itemId" value="<%=item.getItemId()%>"/>
+						    <button class="view-details-btn" type="submit">View Details</button>
+						</form>
+                    </div>
+                </article>
+                <%}else { %>
 
                 <article class="item-card">
                     <div class="card-image">
-                        <span class="badge found">FOUND</span>
+                        <span class="badge lost"><%= item.getType() %></span>
+                        <img src="${pageContext.request.contextPath}/<%=!images.isEmpty() ? images.get(0).getImagePath() : ""%>" 
+						     style="width:100%; height:100%; object-fit:cover; display:block;">
+                        <span class="badge found"><%= item.getType() %></span>
                     </div>
                     <div class="card-body">
-                        <span class="card-category">Electronics</span>
-                        <h2 class="card-title">iPhone 14 Pro - Space Black</h2>
-                        <p class="card-location">&#128205; Central Park North</p>
-                        <p class="card-date">&#128336; Oct 12, 2023</p>
-                        <button class="view-details-btn" onclick="window.location.href='../ViewDetailsPage/ViewDetailsPage.html'">View Details</button>
+                        <span class="card-category"><%= item.getCategory() %></span>
+                        <h2 class="card-title"><%= item.getTitle() %></h2>
+                        <p class="card-location">&#128205; <%= item.getLocation()%></p>
+                        <p class="card-date">&#128336; <%= item.getLostFoundDate() %></p>
+                        <form action="${pageContext.request.contextPath}/ViewDetails" method="POST">
+						    <input type="hidden" name="itemId" value="<%=item.getItemId()%>"/>
+						    <button class="view-details-btn" type="submit">View Details</button>
+						</form>
                     </div>
                 </article>
-
-                <article class="item-card">
-                    <div class="card-image">
-                        <span class="badge lost">LOST<span>
-                    </div>
-                    <div class="card-body">
-                        <span class="card-category">Pets</span>
-                        <h2 class="card-title">Friendly Golden Retriever</h2>
-                        <p class="card-location">&#128205; 7th & Madison Ave</p>
-                        <p class="card-date">&#128336; Oct 15, 2023</p>
-                        <button class="view-details-btn">View Details</button>
-                    </div>
-                </article>
+           	<% }}%>
 
             </div>
         </section>
