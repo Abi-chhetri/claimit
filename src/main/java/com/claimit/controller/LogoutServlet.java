@@ -10,7 +10,7 @@ import java.io.IOException;
 import com.claimit.services.UserService;
 import com.claimit.utils.CookieManager;
 import com.claimit.utils.SessionManager;
-import com.claimit.enums.Status;
+import com.claimit.enums.ActivityStatus;
 
 /**
  * Servlet implementation class LogoutServlet
@@ -32,7 +32,7 @@ public class LogoutServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Integer userId= (Integer) SessionManager.getAttribute(request, "userId");
-		if(userId != null) userService.updateUserStatusOnly(userId, Status.INACTIVE.name());
+		if(userId != null) userService.updateUserStatusOnly(userId, ActivityStatus.INACTIVE.name());
 
 		SessionManager.invalidate(request);
 	    CookieManager.deleteCookie(response, "userId");

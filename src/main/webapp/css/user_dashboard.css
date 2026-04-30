@@ -235,6 +235,12 @@ justify-content: space-evenly;
 .report-lost-item a{
     color: white;
     text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    
 }
 
 .report-found-item {
@@ -255,6 +261,11 @@ justify-content: space-evenly;
 .report-found-item a{
     color: rgb(0, 0, 0);
     text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
 }
 
 .browse-item {
@@ -278,6 +289,12 @@ justify-content: space-evenly;
 .browse-item a{
     color: rgb(0, 0, 0);
     text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    
 }
 
 .need-help {

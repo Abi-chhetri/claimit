@@ -12,62 +12,12 @@ import com.claimit.model.Item;
 import com.claimit.utils.DataBase_Config;
 
 public class ItemDao {
-	private final String totalCountQuery = "select count(*) from claims";
-	private final String userReportCountQuery = "select count(*) from item_reports where User_ID = ?";
 	private final String selectItemById = "SELECT * FROM ITEMS WHERE Item_ID = ?";
 	private final String selectItem = "SELECT Item_ID, User_ID, Type, Title, Category, Description, Location, Lost_Found_Date,"
 			+ " Status, Rejection_Reason, Expires_At, Created_At, Updated_At FROM ITEMS";
-	String createItem = "insert into ITEMS (User_ID, Type, Title, Category, Description, Location, Lost_Found_Date, Status) values (?, ?, ?, ?, ?, ?, ?, ?)";
+	private final String createItem = "insert into ITEMS (User_ID, Type, Title, Category, Description, Location, Lost_Found_Date, Status) values (?, ?, ?, ?, ?, ?, ?, ?)";
+	private final String userReportCountQuery = "select count(*) from ITEMS where User_ID = ?";
 	
-    private Integer executeCount(String query) {
-        try {
-            Connection con = DataBase_Config.getConection();
-            Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery(query);
-            if (rs.next()) {
-                int count = rs.getInt(1);
-                rs.close();
-                st.close();
-                con.close();
-                return count;
-            }
-            rs.close();
-            st.close();
-            con.close();
-            return 0;
-        } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-    
-    public Integer findItemReportCount() {
-    	return executeCount(totalCountQuery);
-    }
-    
-    public Integer findUserReportCount(int userId) {
-        try {
-            Connection con = DataBase_Config.getConection();
-            PreparedStatement ps = con.prepareStatement(userReportCountQuery);
-            ps.setInt(1, userId);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                int count = rs.getInt(1);
-                rs.close();
-                ps.close();
-                con.close();
-                return count;
-            }
-            rs.close();
-            ps.close();
-            con.close();
-            return 0;
-        } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-    
 	public Item findItemById(int itemId) {
 		Item item = null;
 		
@@ -174,4 +124,27 @@ public class ItemDao {
 
 	    return -1; // insert failed
 	}
+	
+    public Integer findUserReportCount(int userId) {
+        try {
+            Connection con = DataBase_Config.getConection();
+            PreparedStatement ps = con.prepareStatement(userReportCountQuery);
+            ps.setInt(1, userId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                int count = rs.getInt(1);
+                rs.close();
+                ps.close();
+                con.close();
+                return count;
+            }
+            rs.close();
+            ps.close();
+            con.close();
+            return 0;
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

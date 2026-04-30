@@ -8,7 +8,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 import com.claimit.enums.RegistrationStatus;
-import com.claimit.enums.Status;
+import com.claimit.enums.ActivityStatus;
 import com.claimit.model.User;
 import com.claimit.services.UserService;
 import com.claimit.utils.UserValidation;
@@ -79,7 +79,7 @@ public class RegisterServlet extends HttpServlet {
 			user.setEmail(email);
 			user.setPhoneNumber(phoneNumber);
 			user.setPassword(confirmPassword);
-			user.setStatus(Status.INACTIVE.name());
+			user.setStatus(ActivityStatus.INACTIVE.name());
 			user.setApproveStatus(RegistrationStatus.PENDING.name());
 			
 			msg = service.insertUser(user) ;  // calling insertUser method from UserService Class 

@@ -10,15 +10,6 @@ public class ItemService {
 
 	private ItemDao itemDao = new ItemDao();
 	
-	public Integer getTotalItemReport() {
-		Integer count= itemDao.findItemReportCount();
-		return count == null ? 0: count;
-	}
-	
-	public Integer getUserReportCount(int userId) {
-		return itemDao.findUserReportCount(userId);
-	}
-	
 	public Item getItemById(int itemId) {
 		Item item= itemDao.findItemById(itemId);
 		if(item == null) {
@@ -37,6 +28,10 @@ public class ItemService {
 	
 	public int insertItem(Item Item) {
 		return itemDao.createItem(Item);
+	}
+	
+	public Integer getUserReportCount(int userId) {
+		return itemDao.findUserReportCount(userId);
 	}
 	
 }

@@ -10,6 +10,7 @@ import java.util.Map;
 
 import com.claimit.model.User;
 import com.claimit.services.ClaimService;
+import com.claimit.services.ItemReportService;
 import com.claimit.services.ItemService;
 import com.claimit.services.UserService;
 import com.claimit.utils.SessionManager;
@@ -22,7 +23,7 @@ public class DashBoardServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private UserService userService=new UserService();
 	private ClaimService claimServices=new ClaimService();
-	private ItemService itemServices=new ItemService();
+	private ItemService itemService=new ItemService();
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -45,7 +46,7 @@ public class DashBoardServlet extends HttpServlet {
 				request.setAttribute(eachEntry.getKey(), eachEntry.getValue());
 			}
 			
-			Integer userReportCount= itemServices.getUserReportCount(Integer.parseInt(userId));
+			Integer userReportCount= itemService.getUserReportCount(Integer.parseInt(userId));
 			request.setAttribute("userReportCount", userReportCount);
 			
 		}
