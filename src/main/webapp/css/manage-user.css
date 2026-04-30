@@ -302,6 +302,16 @@
     color: #991B1B;
 }
 
+.mu-badge.susp {
+    background: #FEF3C7;
+    color: #92400E;
+}
+
+.mu-badge.pen {
+    background: #E0F2FE;
+    color: #075985;
+}
+
 .mu-actions {
     display: flex;
     gap: 6px;
@@ -321,4 +331,53 @@
 
 .mu-btn:hover {
     background: #F1F5F9;
+}
+
+.mu-search-btn {
+    background: #3B5BDB;
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    padding: 5px 14px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    flex-shrink: 0;
+    transition: background 0.15s;
+}
+
+.mu-search-btn:hover {
+    background: #2f4ac2;
+}
+
+.mu-search {
+    width: 280px;
+}
+
+.mu-no-results {
+    text-align: center;
+    padding: 52px 16px;
+    color: #94A3B8;
+}
+
+.mu-no-results svg {
+    display: block;
+    margin: 0 auto 12px;
+}
+
+.mu-no-results p {
+    font-size: 15px;
+    font-weight: 600;
+    color: #64748B;
+    margin-bottom: 4px;
+}
+
+.mu-no-results span {
+    font-size: 12px;
+    color: #94A3B8;
+}
+
+.mu-no-results strong {
+    color: #475569;
 }

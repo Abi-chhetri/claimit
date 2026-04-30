@@ -41,4 +41,8 @@ public class UserService {
 	public Integer getUserCount() {
 		return userDao.findUserCount();
 	}
+	
+	public boolean updateUserStatusOnly(int id,String status) {
+		return userDao.changeUserStatusOnly(id, status);
+	}
 }

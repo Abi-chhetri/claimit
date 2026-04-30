@@ -33,13 +33,13 @@ public class ManageClaimServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		List<Claim> claims=(List<Claim>) claimServices.getAllClaims();
+		List<Claim> claims=(List<Claim>) claimServices.getAllClaims().reversed();
 		HashMap <Integer,Double> approvedClaim = claimServices.getApprovedClaims();
 		Map.Entry<Integer, Double> approvedEntry = approvedClaim.entrySet().iterator().next();
 		request.setAttribute("claims", claims);
 		request.setAttribute("approvedCount", approvedEntry.getKey());
 		request.setAttribute("approvedPercentage", approvedEntry.getValue());
-		request.getRequestDispatcher("/WEB-INF/protected_pages/manage-claim.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/protected_pages/admins/manage-claim.jsp").forward(request, response);
 	}
 
 	/**

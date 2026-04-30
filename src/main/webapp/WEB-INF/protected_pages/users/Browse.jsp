@@ -20,12 +20,12 @@
         <div class="header1">
             <span class="claimit-onheader">ClaimIt</span>
             <nav class="navbar">
-                <a href="#">Home</a>
-                <a href="#" class="Active">Browse</a>
+                <a href="${pageContext.request.contextPath}/Home">Home</a>
+                <a href="${pageContext.request.contextPath}/Browse">Browse</a>
                 <a href="${pageContext.request.contextPath}/DashBoard">Dashboard</a>
-                <a href="#">Report</a>
-                <a href="#">Claims</a>
-                <a href="#">About</a>
+                <a href="${pageContext.request.contextPath}/ReportFoundItem">Report Found Item</a>
+				<a href="${pageContext.request.contextPath}/Claims">Claims</a>
+                <a href="${pageContext.request.contextPath}/About">About</a>
             </nav>
         </div>
         <div class="header2">

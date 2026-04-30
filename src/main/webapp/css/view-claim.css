@@ -1,0 +1,294 @@
+@charset "UTF-8";
+
+* {
+	font-family: sans-serif;
+}
+
+.admin-main-outer {
+	padding: 28px;
+	background-color: #F1F5F9;
+	min-height: 100%;
+	overflow-x: hidden;
+	width: 100%;
+	box-sizing: border-box;
+}
+
+/* Header */
+.vc-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+	margin-bottom: 24px;
+	flex-wrap: wrap;
+	gap: 12px;
+}
+
+.vc-header-left {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+
+.vc-back-btn {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	font-size: 13px;
+	color: #475569;
+	text-decoration: none;
+	font-weight: 500;
+	transition: color 0.15s;
+}
+
+.vc-back-btn:hover {
+	color: #1D4ED8;
+}
+
+.vc-title {
+	font-size: 30px;
+	font-weight: 800;
+	color: #191C23;
+	margin: 0;
+}
+
+.vc-subtitle {
+	font-size: 13px;
+	color: #64748B;
+	margin-top: 4px;
+}
+
+.vc-header-right {
+	display: flex;
+	align-items: center;
+	padding-top: 36px;
+}
+
+/* Badges */
+.vc-badge {
+	display: inline-block;
+	padding: 6px 16px;
+	border-radius: 20px;
+	font-size: 11px;
+	font-weight: 700;
+	letter-spacing: 0.06em;
+}
+
+.vc-badge-pending {
+	background: #FEF9C3;
+	color: #854D0E;
+}
+
+.vc-badge-review {
+	background: #DBEAFE;
+	color: #1E40AF;
+}
+
+.vc-badge-approved {
+	background: #DCFCE7;
+	color: #166534;
+}
+
+.vc-badge-rejected {
+	background: #FEE2E2;
+	color: #991B1B;
+}
+
+/* Body Layout */
+.vc-body {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 16px;
+	align-items: start;
+}
+
+/* Card */
+.vc-card {
+	background: #ffffff;
+	border: 1px solid #E2E8F0;
+	border-radius: 10px;
+	padding: 20px;
+	margin-bottom: 16px;
+}
+
+.vc-card-title {
+	font-size: 11px;
+	font-weight: 700;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	color: #94A3B8;
+	margin-bottom: 16px;
+}
+
+/* Info Rows */
+.vc-info-row {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 10px 0;
+	border-bottom: 1px solid #F1F5F9;
+	gap: 12px;
+}
+
+.vc-info-row:last-child {
+	border-bottom: none;
+}
+
+.vc-info-label {
+	font-size: 12px;
+	color: #94A3B8;
+	font-weight: 500;
+	white-space: nowrap;
+}
+
+.vc-info-value {
+	font-size: 13px;
+	color: #0F172A;
+	font-weight: 600;
+	text-align: right;
+}
+
+/* Description */
+.vc-description {
+	font-size: 13px;
+	color: #475569;
+	line-height: 1.6;
+}
+
+/* Proof Images */
+.vc-proof-img-wrap {
+	width: 100%;
+	border-radius: 8px;
+	overflow: hidden;
+	margin-bottom: 10px;
+	border: 1px solid #E2E8F0;
+}
+
+.vc-proof-img {
+	width: 100%;
+	height: auto;
+	display: block;
+	object-fit: cover;
+}
+
+.vc-no-proof {
+	font-size: 13px;
+	color: #94A3B8;
+}
+
+/* Timeline */
+.vc-timeline {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+}
+
+.vc-timeline-item {
+	display: flex;
+	align-items: flex-start;
+	gap: 12px;
+}
+
+.vc-timeline-dot {
+	width: 10px;
+	height: 10px;
+	border-radius: 50%;
+	margin-top: 4px;
+	flex-shrink: 0;
+}
+
+.vc-dot-blue {
+	background: #3B82F6;
+}
+
+.vc-dot-green {
+	background: #16A34A;
+}
+.vc-dot-red {
+	background: red;
+}
+
+.vc-timeline-label {
+	font-size: 13px;
+	font-weight: 600;
+	color: #0F172A;
+}
+
+.vc-timeline-date {
+	font-size: 11px;
+	color: #94A3B8;
+	margin-top: 2px;
+}
+
+/* Actions */
+.vc-actions {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+.vc-btn {
+	width: 100%;
+	padding: 10px 16px;
+	border-radius: 8px;
+	font-size: 13px;
+	font-weight: 600;
+	cursor: pointer;
+	border: none;
+	transition: opacity 0.15s;
+}
+
+.vc-btn:hover {
+	opacity: 0.85;
+}
+
+.vc-btn-approve {
+	background: #16A34A;
+	color: #fff;
+}
+
+.vc-btn-reject {
+	background: #DC2626;
+	color: #fff;
+}
+
+.vc-btn-review {
+	background: #2563EB;
+	color: #fff;
+}
+
+.vc-notes-prompt {
+    font-size: 14px;
+    color: #475569;
+    margin-bottom: 10px;
+}
+
+.vc-notes-input {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    font-size: 14px;
+    resize: vertical;
+    margin-bottom: 12px;
+    font-family: inherit;
+    box-sizing: border-box;
+}
+
+.vc-notes-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.vc-btn-cancel {
+    background-color: #e2e8f0;
+    color: #475569;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.vc-btn-review {
+    background-color: #f59e0b;
+    color: white;
+}

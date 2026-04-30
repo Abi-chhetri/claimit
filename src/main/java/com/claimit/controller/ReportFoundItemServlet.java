@@ -25,7 +25,7 @@ public class ReportFoundItemServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		request.getRequestDispatcher("/WEB-INF/protected_pages/Report_Found_Item.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/protected_pages/users/Report_Found_Item.jsp").forward(request, response);
 	}
 
 	@Override
@@ -45,7 +45,7 @@ public class ReportFoundItemServlet extends HttpServlet {
 	            || category == null || category.trim().isEmpty()) {
 
 	        request.setAttribute("error", "All fields are required.");
-	        request.getRequestDispatcher("/WEB-INF/protected_pages/Report_Found_Item.jsp")
+	        request.getRequestDispatcher("/WEB-INF/protected_pages/users/Report_Found_Item.jsp")
 	               .forward(request, response);
 	        return;
 	    }
@@ -67,7 +67,7 @@ public class ReportFoundItemServlet extends HttpServlet {
 
 	    if (itemId == -1) {
 	        request.setAttribute("msg", "Failed to save item. Please try again.");
-	        request.getRequestDispatcher("/WEB-INF/protected_pages/Report_Found_Item.jsp")
+	        request.getRequestDispatcher("/WEB-INF/protected_pages/users/Report_Found_Item.jsp")
 	               .forward(request, response);
 	        return;
 	    }
@@ -90,6 +90,6 @@ public class ReportFoundItemServlet extends HttpServlet {
         }
 
 	    request.setAttribute("msg", "Item reported successfully.");
-	    request.getRequestDispatcher("/WEB-INF/protected_pages/Report_Found_Item.jsp").forward(request, response);
+	    request.getRequestDispatcher("/WEB-INF/protected_pages/users/Report_Found_Item.jsp").forward(request, response);
 	}
 }

@@ -10,7 +10,9 @@ import com.claimit.utils.DataBase_Config;
 
 public class AdminDao {
 	private final String selectAdminByEmailQuery= "SELECT * FROM ADMINS WHERE Email = ?";
-	private final String selectAdminByIdQuery= "SELECT * FROM ADMINS WHERE Admin_ID = ?";
+	private final String selectAdminByIdQuery= "SELECT * FROM ADMINS WHERE Admin_ID = ?";	
+	private final String approveUserQuery = "UPDATE USERS SET Approve_Status = ?, Approved_By = ?, Approved_At = NOW() WHERE User_ID = ?";
+	private final String updateRegistrationStatusOnlyQuery = "UPDATE USERS SET Approve_Status = ? WHERE User_ID = ?";
 	
 	public Admin findAdminById(String userId) {
 		try {
@@ -68,5 +70,39 @@ public class AdminDao {
 			se.printStackTrace(); 
 		    return null;
 		}
+	}
+
+
+	public boolean acceptUser(int userId, int adminId) {
+	    try {
+	        Connection con = DataBase_Config.getConection();
+	        PreparedStatement ps = con.prepareStatement(approveUserQuery);
+	        ps.setString(1, "APPROVED");
+	        ps.setInt(2, adminId);
+	        ps.setInt(3, userId);
+	        int rows = ps.executeUpdate();
+	        ps.close();
+	        con.close();
+	        return rows > 0;
+	    } catch (SQLException | ClassNotFoundException se) {
+	        se.printStackTrace();
+	        return false;
+	    }
+	}
+
+	public boolean changeUserRegistrationStatusOnly(int userId, String status) {
+	    try {
+	        Connection con = DataBase_Config.getConection();
+	        PreparedStatement ps = con.prepareStatement(updateRegistrationStatusOnlyQuery);
+	        ps.setString(1, status);
+	        ps.setInt(2, userId);
+	        int rows = ps.executeUpdate();
+	        ps.close();
+	        con.close();
+	        return rows > 0;
+	    } catch (SQLException | ClassNotFoundException se) {
+	        se.printStackTrace();
+	        return false;
+	    }
 	}
 }

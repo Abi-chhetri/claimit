@@ -18,12 +18,12 @@
         <div class="header1">
             <span class="claimit-onheader">ClaimIt</span>
             <nav class="navbar">
-                <a href="#">Home</a>
-                <a href="#">Browse</a>
-                <a href="#">Dashboard</a>
-                <a href="${pageContext.request.contextPath}/ReportFoundItem">Report</a>
-                <a href="#">Claims</a>
-                <a href="#">About</a>
+                <a href="${pageContext.request.contextPath}/Home">Home</a>
+                <a href="${pageContext.request.contextPath}/Browse">Browse</a>
+                <a href="${pageContext.request.contextPath}/DashBoard">Dashboard</a>
+                <a href="${pageContext.request.contextPath}/ReportFoundItem">Report Found Item</a>
+				<a href="${pageContext.request.contextPath}/Claims">Claims</a>
+                <a href="${pageContext.request.contextPath}/About">About</a>
             </nav>
         </div>
         <div class="header2">
@@ -51,13 +51,6 @@
 		<%
 		}
 		%>
-        <nav class="tabs-cont">
-            <div class="tabs">
-                <a href="${pageContext.request.contextPath}/ReportFoundItem" class="tab-act">Report Found Item</a>
-                <a href="../lost_item/lost_item.html" class="tab">Report Lost Item</a>
-            </div>
-        </nav>
-
         <header1 class="main-container">
 
             <aside class="sidebar">

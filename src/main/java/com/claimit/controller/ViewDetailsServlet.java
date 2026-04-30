@@ -21,38 +21,47 @@ import com.claimit.services.UserService;
 @WebServlet(asyncSupported = true, urlPatterns = { "/ViewDetails" })
 public class ViewDetailsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private ItemService itemService=new ItemService();
-	private UserService userService=new UserService();
-	private ItemImageService itemImageService=new ItemImageService();
-      
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ViewDetailsServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+	private ItemService itemService = new ItemService();
+	private UserService userService = new UserService();
+	private ItemImageService itemImageService = new ItemImageService();
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/WEB-INF/protected_pages/ViewDetails.jsp").forward(request, response);
+	public ViewDetailsServlet() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		String itemIdParam = request.getParameter("itemId");
+		if (itemIdParam == null) {
+			response.sendRedirect(request.getContextPath() + "/Browse");
+			return;
+		}
+		request.getRequestDispatcher("/WEB-INF/protected_pages/users/ViewDetails.jsp").forward(request, response);
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		int itemId = Integer.parseInt(request.getParameter("itemId"));
-		Item item= itemService.getItemById(itemId);
-		String itemPostUserId= String.valueOf(item.getUserId());
-		User user=userService.getUserByID(itemPostUserId);
-		List<ItemImage> itemImages= itemImageService.getImagesByItemId(itemId);
+		Item item = itemService.getItemById(itemId);
+		String itemPostUserId = String.valueOf(item.getUserId());
+		User user = userService.getUserByID(itemPostUserId);
+		List<ItemImage> itemImages = itemImageService.getImagesByItemId(itemId);
 		request.setAttribute("item", item);
-		request.setAttribute("user",user);
+		request.setAttribute("user", user);
 		request.setAttribute("itemImages", itemImages);
-		request.getRequestDispatcher("/WEB-INF/protected_pages/ViewDetails.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/protected_pages/users/ViewDetails.jsp").forward(request, response);
 	}
 
 }

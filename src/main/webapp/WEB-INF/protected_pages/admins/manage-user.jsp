@@ -5,8 +5,12 @@
 <%@ page import="com.claimit.model.User" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.sql.Timestamp" %>
-    
+
 <%List<User> users=(List<User>) request.getAttribute("users");%>
+<%
+String selectedStatus = request.getParameter("approveStatus") != null ? request.getParameter("approveStatus") : "";
+String searchQuery = request.getParameter("search") != null ? request.getParameter("search").toLowerCase().trim() : "";
+%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -28,18 +32,16 @@
 
             <div class="admin-aside-admin-function-outer">
 
-            	<div class="admin-aside-admin-function">
+                <div class="admin-aside-admin-function">
                     <a href="${pageContext.request.contextPath}/AdminDashBoard" class="admin-functions">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
                             <rect width="24" height="24" fill="none" />
                             <path fill="#475569"
                                 d="M13 9V3h8v6zM3 13V3h8v10zm10 8V11h8v10zM3 21v-6h8v6zm2-10h4V5H5zm10 8h4v-6h-4zm0-12h4V5h-4zM5 19h4v-2H5zm4-2" />
                         </svg>
-
                         <p class="admin-function-name">Dashboard</p>
                     </a>
                 </div>
-
 
                 <div class="admin-aside-admin-function">
                     <a href="${pageContext.request.contextPath}/ManageItem" class="admin-functions">
@@ -50,11 +52,9 @@
                             <path fill="#475569"
                                 d="M28 4H4a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2v16a2 2 0 0 0 2 2h20a2 2 0 0 0 2-2V12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2m-2 24H6V12h20Zm2-18H4V6h24z" />
                         </svg>
-
                         <p class="admin-function-name">Manage Items</p>
                     </a>
                 </div>
-
 
                 <div class="admin-aside-admin-function">
                     <a href="${pageContext.request.contextPath}/ManageClaim" class="admin-functions">
@@ -68,7 +68,6 @@
                     </a>
                 </div>
 
-
                 <div class="admin-aside-admin-function">
                     <a href="${pageContext.request.contextPath}/ManageReports" class="admin-functions">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="16" viewBox="0 0 16 16">
@@ -79,7 +78,6 @@
                         <p class="admin-function-name">Manage Reports</p>
                     </a>
                 </div>
-
 
                 <div class="admin-aside-admin-function">
                     <a href="${pageContext.request.contextPath}/ManageUser" class="admin-functions">
@@ -93,11 +91,9 @@
                                     d="M12.52 2.678A3 3 0 0 1 14.5 5.5v1c0 1.297-.848 2.581-2 3q1.01-1.379 1.01-3.5c0-2.122-.331-2.523-.99-3.322M17.5 17.5h1a1 1 0 0 0 1-1v-.728c0-2.17-1.71-3.83-3.847-4.667c0 0 2.847 2.395 1.847 6.395" />
                             </g>
                         </svg>
-
                         <p class="admin-function-name">Manage Users</p>
                     </a>
                 </div>
-
 
                 <div class="admin-aside-admin-function">
                     <a href="${pageContext.request.contextPath}/ManageModerators" class="admin-functions">
@@ -105,7 +101,6 @@
                             <rect width="8" height="8" fill="none" />
                             <path fill="#475569" d="M4 4v3q2 0 3-3M4 4V1L1 2v2m3-4l4 2c0 8-8 8-8 0" />
                         </svg>
-
                         <p class="admin-function-name">Manage Moderators</p>
                     </a>
                 </div>
@@ -117,11 +112,9 @@
                             <path fill="#475569"
                                 d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z" />
                         </svg>
-
                         <p class="admin-function-name">Contact Messages</p>
                     </a>
                 </div>
-
 
                 <div class="admin-aside-admin-function">
                     <a href="${pageContext.request.contextPath}/AdminLogs" class="admin-functions">
@@ -130,12 +123,10 @@
                             <path fill="#475569"
                                 d="M12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12h2a8 8 0 1 0 1.385-4.5H8v2H2v-6h2V6a9.99 9.99 0 0 1 8-4m1 5v4.585l3.243 3.243l-1.415 1.415L11 12.413V7z" />
                         </svg>
-
                         <p class="admin-function-name">Admin Logs</p>
                     </a>
                 </div>
             </div>
-
 
             <div class="admin-aside-admin-logout">
 
@@ -150,7 +141,6 @@
                                     d="M16.53 7.97a.75.75 0 0 0-1.06 0v3.276H9.5a.75.75 0 0 0 0 1.5h5.97v3.284a.75.75 0 0 0 1.06 0l3.5-3.5a.75.75 0 0 0 .22-.532v-.002a.75.75 0 0 0-.269-.575z" />
                             </g>
                         </svg>
-
                         <p class="">Logout</p>
                     </a>
                 </div>
@@ -193,26 +183,45 @@
                         <h1 class="mu-title">Manage Users</h1>
                         <p class="mu-subtitle">Overview and control of the Claimit user base.</p>
                     </div>
+
                     <div class="mu-header-actions">
+
+                        <!-- Search -->
                         <div class="mu-search">
                             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
                                 fill="none" stroke="#94A3B8" stroke-width="2">
                                 <circle cx="11" cy="11" r="8" />
                                 <line x1="21" y1="21" x2="16.65" y2="16.65" />
                             </svg>
-                            <input type="text" placeholder="Search by name or email..." />
+                            <input type="text" placeholder="Search by name or email..."
+                                   form="search-form" name="search"
+                                   value="<%=request.getParameter("search") != null ? request.getParameter("search") : ""%>" />
+                            <button type="submit" form="search-form" class="mu-search-btn">Search</button>
                         </div>
+
+                        <!-- Hidden search form (carries both search + status) -->
+                        <form id="search-form" method="get" action="${pageContext.request.contextPath}/ManageUser">
+                            <input type="hidden" name="approveStatus" value="<%=selectedStatus%>" />
+                        </form>
 
                         <!-- Filter checkbox hack -->
                         <input type="checkbox" id="mu-filter-toggle" class="mu-filter-checkbox" />
-                        <label for="mu-filter-toggle" class="mu-filter-btn">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                                <rect width="24" height="24" fill="none" />
-                                <path fill="none" stroke="#191C23" stroke-linecap="round" stroke-linejoin="round"
-                                    stroke-width="1.5" d="M4.5 7.25h15M7.385 12h9.23m-6.345 4.75h3.46" />
-                            </svg>
+                        <div for="mu-filter-toggle" class="mu-filter-btn">
                             Filters
-                        </label>
+                            <form method="get" action="${pageContext.request.contextPath}/ManageUser">
+                                <!-- Preserve search query when changing status filter -->
+                                <input type="hidden" name="search" value="<%=request.getParameter("search") != null ? request.getParameter("search") : ""%>" />
+                                <select name="approveStatus" onchange="this.form.submit()"
+                                    style="padding: 6px 10px; border: 1px solid #E2E8F0; border-radius: 8px; font-size: 13px; color: #374151; background: #fff; cursor: pointer; outline: none;">
+                                    <option value="">All</option>
+                                    <option value="APPROVED"  <%=selectedStatus.equals("APPROVED")  ? "selected" : ""%>>Approved</option>
+                                    <option value="PENDING"   <%=selectedStatus.equals("PENDING")   ? "selected" : ""%>>Pending</option>
+                                    <option value="REJECTED"  <%=selectedStatus.equals("REJECTED")  ? "selected" : ""%>>Rejected</option>
+                                    <option value="SUSPENDED" <%=selectedStatus.equals("SUSPENDED") ? "selected" : ""%>>Suspended</option>
+                                </select>
+                            </form>
+                        </div>
+
                     </div>
                 </div>
 
@@ -221,29 +230,22 @@
                     <div class="mu-stat-card">
                         <p class="mu-stat-label">TOTAL USERS</p>
                         <p class="mu-stat-value"><%= users.size() %></p>
-                        <p class="mu-stat-note green">↗ Increased </p>
+                        <p class="mu-stat-note green">↗ Increased</p>
                     </div>
                     <div class="mu-stat-card">
                         <p class="mu-stat-label">ACTIVE NOW</p>
                         <p class="mu-stat-value">
                         <%
-                        int verifiedRegistration=0;
-                        int activeUsers=0;
-                        int pendingRequest=0;
-                        for(User user:users){
-                        	if(user.getStatus().equals("ACTIVE")){
-                        		activeUsers++;
-                        	}
-                        	if(user.getApproveStatus().equals("PENDING")){
-                        		pendingRequest++;
-                        	}
-                        	
-                        	if(user.getApprovedAt() != null){
-                        		verifiedRegistration++;
-                        	}
+                        int verifiedRegistration = 0;
+                        int activeUsers = 0;
+                        int pendingRequest = 0;
+                        for (User user : users) {
+                            if (user.getStatus().equals("ACTIVE")) activeUsers++;
+                            if (user.getApproveStatus().equals("PENDING")) pendingRequest++;
+                            if (user.getApproveStatus().equals(RegistrationStatus.APPROVED.name())) verifiedRegistration++;
                         }
-                       	%>
-                        <%= activeUsers%>
+                        %>
+                        <%= activeUsers %>
                         </p>
                         <p class="mu-stat-note gray">Real-time engagement</p>
                     </div>
@@ -254,13 +256,11 @@
                     </div>
                     <div class="mu-stat-card">
                         <p class="mu-stat-label">REQUEST</p>
-                        <p class="mu-stat-value red">
-                        <%= pendingRequest %>
-                        </p>
+                        <p class="mu-stat-value red"><%= pendingRequest %></p>
                         <p class="mu-stat-note gray">Pending review</p>
                     </div>
                 </div>
-                
+
                 <!-- Filter Panel -->
                 <div class="mu-filter-panel">
                     <div class="mu-filter-group">
@@ -304,56 +304,111 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <% for(User user:users) { %>
-                             <tr>
-                                <td class="mu-uid">#<%=user.getUserId() %></td>
+                            <%
+                            int visibleRows = 0;
+                            for (User user : users) {
+                                if (!selectedStatus.isEmpty() && !user.getApproveStatus().equals(selectedStatus)) continue;
+                                if (!searchQuery.isEmpty()
+                                        && !user.getFullName().toLowerCase().contains(searchQuery)
+                                        && !user.getEmail().toLowerCase().contains(searchQuery)) continue;
+                                visibleRows++;
+                            %>
+                            <tr>
+                                <td class="mu-uid">#<%=user.getUserId()%></td>
                                 <td>
                                     <div class="mu-user-info">
                                         <div class="mu-avatar" style="background:#fce7f3;color:#9d174d;">
-                                        	<%= user.getFullName().trim().substring(0,1).toUpperCase() + user.getFullName().trim().split(" ")[1].substring(0,1).toUpperCase() %>
+                                            <%= user.getFullName().trim().substring(0,1).toUpperCase() + user.getFullName().trim().split(" ")[1].substring(0,1).toUpperCase() %>
                                         </div>
                                         <div>
                                             <p class="mu-name"><%= user.getFullName() %></p>
-                                            <p class="mu-verified">
-                                            	<%= user.getApprovedAt() != null ? "✔ Verified" : " ❌ Un-Verified" %>
-                                            </p>
+                                            <%= ("PENDING".equals(user.getApproveStatus()) || "SUSPENDED".equals(user.getApproveStatus()) || "REJECTED".equals(user.getApproveStatus()))
+                                                ? "<p style='color: red;font-size: 11px;margin-top: 2px;'>✗ Un-Verified</p>"
+                                                : "<p class='mu-verified'>✔ Verified</p>" %>
                                         </div>
                                     </div>
                                 </td>
                                 <td>
-                                    <p class="mu-email"><%=user.getEmail() %></p>
-                                    <p class="mu-phone"><%=user.getPhoneNumber() %></p>
+                                    <p class="mu-email"><%=user.getEmail()%></p>
+                                    <p class="mu-phone"><%=user.getPhoneNumber()%></p>
                                 </td>
                                 <td>
                                     <p class="mu-date">
-                                    	<%= user.getApprovedAt() != null ? user.getApprovedAt().toString().substring(0, 10) : "N/A" %>
+                                        <%= user.getApprovedAt() != null ? user.getApprovedAt().toString().substring(0, 10) : "N/A" %>
                                     </p>
                                     <%
-									    Timestamp ts = user.getApprovedAt();
-									    String formattedTime = ts != null ? new java.text.SimpleDateFormat("hh:mm a").format(ts) : "";
-									%>
-                                    <p class="mu-time"> 
-                                    	<%= formattedTime %>
-                                    </p>
+                                    Timestamp ts = user.getApprovedAt();
+                                    String formattedTime = ts != null ? new java.text.SimpleDateFormat("hh:mm a").format(ts) : "";
+                                    %>
+                                    <p class="mu-time"><%=formattedTime%></p>
                                 </td>
                                 <td>
-                                <%if(user.getStatus().equals(Status.SUSPENDED.name())) {%>
-                                	<span class="mu-badge blocked"><%=user.getStatus() %></span>
-                                <%}else if(user.getStatus().equals( Status.ACTIVE.name())) {%>
-                                	<span class="mu-badge active"><%=user.getStatus() %></span>
-                                <%}else if(user.getStatus().equals(Status.INACTIVE.name())){ %>
-                                	<span class="mu-badge blocked"><%=user.getStatus() %></span>
-                                <%}%>
+                                    <% if (user.getApproveStatus().equals(RegistrationStatus.REJECTED.name())) { %>
+                                        <span class="mu-badge blocked"><%=user.getApproveStatus()%></span>
+                                    <% } else if (user.getApproveStatus().equals(RegistrationStatus.APPROVED.name())) { %>
+                                        <span class="mu-badge active"><%=user.getApproveStatus()%></span>
+                                    <% } else if (user.getApproveStatus().equals(RegistrationStatus.SUSPENDED.name())) { %>
+                                        <span class="mu-badge susp"><%=user.getApproveStatus()%></span>
+                                    <% } else if (user.getApproveStatus().equals(RegistrationStatus.PENDING.name())) { %>
+                                        <span class="mu-badge pen"><%=user.getApproveStatus()%></span>
+                                    <% } %>
                                 </td>
                                 <td>
                                     <div class="mu-actions">
-                                        <button class="mu-btn">View</button>
-                                        <button class="mu-btn">Edit</button>
+                                        <% if (user.getApproveStatus().equals(RegistrationStatus.APPROVED.name())) { %>
+                                            <form method="POST" action="${pageContext.request.contextPath}/ManageUser">
+                                                <input type="hidden" name="action" value="suspend">
+                                                <input type="hidden" name="userId" value="<%=user.getUserId()%>">
+                                                <button type="submit" class="mu-btn">Suspend</button>
+                                            </form>
+                                        <% } else if (user.getApproveStatus().equals(RegistrationStatus.PENDING.name())) { %>
+                                            <form method="POST" action="${pageContext.request.contextPath}/ManageUser">
+                                                <input type="hidden" name="action" value="approve">
+                                                <input type="hidden" name="userId" value="<%=user.getUserId()%>">
+                                                <button type="submit" class="mu-btn">Approve</button>
+                                            </form>
+                                            <form method="POST" action="${pageContext.request.contextPath}/ManageUser">
+                                                <input type="hidden" name="action" value="reject">
+                                                <input type="hidden" name="userId" value="<%=user.getUserId()%>">
+                                                <button type="submit" class="mu-btn">Reject</button>
+                                            </form>
+                                        <% } else if (user.getApproveStatus().equals(RegistrationStatus.SUSPENDED.name())) { %>
+                                            <form method="POST" action="${pageContext.request.contextPath}/ManageUser">
+                                                <input type="hidden" name="action" value="reinstate">
+                                                <input type="hidden" name="userId" value="<%=user.getUserId()%>">
+                                                <button type="submit" class="mu-btn">Reinstate</button>
+                                            </form>
+                                        <% } else if (user.getApproveStatus().equals(RegistrationStatus.REJECTED.name())) { %>
+                                            <form method="POST" action="${pageContext.request.contextPath}/ManageUser">
+                                                <input type="hidden" name="action" value="approve">
+                                                <input type="hidden" name="userId" value="<%=user.getUserId()%>">
+                                                <button type="submit" class="mu-btn">Approve</button>
+                                            </form>
+                                        <% } %>
                                     </div>
                                 </td>
                             </tr>
                             <% } %>
-                            
+
+                            <!-- No results row -->
+                            <% if (visibleRows == 0) { %>
+                            <tr>
+                                <td colspan="6" class="mu-no-results">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="38" height="38" viewBox="0 0 24 24"
+                                        fill="none" stroke="#CBD5E1" stroke-width="1.5">
+                                        <circle cx="11" cy="11" r="8" />
+                                        <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                                    </svg>
+                                    <p>No results found</p>
+                                    <% if (!searchQuery.isEmpty()) { %>
+                                        <span>No users match "<strong><%=searchQuery%></strong>"</span>
+                                    <% } else if (!selectedStatus.isEmpty()) { %>
+                                        <span>No users with status <strong><%=selectedStatus%></strong></span>
+                                    <% } %>
+                                </td>
+                            </tr>
+                            <% } %>
+
                         </tbody>
                     </table>
                 </div>

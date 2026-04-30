@@ -95,6 +95,10 @@ public class ItemDao {
 				item.setCreatedAt(rs.getTimestamp("Created_At"));
 				item.setUpdatedAt(rs.getTimestamp("Updated_At"));
 			}
+			
+			ps.close();
+			rs.close();
+			con.close();
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}

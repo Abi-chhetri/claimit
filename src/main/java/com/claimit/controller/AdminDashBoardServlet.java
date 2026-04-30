@@ -63,7 +63,7 @@ public class AdminDashBoardServlet extends HttpServlet {
 			request.setAttribute("userCount", userCount);
 
 		}
-		request.getRequestDispatcher("/WEB-INF/protected_pages/admin-dashboard.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/protected_pages/admins/admin-dashboard.jsp").forward(request, response);
 	}
 
 	/**

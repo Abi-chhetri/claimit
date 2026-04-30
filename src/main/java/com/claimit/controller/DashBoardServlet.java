@@ -22,7 +22,7 @@ public class DashBoardServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private UserService userService=new UserService();
 	private ClaimService claimServices=new ClaimService();
-	private ItemService itemReportServices=new ItemService();
+	private ItemService itemServices=new ItemService();
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -45,11 +45,11 @@ public class DashBoardServlet extends HttpServlet {
 				request.setAttribute(eachEntry.getKey(), eachEntry.getValue());
 			}
 			
-			Integer userReportCount= itemReportServices.getUserReportCount(Integer.parseInt(userId));
+			Integer userReportCount= itemServices.getUserReportCount(Integer.parseInt(userId));
 			request.setAttribute("userReportCount", userReportCount);
 			
 		}
-		request.getRequestDispatcher("/WEB-INF/protected_pages/DashBoard.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/protected_pages/users/DashBoard.jsp").forward(request, response);
 	}
 
 	/**

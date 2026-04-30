@@ -31,9 +31,9 @@ public class BrowseServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		List<Item> items = itemService.getAllItems();
+		List<Item> items = itemService.getAllItems().reversed();
 		request.setAttribute("items", items);
-		request.getRequestDispatcher("/WEB-INF/protected_pages/Browse.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/protected_pages/users/Browse.jsp").forward(request, response);
 	}
 
 	/**

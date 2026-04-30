@@ -29,6 +29,8 @@ public class ItemImageDao {
 	            }
 
 	            ps.executeBatch();
+				ps.close();
+				conn.close();
 	            return true;
 
 	        } catch (ClassNotFoundException | SQLException e) {
@@ -53,7 +55,9 @@ public class ItemImageDao {
 		            image.setImagePath(rs.getString("Image_Path"));
 		            images.add(image);
 		        }
-
+				ps.close();
+				rs.close();
+				conn.close();
 		    } catch (ClassNotFoundException | SQLException e) {
 		        e.printStackTrace();
 		    }
