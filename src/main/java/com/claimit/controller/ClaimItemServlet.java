@@ -21,7 +21,7 @@ import com.claimit.utils.ImageUploadUtil;
 
 @MultipartConfig(maxFileSize = 20 * 1024 * 1024, maxRequestSize = 100 * 1024 * 1024)
 @WebServlet(asyncSupported = true, urlPatterns = { "/Claims" })
-public class ClaimsServlet extends HttpServlet {
+public class ClaimItemServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private final ClaimService claimService = new ClaimService();
     private final ItemService itemService = new ItemService();

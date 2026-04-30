@@ -40,7 +40,6 @@ public class LoginServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
 		// if already logged in via session
 		Integer userId = (Integer) SessionManager.getAttribute(request, "userId");
 		Integer adminId = (Integer) SessionManager.getAttribute(request, "adminId");
@@ -103,13 +102,13 @@ public class LoginServlet extends HttpServlet {
 				return;
 			}
 
-			if (admin.getStatus().equals(Status.INACTIVE.name())) {
+			if (admin.getStatus().equals(ActivityStatus.INACTIVE.name())) {
 				request.setAttribute("error msg", "Your account has not been approved. Please Try again later !");
 				request.getRequestDispatcher("/public_pages/Login.jsp").forward(request, response);
 				return;
 			}
 
-			if (admin.getStatus().equals(Status.SUSPENDED.name())) {
+			if (admin.getStatus().equals(ActivityStatus.SUSPENDED.name())) {
 				request.setAttribute("error msg", "Your account has been Suspended.");
 				request.getRequestDispatcher("/public_pages/Login.jsp").forward(request, response);
 				return;
@@ -153,7 +152,7 @@ public class LoginServlet extends HttpServlet {
 				SessionManager.setAttribute(request, "userId", user.getUserId());
 				SessionManager.setAttribute(request,"flashMessage", "Successfully Logged In");
 				CookieManager.addCookie(response, "userId", String.valueOf(user.getUserId()), 60*60);
-				userService.updateUserStatusOnly(user.getUserId(), Status.ACTIVE.name());
+				userService.updateUserStatusOnly(user.getUserId(), ActivityStatus.ACTIVE.name());
 				response.sendRedirect(request.getContextPath()+"/DashBoard");
 				return;
 			}
