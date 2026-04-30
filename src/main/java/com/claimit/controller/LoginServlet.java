@@ -153,6 +153,7 @@ public class LoginServlet extends HttpServlet {
 				SessionManager.setAttribute(request, "userId", user.getUserId());
 				SessionManager.setAttribute(request,"flashMessage", "Successfully Logged In");
 				CookieManager.addCookie(response, "userId", String.valueOf(user.getUserId()), 60*60);
+				userService.updateUserStatusOnly(user.getUserId(), Status.ACTIVE.name());
 				response.sendRedirect(request.getContextPath()+"/DashBoard");
 				return;
 			}

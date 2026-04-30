@@ -21,6 +21,7 @@ public class UserDao {
 	private final String selectUserByEmailQuery= "SELECT * FROM USERS WHERE Email = ?";
 	private final String selectAll="SELECT * FROM USERS";
 	private final String counter = "select count(*) from USERS";
+	private final String updateStatusOnlyQuery = "UPDATE USERS SET Status = ? WHERE User_ID = ?";
 	
 	public String createUser(User user) {
 		try {
@@ -190,5 +191,21 @@ public class UserDao {
 			se.printStackTrace(); 
 		    return null;
 		}
+	}
+	
+	public boolean changeUserStatusOnly(int userId, String status) {
+	    try {
+	        Connection con = DataBase_Config.getConection();
+	        PreparedStatement ps = con.prepareStatement(updateStatusOnlyQuery);
+	        ps.setString(1, status);
+	        ps.setInt(2, userId);
+	        int rows = ps.executeUpdate();
+	        ps.close();
+	        con.close();
+	        return rows > 0;
+	    } catch (SQLException | ClassNotFoundException se) {
+	        se.printStackTrace();
+	        return false;
+	    }
 	}
 }

@@ -24,4 +24,12 @@ public class AdminService {
 		return null;
 	}
 	
+	public boolean approveUser(int userId, int adminId) {
+	    return adminDao.acceptUser(userId, adminId);
+	}
+
+	public boolean updateUserRegistrationStatusOnly(int userId, String status) {
+	    return adminDao.changeUserRegistrationStatusOnly(userId, status);
+	}
+	
 }

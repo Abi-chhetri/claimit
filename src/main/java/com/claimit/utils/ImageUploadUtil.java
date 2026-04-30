@@ -62,9 +62,9 @@ public class ImageUploadUtil {
         List<String> uploadedFilePaths = new ArrayList<>();
 
         for (Part part : request.getParts()) {
-            if (!part.getName().equals("item_image") || part.getSize() == 0) {
-                continue;
-            }
+        	if ((!part.getName().equals("item_image") && !part.getName().equals("proofImage")) || part.getSize() == 0) {
+        	    continue;
+        	}
 
             if (!isValidImage(part)) {
 //                System.out.println("Invalid image skipped: " + part.getSubmittedFileName());
