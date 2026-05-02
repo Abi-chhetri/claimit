@@ -1,8 +1,13 @@
+<%@page import="com.claimit.utils.SessionManager"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="com.claimit.model.User"%>
+<%@ page import="com.claimit.model.User, com.claimit.model.Item"%>
 <%@ page import="com.claimit.model.ItemImage"%>
-<%@ page import="java.util.List"%>
+<%@ page import="java.util.List, java.text.SimpleDateFormat"%>
+<% 
+int userId= (int) SessionManager.getAttribute(request, "userId");
+Item item=(Item) request.getAttribute("item");
+%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -132,7 +137,7 @@
 						</div>
 						<div class="info-text">
 							<dt class="info-label">DATE FOUND</dt>
-							<dd class="info-value">${item.lostFoundDate}</dd>
+							<dd class="info-value"><%= new SimpleDateFormat("MMM dd, yyyy").format(item.getLostFoundDate()) %></dd>
 						</div>
 					</div>
 
@@ -169,7 +174,7 @@
 						Verified
 					</div>
 				</div>
-
+				<% if(userId != item.getUserId()) {%>
 				<button class="claim-btn"
 					onclick="document.getElementById('claimModal').classList.add('active')">
 					<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
@@ -179,6 +184,7 @@
 				    </svg>
 					Claim This Item
 				</button>
+				<%} %>
 				<p class="claim-note">Verification of ownership will be required
 					upon claiming.</p>
 

@@ -1,4 +1,5 @@
 @charset "UTF-8";
+
 * {
     margin: 0;
     padding: 0;
@@ -7,63 +8,58 @@
 }
 
 body {
-    background: #F9F9FF;
-    line-height: 1.6;
-    color: #1f2937;
-    padding: 40px 20px;
-}
-
-
-
-body {
     background-color: #F9F9FF;
     min-width: 1200px;
+    line-height: 1.6;
+    color: #1f2937;
 }
 
+/* ───── HEADER ───── */
 .header {
     display: flex;
     align-items: center;
     justify-content: space-between;
     background-color: #ffffff;
     padding: 0 32px;
-    height: 60px;
+    height: 64px;
     border-bottom: 1px solid #e0e0e0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
 }
 
 .header1 {
     display: flex;
     align-items: center;
-    gap: 48px;
+    gap: 40px;
 }
 
 .claimit-onheader {
     font-size: 24px;
     font-weight: 700;
     color: #1D4ED8;
-    border-color: #FFFFFF;
-    box-shadow: #0000000D;
 }
 
 .navbar {
     display: flex;
     align-items: center;
-    gap: 24px;
-    padding: 0px 60px;
+    gap: 4px;
+    padding: 0;
 }
 
 .navbar a {
     text-decoration: none;
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 500;
     color: #475569;
-    border-bottom: 2px solid transparent;
-    padding-bottom: 2px;
-    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 6px;
+    transition: background 0.2s, color 0.2s;
 }
 
 .navbar a:hover {
     color: #1D4ED8;
-    border-bottom: 2px solid #1D4ED8;
+    background: #EFF6FF;
 }
 
 .header2 {
@@ -71,7 +67,6 @@ body {
     align-items: center;
     gap: 16px;
 }
-
 
 .noti-acc-button {
     background: none;
@@ -85,60 +80,33 @@ body {
     color: #1D4ED8;
 }
 
-.site-footer {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 40px 32px;
-    border-top: 1px solid #E2E8F0;
-    background-color: #F8FAFC;
-}
-
-.footer-brand {
-    font-size: 16px;
-    font-weight: 700;
-    color: #94A3B8;
-}
-
-.footer-middle {
-    display: flex;
-    gap: 24px;
-    margin-left: 170px;
-
-}
-
-.footer-middle a {
-    text-decoration: none;
-    font-size: 12px;
-    color: #94A3B8;
-    font-weight: 400;
-}
-
-.footer-middle a:hover {
-    color: #1D4ED8;
-}
-
-.footer-right p {
-    font-size: 12px;
-    color: #94A3B8;
-    font-weight: 400;
-}
-
+/* ───── TABS ───── */
 .tabs-cont {
     display: flex;
     justify-content: center;
     padding: 20px 40px 0;
     background: #f8fafc;
-    padding: 20px 40px 0;
     margin-bottom: 40px;
 }
 
 .tabs {
     display: flex;
-    background-color: white;
-    border-radius: 12px;
-    padding: 6px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    background: none;
+    border-radius: 0;
+    padding: 0;
+    box-shadow: none;
+    gap: 8px;
+}
+
+.tab_act {
+    padding: 12px 23px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #1D4ED8;
+    border-bottom: 2px solid #1D4ED8;
+    background: none;
+    border-radius: 0;
+    text-decoration: none;
 }
 
 .tab {
@@ -147,20 +115,19 @@ body {
     text-decoration: none;
     color: #475569;
     font-size: 16px;
+    border-radius: 8px;
 }
 
-.tab_act {
-    padding: 12px 23px;
-    font-size: 16px;
-    font-weight: 600;
-    color: #1D4ED8;
-}
 
+/* ───── MAIN CONTENT ───── */
 .container {
     max-width: 1200px;
     margin: 0 auto;
-    overflow: hidden;
     padding: 20px;
+}
+
+.page-header {
+    margin-bottom: 10px;
 }
 
 .page-header h1 {
@@ -184,10 +151,7 @@ body {
     margin-top: 40px;
 }
 
-.content {
-    width: 100%px;
-}
-
+/* ───── CLAIM CARD ───── */
 .claim-card {
     background: #FFFFFF;
     border-radius: 16px;
@@ -195,7 +159,6 @@ body {
     display: flex;
     gap: 24px;
     margin-bottom: 20px;
-    position: relative;
 }
 
 .image img {
@@ -203,6 +166,7 @@ body {
     height: 120px;
     border-radius: 12px;
     flex-shrink: 0;
+    object-fit: cover;
 }
 
 .claim-content {
@@ -215,7 +179,6 @@ body {
     background: #987000;
     border-radius: 20px;
     padding: 4px 10px;
-    font-style: 10px;
     font-weight: 700;
     color: #FFFFFF;
     font-size: 10px;
@@ -234,28 +197,25 @@ body {
     color: #727785;
     font-weight: 500;
     margin-bottom: 4px;
-    padding-right: 140px;
 }
 
 .claim-date span {
     font-size: 14px;
     font-weight: 700;
-    font: bold;
     margin-bottom: 20px;
 }
 
 .claim-content h2 {
     font-size: 20px;
     font-weight: 700;
-    font: bold;
     color: #191C23;
+    margin-bottom: 6px;
 }
 
-.claim-date p {
+.pending {
+    color: #987000;
     font-size: 14px;
     font-weight: 500;
-    color: #414754;
-    margin-bottom: 20px;
 }
 
 .view-details {
@@ -268,11 +228,7 @@ body {
     gap: 6px;
 }
 
-.arrow {
-    font-size: 18px;
-
-}
-
+/* ───── SUMMARY SIDEBAR ───── */
 .summary-card {
     background: #F2F3FD;
     border-radius: 12px;
@@ -282,16 +238,21 @@ body {
 
 .summary-card h3 {
     font-size: 18px;
-    font: bold;
     font-weight: 800;
     color: #191C23;
+    margin-bottom: 8px;
 }
 
 .summary-stats .stat {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     padding: 12px 0;
+    border-bottom: 1px solid #e2e8f0;
+}
 
+.summary-stats .stat:last-child {
+    border-bottom: none;
 }
 
 .label {
@@ -300,10 +261,21 @@ body {
     color: #414754;
 }
 
-.pending {
+.value {
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.pen-value {
+    font-size: 24px;
+    font-weight: 700;
     color: #987000;
-    font-size: 14px;
-    font-weight: 500;
+}
+
+.comp-value {
+    font-size: 24px;
+    font-weight: 700;
+    color: #006E2C;
 }
 
 .completed {
@@ -312,24 +284,16 @@ body {
     font-weight: 500;
 }
 
-.value {
-    font-size: 24px;
-    font-weight: 700;
-    font: bold;
+.rejected {
+    color: red;
+    font-size: 14px;
+    font-weight: 500;
 }
 
-.pen-value {
+.rej-value {
     font-size: 24px;
     font-weight: 700;
-    font: bold;
-    color: #987000;
-}
-
-.comp-value {
-    font-size: 24px;
-    font-weight: 700;
-    font: bold;
-    color: #006E2C;
+    color: red;
 }
 
 .info-box {
@@ -345,35 +309,41 @@ body {
     font-weight: 500;
 }
 
-.slide {
-    display: flex;
-    justify-content: center;
-    gap: 8px;
-    margin-top: 50px;
-    margin-bottom: 50PX;
-
-}
-
-.page-btn {
-    width: 40px;
-    height: 40px;
-    border: none;
-    background: #f1f5f9;
-    border-radius: 10px;
-    font-size: 15px;
-    cursor: pointer;
+/* ───── FOOTER ───── */
+.site-footer {
     display: flex;
     align-items: center;
-    justify-content: center;
-    color: #414754;
+    justify-content: space-between;
+    padding: 40px 32px;
+    border-top: 1px solid #E2E8F0;
+    background-color: #F8FAFC;
+    margin-top: 60px;
+}
+
+.footer-brand {
+    font-size: 16px;
     font-weight: 700;
+    color: #94A3B8;
 }
 
-.page-btn:hover {
-    background: #e2e8f0;
+.footer-middle {
+    display: flex;
+    gap: 24px;
 }
 
-.page-btn.activate {
-    background: #1D4ED8;
-    color: #e2e8f0;
+.footer-middle a {
+    text-decoration: none;
+    font-size: 12px;
+    color: #94A3B8;
+    font-weight: 400;
+}
+
+.footer-middle a:hover {
+    color: #1D4ED8;
+}
+
+.footer-right p {
+    font-size: 12px;
+    color: #94A3B8;
+    font-weight: 400;
 }

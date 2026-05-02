@@ -60,20 +60,20 @@ public class ViewClaimServlet extends HttpServlet {
 	    String action = request.getParameter("action");
 	    String claimId = request.getParameter("claimId");
 	    String adminNotes = request.getParameter("adminNotes");
-
-	    if (adminNotes != null) {
-	        String pendingAction = request.getParameter("pendingAction");
-	        int adminId = (Integer) SessionManager.getAttribute(request, "adminId");
-	        claimService.updateClaimStatus(Integer.parseInt(claimId), pendingAction, adminNotes, adminId);
-	        response.sendRedirect(request.getContextPath() + "/ManageClaim");
-	        return;
-	    }
-
+	    
 	    // First step: load attributes, set form flags, THEN forward once
 	    int id = Integer.parseInt(claimId);
 	    Claim claim = claimService.getClaimById(id);
 	    User user = userService.getUserByID(String.valueOf(claim.getUserId()));
 	    Item item = itemService.getItemById(claim.getItemId());
+
+	    if (adminNotes != null) {
+	        String pendingAction = request.getParameter("pendingAction");
+	        int adminId = (Integer) SessionManager.getAttribute(request, "adminId");
+	        claimService.updateClaimStatus(Integer.parseInt(claimId), pendingAction, adminNotes, adminId, item.getItemId());
+	        response.sendRedirect(request.getContextPath() + "/ManageClaim");
+	        return;
+	    }
 
 	    request.setAttribute("claim", claim);
 	    request.setAttribute("user", user);

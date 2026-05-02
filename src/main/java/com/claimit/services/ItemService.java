@@ -34,4 +34,8 @@ public class ItemService {
 		return itemDao.findUserReportCount(userId);
 	}
 	
+	public void updateItemType(String type, int itemId) {
+		itemDao.changeItemtype(type, itemId);
+	}
+	
 }

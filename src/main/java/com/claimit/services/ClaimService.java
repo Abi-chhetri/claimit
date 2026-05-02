@@ -1,5 +1,6 @@
 package com.claimit.services;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,6 +11,7 @@ import com.claimit.model.Claim;
 
 public class ClaimService {
 	private ClaimsDao claimDao=new ClaimsDao();
+	private ItemService itemService=new ItemService();
 	
 	public List<Claim> getAllClaims(){
 		return claimDao.fetchAllClaims();
@@ -40,15 +42,24 @@ public class ClaimService {
     	return claimDao.fetchClaimById(claimId);
     }
     
-    public boolean updateClaimStatus(int claimId, String pendingAction, String adminNotes, int approvedBy) {
+    public boolean updateClaimStatus(int claimId, String pendingAction, String adminNotes, int approvedBy , int itemId) {
         String status;
         if (pendingAction.equals("approve")) {
             status = ClaimStatus.APPROVED.name();
+            itemService.updateItemType("RETURNED",itemId);
         } else if (pendingAction.equals("reject")) {
             status = ClaimStatus.REJECTED.name();
         } else {
             status = ClaimStatus.IN_REVIEW.name();
         }
         return claimDao.updateClaimStatus(claimId, status, adminNotes, approvedBy);
+    }
+    
+    public List<Claim> getClaimByUserId(int userId){
+    	List<Claim> claim=claimDao.fetchClaimsByUserId(userId);
+    	if(claim==null) {
+    		claim=new ArrayList<>();
+    	}
+    	return claim;
     }
 }

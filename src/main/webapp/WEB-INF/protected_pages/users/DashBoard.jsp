@@ -38,7 +38,7 @@
                 <a href="${pageContext.request.contextPath}/Browse">Browse</a>
                 <a href="${pageContext.request.contextPath}/DashBoard">Dashboard</a>
                 <a href="${pageContext.request.contextPath}/ReportFoundItem">Report Found Item</a>
-				<a href="${pageContext.request.contextPath}/Claims">Claims</a>
+				<a href="${pageContext.request.contextPath}/MyClaim">Claims</a>
                 <a href="${pageContext.request.contextPath}/About">About</a>
             </nav>
         </div>
@@ -49,10 +49,13 @@
                         d="M19.29 17.29L18 16v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-1.29 1.29c-.63.63-.19 1.71.7 1.71h13.17c.9 0 1.34-1.08.71-1.71M16 17H8v-6c0-2.48 1.51-4.5 4-4.5s4 2.02 4 4.5zm-4 5c1.1 0 2-.9 2-2h-4a2 2 0 0 0 2 2" />
                 </svg>
             </button>
-            <button class="noti-acc-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                    <path fill="currentColor"
-                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10s10-4.48 10-10S17.52 2 12 2m0 4c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6m0 14c-2.03 0-4.43-.82-6.14-2.88a9.95 9.95 0 0 1 12.28 0C16.43 19.18 14.03 20 12 20" />
-                </svg></button>
+			<form action="${pageContext.request.contextPath}/UserProfile" method="get">
+			  <button class="noti-acc-button" type="submit">
+			    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+			      <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10s10-4.48 10-10S17.52 2 12 2m0 4c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6m0 14c-2.03 0-4.43-.82-6.14-2.88a9.95 9.95 0 0 1 12.28 0C16.43 19.18 14.03 20 12 20" />
+			    </svg>
+			  </button>
+			</form>
             <form action="${pageContext.request.contextPath}/Logout" method="post">
 			    <button type="submit" class="logout-button">Logout</button>
 			</form>

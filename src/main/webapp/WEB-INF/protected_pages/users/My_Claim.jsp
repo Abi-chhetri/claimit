@@ -1,5 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="com.claimit.model.Claim, com.claimit.enums.ClaimStatus, java.util.ArrayList, java.util.List, java.text.SimpleDateFormat" %>
+<%
+List<Claim> claim= (List<Claim>) request.getAttribute("claim");
+int requestedClaimCount= (int) request.getAttribute("requestedClaimCount");
+
+%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,7 +25,7 @@
                 <a href="#">Browse</a>
                 <a href="#">Dashboard</a>
                 <a href="#">Report</a>
-                <a href="#">Claims</a>
+                <a href="${pageContext.request.contextPath}/MyClaim">Claims</a>
                 <a href="#">About</a>
             </nav>
         </div>
@@ -40,8 +46,8 @@
 
     <nav class="tabs-cont">
         <div class="tabs">
-            <a href="#" class="tab_act">My Claims</a>
-            <a href="#" class="tab">Requested Claims</a>
+            <a href="${pageContext.request.contextPath}/MyClaim" class="tab_act">My Claims</a>
+            <a href="${pageContext.request.contextPath}/MyRequestedClaim" class="tab">Requested Claims</a>
         </div>
     </nav>
 
@@ -57,7 +63,7 @@
 
                 <div class="Active-request">
                     <h1>ACTIVE REQUESTS</h1>
-                    <span>04</span>
+                    <span><%=requestedClaimCount%></span>
                     <p>Your claims are currently being processed by our
                         curation team. Most items are verified within 24
                         hours.</p>
@@ -72,66 +78,36 @@
             </aside>
 
             <div class="right-side">
-
-                <div class="claim-card">
-                    <div class="image">
-                        <img src="image/wallet.png" alt="wallet img">
-                    </div>
-                    <div class="item-details">
-                        <h2>Browm Leather Small Bag</h2>
-                        <h3>Accepted: Oct 24, 2023</h3>
-                    </div>
-                    <div class="Returned">
-                        <h1>Returned</h1>
-                        <a href="#" class="view-details">
-                            View Item
-                        </a>
-                    </div>
-                </div>
-
-                <div class="claim-card">
-                    <div class="image">
-                        <img src="image/headphone.png" alt="headphone img">
-                    </div>
-                    <div class="item-details">
-                        <h2>Black Sony Headphone</h2>
-                        <h3>Accepted: Nov 12, 2023</h3>
-                    </div>
-                    <div class="Found">
-                        <h1>Found</h1>
-                        <a href="#" class="view-details">
-                            View Item
-                        </a>
-                    </div>
-                </div>
-
-                <div class="claim-card">
-                    <div class="image">
-                        <img src="image/watch.png" alt="watch img">
-                    </div>
-                    <div class="item-details">
-                        <h2>Silver Watch</h2>
-                        <h3>Accepted: Nov 28, 2023</h3>
-                    </div>
-                    <div class="Found">
-                        <h1>Found</h1>
-                        <a href="#" class="view-details">
-                            View Item
-                        </a>
-                    </div>
-                </div>
+				<% if(claim.isEmpty() || claim ==null){ %>
+				<h1>You don't have any approved claims yet to show.</h1>
+				<%}else{ %>
+				<% for(Claim eachClaim : claim) { 
+				    if(eachClaim.getClaimStatus().equals(ClaimStatus.APPROVED.name()) || 
+				       eachClaim.getClaimStatus().equals(ClaimStatus.REJECTED.name())) { %>
+				    <div class="claim-card">
+				        <div class="image">
+				            <img src="<%= eachClaim.getProofImage().split(",")[0] %>" alt="item img">
+				        </div>
+				        <div class="item-details">
+				            <h2><%= eachClaim.getItemTitle() %></h2>
+				            <% if(eachClaim.getClaimStatus().equals(ClaimStatus.APPROVED.name())) { %>
+				                <h3>Accepted: <%= eachClaim.getApprovedAt() == null ? "" : new SimpleDateFormat("MMM dd, yyyy").format(eachClaim.getApprovedAt()) %></h3>
+				                <h3 style="color:green;"><strong> Admin Notes :</strong> <%= eachClaim.getAdminNotes() %></h3>
+				            <% } else { %>
+				                <h3>Rejected: <%= eachClaim.getApprovedAt() == null ? "" : new SimpleDateFormat("MMM dd, yyyy").format(eachClaim.getApprovedAt()) %></h3>
+				                <h3 style="color:red;"><strong> Admin Notes :</strong> <%= eachClaim.getAdminNotes() %></h3>
+				            <% } %>
+				        </div>
+				        <div class="<%= eachClaim.getClaimStatus().equals(ClaimStatus.APPROVED.name()) ? "Returned" : "Found" %>">
+				            <h1><%= eachClaim.getClaimStatus() %></h1>
+				        </div>
+				    </div>
+				<% }} %>
+				<%} %>
             </div>
         </section>
     </main>
-
-    <nav class="slide">
-        <button class="page-btn"><</button>
-                <button class="page-btn activate">1</button>
-                <button class="page-btn">2</button>
-                <button class="page-btn">3</button>
-                <button class="page-btn">></button>
-    </nav>
-
+    
     <footer class="site-footer">
         <div class="footer-left">
             <span class="footer-brand">ClaimIt</span>

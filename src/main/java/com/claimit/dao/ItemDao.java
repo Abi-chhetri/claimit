@@ -17,10 +17,10 @@ public class ItemDao {
 			+ " Status, Rejection_Reason, Expires_At, Created_At, Updated_At FROM ITEMS";
 	private final String createItem = "insert into ITEMS (User_ID, Type, Title, Category, Description, Location, Lost_Found_Date, Status) values (?, ?, ?, ?, ?, ?, ?, ?)";
 	private final String userReportCountQuery = "select count(*) from ITEMS where User_ID = ?";
+	private final String updateItemType= "UPDATE ITEMS SET Type= ? where Item_ID= ?";
 	
 	public Item findItemById(int itemId) {
 		Item item = null;
-		
 		try {
 			Connection con = DataBase_Config.getConection();
 			PreparedStatement ps = con.prepareStatement(selectItemById);
@@ -145,6 +145,21 @@ public class ItemDao {
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
             return null;
+        }
+    }
+    
+    public void changeItemtype(String type, int itemId) {
+    	try {
+    		Connection con= DataBase_Config.getConection();
+    		PreparedStatement ps= con.prepareStatement(updateItemType);
+    		ps.setString(1, type);
+    		ps.setInt(2, itemId);
+    		ps.executeUpdate();
+    		
+    		ps.close();
+    		con.close();
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
         }
     }
 }
