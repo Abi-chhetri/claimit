@@ -10,6 +10,10 @@ public class UserService {
 	
 	private UserDao userDao=new UserDao();
 	
+	public boolean updatePersonalInfo(User user) {
+	    return userDao.updatePersonalInfo(user);
+	}
+	
 	public String insertUser(User user) {
 		String password = HashPasswordUtil.encryptPassword(user.getPassword());
 		user.setPassword(password);

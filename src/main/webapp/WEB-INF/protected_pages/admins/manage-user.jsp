@@ -1,4 +1,4 @@
-<%@page import="com.claimit.enums.Status"%>
+<%@page import="com.claimit.enums.ActivityStatus"%>
 <%@page import="com.claimit.enums.RegistrationStatus"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -318,7 +318,8 @@ String searchQuery = request.getParameter("search") != null ? request.getParamet
                                 <td>
                                     <div class="mu-user-info">
                                         <div class="mu-avatar" style="background:#fce7f3;color:#9d174d;">
-                                            <%= user.getFullName().trim().substring(0,1).toUpperCase() + user.getFullName().trim().split(" ")[1].substring(0,1).toUpperCase() %>
+                                            <% String[] np = user.getFullName().trim().split(" "); %>
+											<%= np[0].substring(0,1).toUpperCase() + (np.length > 1 ? np[1].substring(0,1).toUpperCase() : "") %>
                                         </div>
                                         <div>
                                             <p class="mu-name"><%= user.getFullName() %></p>

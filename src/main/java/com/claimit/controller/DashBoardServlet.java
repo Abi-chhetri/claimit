@@ -10,7 +10,6 @@ import java.util.Map;
 
 import com.claimit.model.User;
 import com.claimit.services.ClaimService;
-import com.claimit.services.ItemReportService;
 import com.claimit.services.ItemService;
 import com.claimit.services.UserService;
 import com.claimit.utils.SessionManager;

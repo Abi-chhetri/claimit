@@ -72,7 +72,7 @@
                 </section>
 
                 <div class="image">
-                    <img src="image/found_item.png" alt="lost item image">
+                    <img src="${pageContext.request.contextPath}/images/found_item.png" alt="lost item image">
                 </div>
             </aside>
 
@@ -135,7 +135,7 @@
 					</div>
 
                     <div class="button">
-                        <button type="button" class="cancel-btn">Cancel</button>
+                        <button type="reset" class="cancel-btn">Clear</button>
                         <button type="submit" class="submit-btn">Submit Report</button>
                     </div>
                 </form>
@@ -168,6 +168,10 @@
 	        } else {
 	            fileInfo.textContent = count + " files selected";
 	        }
+	    });
+	    
+	    document.querySelector("form").addEventListener("reset", function() {
+	        document.getElementById("file-info").textContent = "No files selected";
 	    });
 	</script>
 </body>

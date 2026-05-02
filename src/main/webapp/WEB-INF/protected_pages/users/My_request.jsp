@@ -1,5 +1,14 @@
+<%@page import="com.claimit.enums.ClaimStatus"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="com.claimit.model.Claim, java.util.List, java.text.SimpleDateFormat" %>
+
+<%List<Claim> claims= (List<Claim>) request.getAttribute("claims"); %>
+<%
+int returned=0;
+int rejected=0;
+int pending= 0;
+%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -21,7 +30,7 @@
                 <a href="#">Browse</a>
                 <a href="#">Dashboard</a>
                 <a href="#">Report</a>
-                <a href="#">Claims</a>
+                <a href="${pageContext.request.contextPath}/MyRequestedClaim">Claims</a>
                 <a href="#">About</a>
             </nav>
         </div>
@@ -41,8 +50,8 @@
     </header>
     <nav class="tabs-cont">
         <div class="tabs">
-            <a href="#" class="tab">My Claims</a>
-            <a href="#" class="tab_act">Requested Claims</a>
+            <a href="${pageContext.request.contextPath}/MyClaim" class="tab">My Claims</a>
+            <a href="${pageContext.request.contextPath}/MyRequestedClaim" class="tab_act">Requested Claims</a>
         </div>
     </nav>
 
@@ -54,50 +63,41 @@
         </header1>
         <div class="content-grid">
             <section class="content">
-
-                <article class="claim-card">
-                    <div class="image">
-                        <img src="image/walletjpg.jpg" alt="wallet image">
-                    </div>
-
-                    <div class="claim-content">
-                        <div class="status">PENDING VERIFICATION</div>
-
-                        <div class="claim-date">
-                            <h5>CLAIMED ON</h5>
-                            <span>Oct24, 2024 </span>
-                        </div>
-
-                        <h2>Midnight Navy Leather Wallet</h2>
-                        <p>Category: Personal Accessories</p>
-
-                        <a href="#" class="view-details">
-                            View Item Details
-                            <span class="arrow">></span>
-                        </a>
-                    </div>
-                </article>
-
-                <article class="claim-card">
-                    <div class="image">
-                        <img src="image/mobilejpg.jpg" alt="phone">
-                    </div>
-                    <div class="claim-content">
-                        <div class="status">PENDING VERIFICATION</div>
-                        <div class="claim-date">
-                            <h5>CLAIMED ON</h5>
-                            <span>Feb7, 2025</span>
-                        </div>
-
-                        <h2>Silver iphone 15 Pro</h2>
-                        <p>Category: Electronics</p>
-
-                        <a href="#" class="view-details">
-                            View Item Details
-                            <span class="arrow">></span>
-                        </a>
-                    </div>
-                </article>
+            <%if(claims.isEmpty() || claims == null){ %>
+            <h1>You have not requested any claim yet to show.</h1>
+            <%}else{ %>
+	            <%for (Claim eachClaim: claims){
+	            	if(eachClaim.getClaimStatus().equals(ClaimStatus.PENDING.name())){
+	            		pending++;
+	            	%>
+	                <article class="claim-card">
+	                    <div class="image">
+	                        <img src="<%=eachClaim.getProofImage()%>" alt="wallet image">
+	                    </div>
+	
+	                    <div class="claim-content">
+	                        <div class="status"><%=eachClaim.getClaimStatus() %> Verification</div>
+	
+	                        <div class="claim-date">
+	                            <h5>CLAIMED ON</h5>
+	                            <span><%= new SimpleDateFormat("MMM dd, yyyy").format(eachClaim.getCreatedAt()) %></span>
+	                        </div>
+	
+	                        <h2><%=eachClaim.getItemTitle() %></h2>
+	                        <p class="pending">Category : <%=eachClaim.getItemCategory().substring(0,1) + eachClaim.getItemCategory().toLowerCase().substring(1) %></p>
+	                        <p class="pending">Ownership Description : <%=eachClaim.getOwnershipDescription() %></p>
+	                        <p class="pending">Admin Notes : <%=eachClaim.getAdminNotes() == null ? "No Message Yet.":eachClaim.getAdminNotes() %></p>
+	                    </div>
+	                </article>
+	                <%} else if(eachClaim.getClaimStatus().equals(ClaimStatus.APPROVED.name())){
+	                	returned++;
+	                }
+	                else if( eachClaim.getClaimStatus().equals(ClaimStatus.REJECTED.name()) ){
+	                	rejected++;
+	                }
+	                %>
+	            <%} %>
+            <%} %>
             </section>
 
             <aside class="summary-sidebar">
@@ -107,15 +107,19 @@
                     <div class="summary-stats">
                         <div class="stat">
                             <span class="label">Total Claims</span>
-                            <span class="value">02</span>
+                            <span class="value"><%=claims.size() %></span>
                         </div>
                         <div class="stat">
                             <span class="pending">Currently Pending</span>
-                            <span class="pen-value">02</span>
+                            <span class="pen-value"><%=pending %></span>
                         </div>
                         <div class="stat">
                             <span class="completed">Successfully Returned</span>
-                            <span class="comp-value">14</span>
+                            <span class="comp-value"><%= returned %></span>
+                        </div>
+                        <div class="stat">
+                            <span class="rejected">Total Rejected</span>
+                            <span class="rej-value"><%= rejected %></span>
                         </div>
                     </div>
 
@@ -126,14 +130,6 @@
             </aside>
         </div>
     </main>
-
-    <nav class="slide">
-        <button class="page-btn"><</button>
-                <button class="page-btn activate">1</button>
-                <button class="page-btn">2</button>
-                <button class="page-btn">3</button>
-                <button class="page-btn">></button>
-    </nav>
 </body>
 <footer class="site-footer">
     <div class="footer-left">

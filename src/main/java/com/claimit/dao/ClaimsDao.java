@@ -32,6 +32,11 @@ public class ClaimsDao {
 	        + "VALUES (?, ?, ?, '" + ClaimStatus.PENDING.name() + "', NOW(), ?)";
    private final String selectClaimByIdQuery = "SELECT * FROM claims WHERE Claim_ID = ?";
    private final String updateClaimStatusQuery =  "UPDATE claims SET Claim_Status = ?, Admin_Notes = ?, Approved_By = ?, Approved_At = NOW() WHERE Claim_ID = ?";
+   private final String selectClaimsByUserIdQuery = "SELECT c.*, i.Title, i.Category "
+		    + "FROM claims c "
+		    + "JOIN items i ON c.Item_ID = i.Item_ID "
+		    + "WHERE c.User_ID = ?";
+   
    
 	public List<Claim> fetchAllClaims() {
 	    try {
@@ -226,6 +231,41 @@ public class ClaimsDao {
 	    } catch (SQLException | ClassNotFoundException e) {
 	        e.printStackTrace();
 	        return false;
+	    }
+	}
+	
+	
+	
+	public List<Claim> fetchClaimsByUserId(int userId) {
+	    try {
+	        Connection con = DataBase_Config.getConection();
+	        PreparedStatement ps = con.prepareStatement(selectClaimsByUserIdQuery);
+	        ps.setInt(1, userId);
+	        ResultSet rs = ps.executeQuery();
+	        List<Claim> claims = new ArrayList<>();
+	        while (rs.next()) {
+	            Claim claim = new Claim();
+	            claim.setClaimId(rs.getInt("Claim_ID"));
+	            claim.setItemId(rs.getInt("Item_ID"));
+	            claim.setUserId(rs.getInt("User_ID"));
+	            claim.setProofImage(rs.getString("Proof_Image"));
+	            claim.setClaimStatus(rs.getString("Claim_Status"));
+	            claim.setAdminNotes(rs.getString("Admin_Notes"));
+	            claim.setCreatedAt(rs.getTimestamp("Created_At"));
+	            claim.setOwnershipDescription(rs.getString("Ownership_Description"));
+	            claim.setApprovedBy(rs.getObject("Approved_By", Integer.class));
+	            claim.setApprovedAt(rs.getTimestamp("Approved_At"));
+	            claim.setItemTitle(rs.getString("Title"));
+	            claim.setItemCategory(rs.getString("Category"));
+	            claims.add(claim);
+	        }
+	        rs.close();
+	        ps.close();
+	        con.close();
+	        return claims;
+	    } catch (SQLException | ClassNotFoundException e) {
+	        e.printStackTrace();
+	        return null;
 	    }
 	}
 }

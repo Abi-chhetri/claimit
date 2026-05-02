@@ -1,4 +1,5 @@
 @charset "UTF-8";
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -11,6 +12,7 @@ body {
     min-width: 1200px;
 }
 
+/* ─── FLASH MESSAGE ──────────────────────────────────── */
 .msg-box {
     position: fixed;
     top: 20px;
@@ -21,6 +23,7 @@ body {
     border-radius: 6px;
     font-weight: bold;
     box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    z-index: 9999;
 }
 
 /* ─── HEADER ─────────────────────────────────────────── */
@@ -30,14 +33,17 @@ body {
     justify-content: space-between;
     background-color: #ffffff;
     padding: 0 32px;
-    height: 60px;
+    height: 64px;
     border-bottom: 1px solid #e0e0e0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
 }
 
 .header1 {
     display: flex;
     align-items: center;
-    gap: 48px;
+    gap: 40px;
 }
 
 .claimit-onheader {
@@ -49,29 +55,29 @@ body {
 .navbar {
     display: flex;
     align-items: center;
-    gap: 24px;
-    padding: 0px 60px;
+    gap: 4px;
+    padding: 0;
 }
 
 .navbar a {
     text-decoration: none;
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 500;
     color: #475569;
-    border-bottom: 2px solid transparent;
-    padding-bottom: 2px;
-    display: inline-block;
-}
-
-.navbar a.Active {
-    color: #1D4ED8;
-    font-weight: 400;
-    border-bottom: 2px solid #1D4ED8;
+    padding: 6px 12px;
+    border-radius: 6px;
+    transition: background 0.2s, color 0.2s;
 }
 
 .navbar a:hover {
     color: #1D4ED8;
-    border-bottom: 2px solid #1D4ED8;
+    background: #EFF6FF;
+}
+
+.navbar a.Active {
+    color: #1D4ED8;
+    font-weight: 600;
+    background: #EFF6FF;
 }
 
 .header2 {
@@ -115,13 +121,12 @@ body {
 /* ─── SEARCH BAR ─────────────────────────────────────── */
 .search-bar-row {
     display: flex;
-    justify-content: space-between;
     align-items: flex-end;
     gap: 24px;
     background-color: #F2F3FD;
     border-radius: 12px;
-    padding: 24px 32px 40px 32px;
-    margin-bottom: 40px;
+    padding: 24px 32px;
+    margin-bottom: 24px;
 }
 
 .search-group {
@@ -135,7 +140,14 @@ body {
     display: flex;
     flex-direction: column;
     gap: 6px;
-    width: 260px;
+    width: 220px;
+}
+
+.search-btn-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-top: 20px;
 }
 
 .search-group label,
@@ -147,8 +159,7 @@ body {
     text-transform: uppercase;
 }
 
-.search-input-wrapper,
-.date-input-wrapper {
+.search-input-wrapper {
     display: flex;
     align-items: center;
     border: 1px solid #d0d0d0;
@@ -157,8 +168,7 @@ body {
     padding: 0 14px;
 }
 
-.search-input-wrapper input,
-.date-input-wrapper input {
+.search-input-wrapper input {
     border: none;
     background: transparent;
     padding: 11px 8px;
@@ -169,7 +179,34 @@ body {
     font-family: 'Inter', sans-serif;
 }
 
-.search-input-wrapper:focus-within,
+.search-input-wrapper:focus-within {
+    border-color: #1a6fd4;
+    background: #ffffff;
+}
+
+.date-input-wrapper {
+    display: flex;
+    align-items: center;
+    border: 1px solid #d0d0d0;
+    border-radius: 10px;
+    background: #f7f8fa;
+    padding: 0 14px;
+    gap: 8px;
+}
+
+.date-input-wrapper select {
+    border: none;
+    background: transparent;
+    padding: 11px 0;
+    font-size: 14px;
+    outline: none;
+    color: #111;
+    width: 100%;
+    font-family: 'Inter', sans-serif;
+    cursor: pointer;
+    appearance: none;
+}
+
 .date-input-wrapper:focus-within {
     border-color: #1a6fd4;
     background: #ffffff;
@@ -178,6 +215,63 @@ body {
 .calendar-icon {
     font-size: 16px;
     color: #727785;
+    flex-shrink: 0;
+    pointer-events: none;
+}
+
+.search-submit-btn {
+    padding: 11px 22px;
+    background: #1D4ED8;
+    color: #ffffff;
+    border: none;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.2s;
+}
+
+.search-submit-btn:hover {
+    background: #1a44c2;
+}
+
+.clear-btn {
+    padding: 11px 16px;
+    background: transparent;
+    color: #888;
+    border: 1px solid #d0d0d0;
+    border-radius: 10px;
+    font-size: 14px;
+    font-family: 'Inter', sans-serif;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background 0.2s, color 0.2s;
+}
+
+.clear-btn:hover {
+    background: #f0f0f0;
+    color: #444;
+}
+
+/* ─── RESULTS COUNT ──────────────────────────────────── */
+.results-count {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.results-count strong {
+    color: #111;
+}
+
+.no-results-msg {
+    grid-column: 1 / -1;
+    text-align: center;
+    font-size: 15px;
+    color: #888;
+    padding: 60px 0;
 }
 
 /* ─── CARDS ──────────────────────────────────────────── */
@@ -221,11 +315,6 @@ body {
     color: #ffffff;
 }
 
-.badge.lost {
-    background-color: #987000;
-    color: #ffffff;
-}
-
 .card-body {
     padding: 16px;
 }
@@ -255,14 +344,6 @@ body {
 }
 
 /* ─── CARD ACTIONS ───────────────────────────────────── */
-.card-actions {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    margin-top: 12px;
-    width: 100%;
-}
-
 .view-details-btn {
     width: 100%;
     padding: 10px;
@@ -274,11 +355,13 @@ body {
     color: #444;
     cursor: pointer;
     font-family: 'Inter', sans-serif;
+    margin-top: 12px;
+    transition: background 0.2s, color 0.2s, border-color 0.2s;
 }
 
 .view-details-btn:hover {
     border-color: #1a6fd4;
-    color: #ffff;
+    color: #ffffff;
     background: #1a6fd4;
 }
 
@@ -298,7 +381,7 @@ body {
     box-sizing: border-box;
     cursor: pointer;
     transition: background 0.2s, color 0.2s;
-    margin-top:5px;
+    margin-top: 8px;
 }
 
 .report-item-btn:hover {
@@ -398,7 +481,9 @@ body {
     font-size: 14px;
     font-family: 'Inter', sans-serif;
     text-decoration: none;
+    cursor: pointer;
     transition: background 0.2s;
+    background: transparent;
 }
 
 .cancel-report-btn:hover {
@@ -413,6 +498,7 @@ body {
     padding: 40px 32px;
     border-top: 1px solid #E2E8F0;
     background-color: #F8FAFC;
+    margin-top: 60px;
 }
 
 .footer-brand {
@@ -424,7 +510,6 @@ body {
 .footer-middle {
     display: flex;
     gap: 24px;
-    margin-left: 170px;
 }
 
 .footer-middle a {

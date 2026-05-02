@@ -8,7 +8,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-import com.claimit.model.Admin;
 import com.claimit.model.User;
 import com.claimit.services.AdminService;
 import com.claimit.services.UserService;

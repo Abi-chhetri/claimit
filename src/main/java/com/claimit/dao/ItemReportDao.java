@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import com.claimit.enums.ReportStatus;
-import com.claimit.enums.ActivityStatus;
 import com.claimit.utils.DataBase_Config;
 
 public class ItemReportDao {
