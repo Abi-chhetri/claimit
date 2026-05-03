@@ -4,9 +4,14 @@
 <%@ page import="com.claimit.model.User, com.claimit.model.Item"%>
 <%@ page import="com.claimit.model.ItemImage"%>
 <%@ page import="java.util.List, java.text.SimpleDateFormat"%>
-<% 
-int userId= (int) SessionManager.getAttribute(request, "userId");
-Item item=(Item) request.getAttribute("item");
+<%
+Integer userId = (Integer) SessionManager.getAttribute(request, "userId");
+Integer adminId = null;
+
+if (userId == null) {
+    adminId = (Integer) SessionManager.getAttribute(request, "adminId");
+}
+Item item = (Item) request.getAttribute("item");
 %>
 
 <!DOCTYPE html>
@@ -63,6 +68,7 @@ Item item=(Item) request.getAttribute("item");
 		<%
 		}
 		%>
+		<%if(userId !=null) {%>
 		<a href="${pageContext.request.contextPath}/Browse" class="back-link">
 			<svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px"
 				viewBox="0 0 24 24">
@@ -70,6 +76,15 @@ Item item=(Item) request.getAttribute("item");
 					d="M20 11H7.83l5.59-5.59L12 4l-8 8l8 8l1.41-1.41L7.83 13H20z" />
             </svg>Back to Browse
 		</a>
+		<%} else{ %>
+		<a href="${pageContext.request.contextPath}/ManageItem" class="back-link">
+			<svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px"
+				viewBox="0 0 24 24">
+                <path fill="#005BBF"
+					d="M20 11H7.83l5.59-5.59L12 4l-8 8l8 8l1.41-1.41L7.83 13H20z" />
+            </svg>Back to Manage Item
+		</a>
+		<%} %>
 		<section class="detail-section">
 			<%
 			List<ItemImage> images = (List<ItemImage>) request.getAttribute("itemImages");
@@ -159,7 +174,7 @@ Item item=(Item) request.getAttribute("item");
 
 				<div class="poster-row">
 					<figure class="avatar">
-						<img src="${pageContext.request.contextPath}/${user.profilePhoto}" alt="${user.fullName}" />
+						<img src="${pageContext.request.contextPath}/${empty photoPath ? 'images/BG.png' : photoPath}" alt="${user.fullName}" />
 					</figure>
 					<div class="poster-info">
 						<span class="poster-label">POSTED BY</span> <span
@@ -174,7 +189,7 @@ Item item=(Item) request.getAttribute("item");
 						Verified
 					</div>
 				</div>
-				<% if(userId != item.getUserId()) {%>
+				<% if(userId == null || userId != item.getUserId()) {%>
 				<button class="claim-btn"
 					onclick="document.getElementById('claimModal').classList.add('active')">
 					<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"

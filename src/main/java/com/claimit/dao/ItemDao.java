@@ -17,8 +17,10 @@ public class ItemDao {
 			+ " Status, Rejection_Reason, Expires_At, Created_At, Updated_At FROM ITEMS";
 	private final String createItem = "insert into ITEMS (User_ID, Type, Title, Category, Description, Location, Lost_Found_Date, Status) values (?, ?, ?, ?, ?, ?, ?, ?)";
 	private final String userReportCountQuery = "select count(*) from ITEMS where User_ID = ?";
-	private final String updateItemType= "UPDATE ITEMS SET Type= ? where Item_ID= ?";
-	
+	private final String updateItemType = "UPDATE ITEMS SET Type= ? where Item_ID= ?";
+	private final String updateItemStatus = "UPDATE ITEMS SET Status = ?, Updated_At = NOW() WHERE Item_ID = ?";
+	private final String updateItemStatusWithReason = "UPDATE ITEMS SET Status = ?, Rejection_Reason = ?, Updated_At = NOW() WHERE Item_ID = ?";
+
 	public Item findItemById(int itemId) {
 		Item item = null;
 		try {
@@ -45,7 +47,7 @@ public class ItemDao {
 				item.setCreatedAt(rs.getTimestamp("Created_At"));
 				item.setUpdatedAt(rs.getTimestamp("Updated_At"));
 			}
-			
+
 			ps.close();
 			rs.close();
 			con.close();
@@ -54,112 +56,145 @@ public class ItemDao {
 		}
 		return item;
 	}
-	
+
 	public List<Item> fetchAllItems() {
-		List<Item> items=new ArrayList<>();
+		List<Item> items = new ArrayList<>();
 		try {
 			Connection con = DataBase_Config.getConection();
-			Statement st= con.createStatement();
-			ResultSet rs= st.executeQuery(selectItem);
-			
+			Statement st = con.createStatement();
+			ResultSet rs = st.executeQuery(selectItem);
+
 			while (rs.next()) {
 
-			    Item item = new Item();
+				Item item = new Item();
 
-			    item.setItemId(rs.getInt("Item_ID"));
-			    item.setUserId(rs.getInt("User_ID"));
-			    item.setType(rs.getString("Type"));
-			    item.setTitle(rs.getString("Title"));
-			    item.setCategory(rs.getString("Category"));
-			    item.setDescription(rs.getString("Description"));
-			    item.setLocation(rs.getString("Location"));
-			    item.setLostFoundDate(rs.getDate("Lost_Found_Date"));
-			    item.setStatus(rs.getString("Status"));
-			    item.setRejectionReason(rs.getString("Rejection_Reason"));
-			    item.setExpiresAt(rs.getTimestamp("Expires_At"));
-			    item.setCreatedAt(rs.getTimestamp("Created_At"));
-			    item.setUpdatedAt(rs.getTimestamp("Updated_At"));
+				item.setItemId(rs.getInt("Item_ID"));
+				item.setUserId(rs.getInt("User_ID"));
+				item.setType(rs.getString("Type"));
+				item.setTitle(rs.getString("Title"));
+				item.setCategory(rs.getString("Category"));
+				item.setDescription(rs.getString("Description"));
+				item.setLocation(rs.getString("Location"));
+				item.setLostFoundDate(rs.getDate("Lost_Found_Date"));
+				item.setStatus(rs.getString("Status"));
+				item.setRejectionReason(rs.getString("Rejection_Reason"));
+				item.setExpiresAt(rs.getTimestamp("Expires_At"));
+				item.setCreatedAt(rs.getTimestamp("Created_At"));
+				item.setUpdatedAt(rs.getTimestamp("Updated_At"));
 
-			    items.add(item);
+				items.add(item);
 			}
-			
-	        rs.close();
-	        st.close();
-	        con.close();
-	        return items;
-			
+
+			rs.close();
+			st.close();
+			con.close();
+			return items;
+
 		} catch (ClassNotFoundException | SQLException e) {
-            e.printStackTrace();
-            return null;
+			e.printStackTrace();
+			return null;
 		}
 	}
-	
+
 	public int createItem(Item item) {
-	    try{
-	    	Connection con = DataBase_Config.getConection();
-	        PreparedStatement ps = con.prepareStatement(createItem, Statement.RETURN_GENERATED_KEYS);
-	        ps.setInt(1, item.getUserId());
-	        ps.setString(2, item.getType());
-	        ps.setString(3, item.getTitle());
-	        ps.setString(4, item.getCategory());
-	        ps.setString(5, item.getDescription());
-	        ps.setString(6, item.getLocation());
-	        ps.setDate(7, item.getLostFoundDate());
-	        ps.setString(8, item.getStatus());
+		try {
+			Connection con = DataBase_Config.getConection();
+			PreparedStatement ps = con.prepareStatement(createItem, Statement.RETURN_GENERATED_KEYS);
+			ps.setInt(1, item.getUserId());
+			ps.setString(2, item.getType());
+			ps.setString(3, item.getTitle());
+			ps.setString(4, item.getCategory());
+			ps.setString(5, item.getDescription());
+			ps.setString(6, item.getLocation());
+			ps.setDate(7, item.getLostFoundDate());
+			ps.setString(8, item.getStatus());
 
-	        ps.executeUpdate();
+			ps.executeUpdate();
 
-	        // retrieve the auto-generated Item_ID after insert
-	        ResultSet rs = ps.getGeneratedKeys();
-	        if (rs.next()) {
-	            return rs.getInt(1);
-	        }
-	        rs.close();
-	        ps.close();
-	        con.close();
+			// retrieve the auto-generated Item_ID after insert
+			ResultSet rs = ps.getGeneratedKeys();
+			if (rs.next()) {
+				return rs.getInt(1);
+			}
+			rs.close();
+			ps.close();
+			con.close();
 
-	    } catch (ClassNotFoundException | SQLException e) {
-	        e.printStackTrace();
-	    }
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		}
 
-	    return -1; // insert failed
+		return -1; // insert failed
 	}
-	
-    public Integer findUserReportCount(int userId) {
-        try {
-            Connection con = DataBase_Config.getConection();
-            PreparedStatement ps = con.prepareStatement(userReportCountQuery);
-            ps.setInt(1, userId);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                int count = rs.getInt(1);
-                rs.close();
-                ps.close();
-                con.close();
-                return count;
-            }
-            rs.close();
-            ps.close();
-            con.close();
-            return 0;
-        } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-    
-    public void changeItemtype(String type, int itemId) {
-    	try {
-    		Connection con= DataBase_Config.getConection();
-    		PreparedStatement ps= con.prepareStatement(updateItemType);
-    		ps.setString(1, type);
-    		ps.setInt(2, itemId);
-    		ps.executeUpdate();
-    		
-    		ps.close();
-    		con.close();
-        } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
+
+	public Integer findUserReportCount(int userId) {
+		try {
+			Connection con = DataBase_Config.getConection();
+			PreparedStatement ps = con.prepareStatement(userReportCountQuery);
+			ps.setInt(1, userId);
+			ResultSet rs = ps.executeQuery();
+			if (rs.next()) {
+				int count = rs.getInt(1);
+				rs.close();
+				ps.close();
+				con.close();
+				return count;
+			}
+			rs.close();
+			ps.close();
+			con.close();
+			return 0;
+		} catch (SQLException | ClassNotFoundException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	public void changeItemtype(String type, int itemId) {
+		try {
+			Connection con = DataBase_Config.getConection();
+			PreparedStatement ps = con.prepareStatement(updateItemType);
+			ps.setString(1, type);
+			ps.setInt(2, itemId);
+			ps.executeUpdate();
+
+			ps.close();
+			con.close();
+		} catch (SQLException | ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public boolean updateItemStatus(int itemId, String status) {
+		try {
+			Connection con = DataBase_Config.getConection();
+			PreparedStatement ps = con.prepareStatement(updateItemStatus);
+			ps.setString(1, status);
+			ps.setInt(2, itemId);
+			int rows = ps.executeUpdate();
+			ps.close();
+			con.close();
+			return rows > 0;
+		} catch (SQLException | ClassNotFoundException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	public boolean updateItemStatusWithReason(int itemId, String status, String reason) {
+		try {
+			Connection con = DataBase_Config.getConection();
+			PreparedStatement ps = con.prepareStatement(updateItemStatusWithReason);
+			ps.setString(1, status);
+			ps.setString(2, reason);
+			ps.setInt(3, itemId);
+			int rows = ps.executeUpdate();
+			ps.close();
+			con.close();
+			return rows > 0;
+		} catch (SQLException | ClassNotFoundException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
 }

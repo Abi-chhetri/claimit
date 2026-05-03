@@ -1,3 +1,4 @@
+<%@page import="com.claimit.utils.SessionManager"%>
 <%@page import="com.claimit.enums.ClaimStatus"%>
 <%@page import="com.claimit.services.ItemImageService"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
@@ -9,6 +10,7 @@ List<Claim> claims = (List<Claim>) request.getAttribute("claim");
 
 String keyword   = request.getParameter("keyword")   != null ? request.getParameter("keyword").trim()   : "";
 String dateRange = request.getParameter("dateRange")  != null ? request.getParameter("dateRange").trim()  : "";
+Integer userId= (Integer) SessionManager.getAttribute(request, "userId");
 %>
 <%
     String showReport = request.getParameter("showReport");
@@ -174,8 +176,13 @@ if (flash != null) {
                             <input type="hidden" name="itemId" value="<%=item.getItemId()%>" />
                             <button class="view-details-btn" type="submit">View Details</button>
                         </form>
-                        <a href="<%=request.getContextPath()%>/Browse?showReport=true&itemId=<%=item.getItemId()%>"
-                           class="report-item-btn">Report This Item</a>
+                        <%if( userId != null && !String.valueOf(item.getUserId()).equals(String.valueOf(userId))){%>
+                        <form action="<%=request.getContextPath()%>/Browse" method="get">
+						    <input type="hidden" name="showReport" value="true" />
+						    <input type="hidden" name="itemId" value="<%=item.getItemId()%>" />
+						    <button type="submit" class="report-item-btn">Report This Item</button>
+						</form>
+                        <%} %>
                     </div>
                 </article>
                 <%
