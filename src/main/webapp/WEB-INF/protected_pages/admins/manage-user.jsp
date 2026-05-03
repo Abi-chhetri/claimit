@@ -331,7 +331,7 @@ String searchQuery = request.getParameter("search") != null ? request.getParamet
                                 </td>
                                 <td>
                                     <p class="mu-email"><%=user.getEmail()%></p>
-                                    <p class="mu-phone"><%=user.getPhoneNumber()%></p>
+                                    <p class="mu-phone"><%=user.getPhoneNumber() == null ? "N/A":user.getPhoneNumber() %></p>
                                 </td>
                                 <td>
                                     <p class="mu-date">

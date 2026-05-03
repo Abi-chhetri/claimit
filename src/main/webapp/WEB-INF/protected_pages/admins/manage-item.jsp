@@ -286,7 +286,7 @@ ItemImageService imageService = new ItemImageService();
                                     <% } %>
                                 </td>
                                 <td>
-                                    <p class="mr-reason"><%= eachItem.getRejectionReason() %></p>
+                                    <p class="mr-reason"><%= eachItem.getRejectionReason() == null ? "(N/A) No Reject Yet " : eachItem.getRejectionReason() %></p>
                                 </td>
                                 <td>
                                     <p class="mr-date"><%= new SimpleDateFormat("MMM dd, yyyy").format(eachItem.getCreatedAt()) %></p>
@@ -294,13 +294,13 @@ ItemImageService imageService = new ItemImageService();
                                 <td>
                                     <div class="mr-actions">
 
-                                        <!-- VIEW -->
+                                        <!-- View -->
                                         <form action="${pageContext.request.contextPath}/ViewDetails" method="POST">
 				                            <input type="hidden" name="itemId" value="<%=eachItem.getItemId()%>" />
 				                            <button class="mr-icon-btn view" type="submit">&#128065;</button>
 				                        </form>
 
-                                        <!-- APPROVE -->
+                                        <!-- Approve -->
                                         <% if (eachItem.getStatus().equals(ItemStatus.PENDING.name()) ||
                                                eachItem.getStatus().equals(ItemStatus.REJECTED.name())) { %>
                                         <form action="${pageContext.request.contextPath}/ManageItem" method="POST">
@@ -312,7 +312,7 @@ ItemImageService imageService = new ItemImageService();
                                         </form>
                                         <% } %>
 
-                                        <!-- REJECT toggle -->
+                                        <!-- Rejecttog -->
                                         <% if (eachItem.getStatus().equals(ItemStatus.PENDING.name()) ||
                                                eachItem.getStatus().equals(ItemStatus.APPROVED.name())) { %>
                                         <form action="${pageContext.request.contextPath}/ManageItem" method="GET">
