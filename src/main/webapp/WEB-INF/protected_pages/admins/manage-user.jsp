@@ -318,8 +318,11 @@ String searchQuery = request.getParameter("search") != null ? request.getParamet
                                 <td>
                                     <div class="mu-user-info">
                                         <div class="mu-avatar" style="background:#fce7f3;color:#9d174d;">
-                                            <% String[] np = user.getFullName().trim().split(" "); %>
-											<%= np[0].substring(0,1).toUpperCase() + (np.length > 1 ? np[1].substring(0,1).toUpperCase() : "") %>
+                                            <%if(user.getProfilePhoto() != null && !user.getProfilePhoto().isEmpty()) {%>
+                                            	<img src="<%=user.getProfilePhoto()%>" alt="Profile Photo">
+                                            <%}else{ %>
+                                            	<%= user.getFullName().split(" ")[0].toUpperCase().charAt(0)+""+user.getFullName().split(" ")[1].toUpperCase().charAt(0) %>
+                                            <%} %>
                                         </div>
                                         <div>
                                             <p class="mu-name"><%= user.getFullName() %></p>

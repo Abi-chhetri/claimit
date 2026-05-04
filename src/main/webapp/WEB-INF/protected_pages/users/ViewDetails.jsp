@@ -174,7 +174,7 @@ Item item = (Item) request.getAttribute("item");
 
 				<div class="poster-row">
 					<figure class="avatar">
-						<img src="${pageContext.request.contextPath}/${empty photoPath ? 'images/BG.png' : photoPath}" alt="${user.fullName}" />
+						<img src="${empty user.profilePhoto ? pageContext.request.contextPath.concat('/images/BG.png') : user.profilePhoto}"  alt="${user.fullName}" />
 					</figure>
 					<div class="poster-info">
 						<span class="poster-label">POSTED BY</span> <span
@@ -189,7 +189,7 @@ Item item = (Item) request.getAttribute("item");
 						Verified
 					</div>
 				</div>
-				<% if(userId == null || userId != item.getUserId()) {%>
+				<% if (userId != null && !userId.equals(item.getUserId()) && adminId == null) { %>
 				<button class="claim-btn"
 					onclick="document.getElementById('claimModal').classList.add('active')">
 					<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
@@ -199,10 +199,10 @@ Item item = (Item) request.getAttribute("item");
 				    </svg>
 					Claim This Item
 				</button>
-				<%} %>
 				<p class="claim-note">Verification of ownership will be required
 					upon claiming.</p>
-
+				
+				<%} %>
 			</article>
 
 		</section>

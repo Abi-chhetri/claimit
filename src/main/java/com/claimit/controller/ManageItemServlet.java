@@ -90,11 +90,11 @@ public class ManageItemServlet extends HttpServlet {
 				int itemId = Integer.parseInt(itemIdStr);
 
 				if ("approve".equals(action)) {
-					itemService.approveItem(itemId);
+					itemService.updateItemStatus(itemId);
 
 				} else if ("reject".equals(action)) {
 					String reason = request.getParameter("reason");
-					itemService.rejectItem(itemId, reason);
+					itemService.updateItemStatusWithReason(itemId, reason);
 				}
 
 			} catch (NumberFormatException e) {

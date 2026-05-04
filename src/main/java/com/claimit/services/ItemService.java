@@ -39,11 +39,11 @@ public class ItemService {
 		itemDao.changeItemtype(type, itemId);
 	}
 
-	public boolean approveItem(int itemId) {
+	public boolean updateItemStatus(int itemId) {
 		return itemDao.updateItemStatus(itemId, ItemStatus.APPROVED.name());
 	}
 
-	public boolean rejectItem(int itemId, String reason) {
+	public boolean updateItemStatusWithReason(int itemId, String reason) {
 		String validateReason = (reason == null || reason.trim().isEmpty()) ? "No reason provided" : reason.trim();
 		return itemDao.updateItemStatusWithReason(itemId, ItemStatus.REJECTED.name(), validateReason);
 	}
