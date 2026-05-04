@@ -1,3 +1,4 @@
+<%@page import="com.claimit.enums.ItemStatus"%>
 <%@page import="com.claimit.utils.SessionManager"%>
 <%@page import="com.claimit.enums.ClaimStatus"%>
 <%@page import="com.claimit.services.ItemImageService"%>
@@ -158,7 +159,7 @@ if (flash != null) {
                     for (Item item : items) {
                         ItemImageService itemImageService = new ItemImageService();
                         List<ItemImage> images = itemImageService.getImagesByItemId(item.getItemId());
-                        if (item.getType().equals("FOUND")) {
+                        if (item.getType().equals("FOUND") && item.getStatus().equals(ItemStatus.APPROVED.name())) {
                             anyFound = true;
                 %>
                 <article class="item-card">

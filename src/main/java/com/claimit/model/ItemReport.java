@@ -4,75 +4,102 @@ import java.sql.Timestamp;
 
 public class ItemReport {
 
-    private int itemReportId;
-    private int itemId;
-    private int userId;
-    private String reason;
-    private String status;
-    private Timestamp createdAt;
+	private int itemReportId;
+	private int itemId;
+	private int userId;
+	private String reason;
+	private String status;
+	private Timestamp createdAt;
 
-    //Noargs Constructors
-    public ItemReport() {
-    }
+	// for join query
+	private String itemName;
+	private String userName;
+	private String itemImage;
 
-    
-    //parameterized Constructor
-    public ItemReport(int itemReportId, int itemId, int userId,
-                      String reason, String status, Timestamp createdAt) {
-        this.itemReportId = itemReportId;
-        this.itemId = itemId;
-        this.userId = userId;
-        this.reason = reason;
-        this.status = status;
-        this.createdAt = createdAt;
-    }
+	// Noargs Constructors
+	public ItemReport() {
+	}
 
-    // Getters and Setters
-    public int getItemReportId() {
-        return itemReportId;
-    }
+	// parameterized Constructor
+	public ItemReport(int itemReportId, int itemId, int userId, String reason, String status, Timestamp createdAt) {
+		this.itemReportId = itemReportId;
+		this.itemId = itemId;
+		this.userId = userId;
+		this.reason = reason;
+		this.status = status;
+		this.createdAt = createdAt;
+	}
 
-    public void setItemReportId(int itemReportId) {
-        this.itemReportId = itemReportId;
-    }
+	// Getters and Setters
+	public int getItemReportId() {
+		return itemReportId;
+	}
 
-    public int getItemId() {
-        return itemId;
-    }
+	public void setItemReportId(int itemReportId) {
+		this.itemReportId = itemReportId;
+	}
 
-    public void setItemId(int itemId) {
-        this.itemId = itemId;
-    }
+	public int getItemId() {
+		return itemId;
+	}
 
-    public int getUserId() {
-        return userId;
-    }
+	public void setItemId(int itemId) {
+		this.itemId = itemId;
+	}
 
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
+	public int getUserId() {
+		return userId;
+	}
 
-    public String getReason() {
-        return reason;
-    }
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
 
-    public void setReason(String reason) {
-        this.reason = reason;
-    }
+	public String getReason() {
+		return reason;
+	}
 
-    public String getStatus() {
-        return status;
-    }
+	public void setReason(String reason) {
+		this.reason = reason;
+	}
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
+	public String getStatus() {
+		return status;
+	}
 
-    public Timestamp getCreatedAt() {
-        return createdAt;
-    }
+	public void setStatus(String status) {
+		this.status = status;
+	}
 
-    public void setCreatedAt(Timestamp createdAt) {
-        this.createdAt = createdAt;
-    }
+	public Timestamp getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(Timestamp createdAt) {
+		this.createdAt = createdAt;
+	}
+
+	public String getItemName() {
+		return itemName;
+	}
+
+	public void setItemName(String itemName) {
+		this.itemName = itemName;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public String getItemImage() {
+		return itemImage;
+	}
+
+	public void setItemImage(String itemImage) {
+		this.itemImage = itemImage;
+	}
 }
