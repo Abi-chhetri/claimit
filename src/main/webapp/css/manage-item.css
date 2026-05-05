@@ -4,6 +4,21 @@ body {
     overflow-x: hidden;
 }
 
+.admin-dashboar-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 32px;
+    height: 72px;
+    border-bottom: 1px solid #E2E8F0;
+    background: #fff;
+    gap: 16px;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    margin: 0;
+}
+
 .admin-main-outer {
     padding: 28px;
     background-color: #F1F5F9;
@@ -11,6 +26,7 @@ body {
     overflow-x: hidden;
     width: 100%;
     box-sizing: border-box;
+    margin-top: 0;
 }
 
 /* ── Header ── */

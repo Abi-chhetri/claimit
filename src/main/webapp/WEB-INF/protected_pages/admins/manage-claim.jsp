@@ -64,7 +64,7 @@ String selectedDate = request.getParameter("date") != null ? request.getParamete
 
 				<div class="admin-aside-admin-function">
 					<a href="${pageContext.request.contextPath}/ManageClaim"
-						class="admin-functions"> <svg
+						class="admin-functions active-nav"> <svg
 							xmlns="http://www.w3.org/2000/svg" width="20" height="20"
 							viewBox="0 0 24 24">
                             <rect width="24" height="24" fill="none" />
@@ -77,7 +77,7 @@ String selectedDate = request.getParameter("date") != null ? request.getParamete
 				</div>
 
 				<div class="admin-aside-admin-function">
-					<a href="${pageContext.request.contextPath}/ManageReports"
+					<a href="${pageContext.request.contextPath}/ManageReport"
 						class="admin-functions"> <svg
 							xmlns="http://www.w3.org/2000/svg" width="20" height="16"
 							viewBox="0 0 16 16">
@@ -109,7 +109,7 @@ String selectedDate = request.getParameter("date") != null ? request.getParamete
 				</div>
 
 				<div class="admin-aside-admin-function">
-					<a href="${pageContext.request.contextPath}/ManageModerators"
+					<a href="${pageContext.request.contextPath}/ManageModerator"
 						class="admin-functions"> <svg
 							xmlns="http://www.w3.org/2000/svg" width="20" height="18"
 							viewBox="0 0 8 8">
@@ -122,7 +122,7 @@ String selectedDate = request.getParameter("date") != null ? request.getParamete
 				</div>
 
 				<div class="admin-aside-admin-function">
-					<a href="${pageContext.request.contextPath}/ContactMessage"
+					<a href="${pageContext.request.contextPath}/ManageContactMessage"
 						class="admin-functions"> <svg
 							xmlns="http://www.w3.org/2000/svg" width="20" height="20"
 							viewBox="0 0 32 32">
@@ -135,7 +135,7 @@ String selectedDate = request.getParameter("date") != null ? request.getParamete
 				</div>
 
 				<div class="admin-aside-admin-function">
-					<a href="${pageContext.request.contextPath}/AdminLogs"
+					<a href="${pageContext.request.contextPath}/AdminLog"
 						class="admin-functions"> <svg
 							xmlns="http://www.w3.org/2000/svg" width="20" height="20"
 							viewBox="0 0 24 24">
