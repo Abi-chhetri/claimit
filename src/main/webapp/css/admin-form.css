@@ -1,0 +1,151 @@
+@charset "UTF-8";
+
+.modal-header {
+    position: relative;
+    padding: 20px 24px 16px;
+    border-bottom: 1px solid #E2E8F0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.modal-close {
+    position: static; /* remove any absolute positioning */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    cursor: pointer;
+    color: #64748B;
+    text-decoration: none;
+    font-size: 18px;
+    line-height: 1;
+    flex-shrink: 0;
+}
+
+.modal-close:hover {
+    background: #F1F5F9;
+    color: #0F172A;
+}
+
+/* ── Container ── */
+.form-container {
+    width: 100%;
+    padding: 0;
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+/* ── Form Groups ── */
+.form-group {
+    margin-bottom: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+/* ── Labels ── */
+.form-group label {
+    font-size: 11.5px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #64748B;
+}
+
+/* ── Inputs & Selects ── */
+.form-group input,
+.form-group select {
+    padding: 10px 14px;
+    border-radius: 8px;
+    border: 1.5px solid #E2E8F0;
+    background: #F8FAFC;
+    font-size: 14px;
+    color: #0F172A;
+    transition: border-color 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+    appearance: none;
+    -webkit-appearance: none;
+}
+
+.form-group input::placeholder {
+    color: #94A3B8;
+}
+
+/* ── Select custom arrow ── */
+.form-group select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24'%3E%3Cpath fill='%2394A3B8' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-color: #F8FAFC;
+    padding-right: 36px;
+    cursor: pointer;
+}
+
+/* ── Focus ── */
+.form-group input:focus,
+.form-group select:focus {
+    border-color: #1D4ED8;
+    background: #fff;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(29, 78, 216, 0.1);
+}
+
+/* ── Submit Button ── */
+.form-btn {
+    width: 100%;
+    padding: 11px 16px;
+    background: #1D4ED8;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    letter-spacing: 0.02em;
+    transition: background 0.18s ease, box-shadow 0.18s ease, transform 0.1s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 8px;
+}
+
+.form-btn:hover {
+    background: #1E40AF;
+    box-shadow: 0 4px 12px rgba(29, 78, 216, 0.25);
+}
+
+.form-btn:active {
+    transform: scale(0.99);
+}
+
+/* ── Responsive ── */
+@media (max-width: 480px) {
+    .form-group input,
+    .form-group select {
+        font-size: 13px;
+    }
+}
+
+.error-msg {
+    display: block;
+    padding: 10px 14px;
+    background: #FEF2F2;
+    border: 1px solid #FECACA;
+    border-radius: 8px;
+    color: #DC2626;
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 16px;
+}
+.suc-msg {
+    display: block;
+    padding: 10px 14px;
+    background: #FEF2F2;
+    border: 1px solid #FECACA;
+    border-radius: 8px;
+    color: green;
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 16px;
+}

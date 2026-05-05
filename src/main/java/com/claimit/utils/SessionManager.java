@@ -24,4 +24,8 @@ public class SessionManager {
 			session.invalidate();
 		}
 	}
+	
+	public static void deleteSession(HttpServletRequest request, String key) {
+		request.getSession(false).removeAttribute(key);
+	}
 }

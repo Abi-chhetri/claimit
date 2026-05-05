@@ -1,8 +1,11 @@
+<%@page import="com.claimit.enums.AdminRoles"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@page import="com.claimit.model.Admin" %>
 <!DOCTYPE html>
 <html lang="en">
 <%Integer totalUsers=(Integer) request.getAttribute("userCount"); %>
+<%Admin admin=(Admin) request.getAttribute("admin"); %>
 
 <head>
     <meta charset="UTF-8">
@@ -78,7 +81,7 @@
 
 
                 <div class="admin-aside-admin-function">
-                    <a href="${pageContext.request.contextPath}/ManageReports" class="admin-functions">
+                    <a href="${pageContext.request.contextPath}/ManageReport" class="admin-functions">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="16" viewBox="0 0 16 16">
                             <rect width="16" height="16" fill="none" />
                             <path fill="#475569"
@@ -105,10 +108,9 @@
                         <p class="admin-function-name">Manage Users</p>
                     </a>
                 </div>
-
-
+                <%if(admin.getRole().equals(AdminRoles.ADMIN.name())){ %>
                 <div class="admin-aside-admin-function">
-                    <a href="${pageContext.request.contextPath}/ManageModerators" class="admin-functions">
+                    <a href="${pageContext.request.contextPath}/ManageModerator" class="admin-functions">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="18" viewBox="0 0 8 8">
                             <rect width="8" height="8" fill="none" />
                             <path fill="#475569" d="M4 4v3q2 0 3-3M4 4V1L1 2v2m3-4l4 2c0 8-8 8-8 0" />
@@ -117,6 +119,7 @@
                         <p class="admin-function-name">Manage Moderators</p>
                     </a>
                 </div>
+                <%} %>
 
                 <div class="admin-aside-admin-function">
                     <a href="${pageContext.request.contextPath}/ContactMessage" class="admin-functions">

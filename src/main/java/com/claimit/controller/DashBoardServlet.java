@@ -20,42 +20,47 @@ import com.claimit.utils.SessionManager;
 @WebServlet(asyncSupported = true, urlPatterns = { "/DashBoard" })
 public class DashBoardServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private UserService userService=new UserService();
-	private ClaimService claimServices=new ClaimService();
-	private ItemService itemService=new ItemService();
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public DashBoardServlet() {
-        super();
-    }
+	private UserService userService = new UserService();
+	private ClaimService claimServices = new ClaimService();
+	private ItemService itemService = new ItemService();
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
+	public DashBoardServlet() {
+		super();
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String userId= String.valueOf(SessionManager.getAttribute(request, "userId"));
-		if(userId != null) {
-			User user=userService.getUserByID(userId);
-			request.setAttribute("user", user);
-			
-			Map<String,Integer> userClamStat= claimServices.getUserClaimStat(Integer.parseInt(userId));
-			for(Map.Entry<String, Integer> eachEntry: userClamStat.entrySet()) {
-				request.setAttribute(eachEntry.getKey(), eachEntry.getValue());
-			}
-			
-			Integer userReportCount= itemService.getUserReportCount(Integer.parseInt(userId));
-			request.setAttribute("userReportCount", userReportCount);
-			
+		Integer userId = (Integer) SessionManager.getAttribute(request, "userId");
+		if (userId == null) {
+			response.sendRedirect(request.getContextPath() + "/login.jsp");
+			return;
 		}
+		User user = userService.getUserByID(userId.toString()); // or change service to accept int
+		request.setAttribute("user", user);
+
+		Map<String, Integer> userClamStat = claimServices.getUserClaimStat(userId);
+		for (Map.Entry<String, Integer> entry : userClamStat.entrySet()) {
+			request.setAttribute(entry.getKey(), entry.getValue());
+		}
+
+		Integer userReportCount = itemService.getUserReportCount(userId);
+		request.setAttribute("userReportCount", userReportCount);
 		request.getRequestDispatcher("/WEB-INF/protected_pages/users/DashBoard.jsp").forward(request, response);
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}

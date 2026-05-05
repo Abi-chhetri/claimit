@@ -16,9 +16,11 @@
         <header class="Desktop_header">
             <div class="logo">ClaimIt</div>
             <nav>
-                <a href="${pageContext.request.contextPath}/Home">Home</a> <a href="${pageContext.request.contextPath}/About">About</a> <a href="#" class="active">
-                    Login</a> <a href="${pageContext.request.contextPath}/Register">Registration</a>
-            </nav>
+				<a href="${pageContext.request.contextPath}/Home">Home</a>
+				<a href="${pageContext.request.contextPath}/About">About</a> 
+				<a href="${pageContext.request.contextPath}/Login" class="active"> Login</a> 
+				<a href="${pageContext.request.contextPath}/Register">Registration</a>
+			</nav>
         </header>
 
         <header class="mobile_header">
