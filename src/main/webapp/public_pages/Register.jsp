@@ -15,8 +15,8 @@
         <nav class="desktop-nav">
 				<a href="${pageContext.request.contextPath}/Home">Home</a>
 				<a href="${pageContext.request.contextPath}/About">About</a> 
-				<a href="${pageContext.request.contextPath}/Login" class="active"> Login</a> 
-				<a href="${pageContext.request.contextPath}/Register">Registration</a>
+				<a href="${pageContext.request.contextPath}/Login"> Login</a> 
+				<a href="${pageContext.request.contextPath}/Register" class="active">Registration</a>
         </nav>
     </header>
 
@@ -36,16 +36,16 @@
             <form class="register-form" method="POST" validate>
 
                 <div class="field-group">
-                    <label for="full-name">Full Name</label>
+                    <label for="full-name">Full Name <span style="color:red;">*</span></label>
                     <div class="input-wrapper">
-                        <input type="text" id="full-name" name="full_name" placeholder="Full Name" autocomplete="name" required />
+                        <input type="text" id="full-name" name="full_name" placeholder="Full Name" autocomplete="name" />
                     </div>
                 </div>
 
                 <div class="field-group">
-                    <label for="email">Email</label>
+                    <label for="email">Email  <span style="color:red;">*</span></label>
                     <div class="input-wrapper">
-                        <input type="email" id="email" name="email" placeholder="abcd123@gmail.com" autocomplete="email" required />
+                        <input type="email" id="email" name="email" placeholder="abcd123@gmail.com" autocomplete="email" />
                     </div>
                 </div>
 
@@ -58,22 +58,22 @@
 
                 <div class="password-row">  
                     <div class="field-group">
-                        <label for="password">Password</label>
+                        <label for="password">Password  <span style="color:red;">*</span></label>
                         <div class="input-wrapper">
-                            <input type="password" id="password" name="password" placeholder="••••••••" autocomplete="new-password" required />
+                            <input type="password" id="password" name="password" placeholder="••••••••" autocomplete="new-password" />
                         </div>
                     </div>
                     <div class="field-group">
-                        <label for="confirm-password">Confirm Password</label>
+                        <label for="confirm-password">Confirm Password  <span style="color:red;">*</span></label>
                         <div class="input-wrapper">
-                            <input type="password" id="confirm-password" name="confirm_password" placeholder="••••••••" autocomplete="new-password" required />
+                            <input type="password" id="confirm-password" name="confirm_password" placeholder="••••••••" autocomplete="new-password" />
                         </div>
                     </div>
                 </div>
 
                 <div class="terms-group">
-                    <input type="checkbox" id="terms" name="terms" required />
-                    <label for="terms">I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a> regarding item tracking.</label>
+                    <input type="checkbox" id="terms" name="terms"/>
+                    <label for="terms"> <span style="color:red;">*</span>I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a> regarding item tracking.</label>
                 </div>
 
                 <button class="submit-btn" type="submit">Create Account &#8594;</button>

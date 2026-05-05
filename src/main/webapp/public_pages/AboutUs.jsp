@@ -18,8 +18,8 @@
             <nav class="navbar">
                 <%if(userId == null){ %>
                 <a href="${pageContext.request.contextPath}/Home">Home</a>
-				<a href="${pageContext.request.contextPath}/About">About</a> 
-				<a href="${pageContext.request.contextPath}/Login" class="active"> Login</a> 
+				<a href="${pageContext.request.contextPath}/About" class="Active">About</a> 
+				<a href="${pageContext.request.contextPath}/Login"> Login</a> 
 				<a href="${pageContext.request.contextPath}/Register">Registration</a>
                 <%} else{%>
                 <a href="${pageContext.request.contextPath}/Home">Home</a>

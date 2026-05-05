@@ -58,16 +58,10 @@
                     <form method="POST">
                         <div class="input-group">
                             <label for="email">Email</label> <input type="email" name="email" id="email"
-                                placeholder="Email" required> 
+                                placeholder="Email"> 
                                 <label for="password">Password</label> <input
-                                type="password" name="password" id="password" placeholder="password"> <a href="#"
-                                class="forgot-pass">Forgot Password?</a>
+                                type="password" name="password" id="password" placeholder="password">
                         </div>
-
-                        <div class="rember-me">
-                            <input type="checkbox" id="remember"> <label for="remember">Keep me logged in</label>
-                        </div>
-
                         <button type="submit">Login →</button>
                     </form>
 

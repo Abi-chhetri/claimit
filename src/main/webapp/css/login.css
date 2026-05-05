@@ -1,3 +1,4 @@
+@charset "UTF-8";
 * {
   margin: 0;
   padding: 0;
@@ -8,16 +9,17 @@ body {
   margin: 0;
   background: #f1f5f9;
   font-family: 'Segoe UI', Arial, sans-serif;
-
 }
 
 .Desktop_header {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
-  padding: 20px 60px;
-  background: #f1f5f9;
-
+  gap: 48px;
+  padding: 0 32px;
+  height: 60px;
+  background: #ffffff;
+  border-bottom: 1px solid #e0e0e0;
 }
 
 .mobile_header {
@@ -34,21 +36,37 @@ body {
 }
 
 .Desktop_header .logo {
-  font-size: 30px;
-  font-weight: 650;
-  color: #2563eb;
+  font-size: 24px;
+  font-weight: 700;
+  color: #1D4ED8;
+}
+
+.Desktop_header nav {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 0 60px;
 }
 
 .Desktop_header nav a {
-  margin-left: 32px;
   text-decoration: none;
-  color: #475569;
+  font-size: 16px;
   font-weight: 500;
-
+  color: #475569;
+  border-bottom: 2px solid transparent;
+  padding-bottom: 2px;
+  display: inline-block;
 }
 
-.Desktop_header nav .active {
-  color: #2563eb
+.Desktop_header nav a.active,
+.Desktop_header nav a.Active {
+  color: #1D4ED8;
+  border-bottom: 2px solid #1D4ED8;
+}
+
+.Desktop_header nav a:hover {
+  color: #1D4ED8;
+  border-bottom: 2px solid #1D4ED8;
 }
 
 .container {
@@ -60,8 +78,6 @@ body {
   overflow: hidden;
   box-shadow: 0 25px 70px rgba(0, 0, 0, 0.12);
   min-height: 680px;
-
-
 }
 
 .image {
@@ -102,21 +118,20 @@ body {
   align-items: center;
   gap: 5px;
   margin-bottom: 18px;
-
 }
 
-.form-logo{
+.form-logo {
   width: 48px;
   height: 48px;
   border-radius: 14px;
-  object-fit: contain;  
+  object-fit: contain;
 }
 
-.mobile-logo{
+.mobile-logo {
   width: 50px;
   height: 50px;
   border-radius: 14px;
-  object-fit: contain;  
+  object-fit: contain;
 }
 
 .form-header h2 {
@@ -137,11 +152,9 @@ body {
   margin-bottom: 48px;
 }
 
-
 .input-group {
   margin-bottom: 26px;
   position: relative;
-
 }
 
 .input-group label {
@@ -150,9 +163,6 @@ body {
   font-weight: 700;
   color: #334155;
   margin-bottom: 9px;
-  font: bold;
-
-
 }
 
 .input-group input {
@@ -163,7 +173,6 @@ body {
   font-size: 16px;
   background: white;
   margin-bottom: 20px;
-
 }
 
 .forgot-pass {
@@ -181,7 +190,6 @@ body {
   align-items: center;
   gap: 10px;
   margin: 28px;
-
 }
 
 .right button {
@@ -192,9 +200,8 @@ body {
   border: none;
   border-radius: 12px;
   font-size: 18px;
-  font-weight: 600px;
+  font-weight: 600;
   cursor: pointer;
-
 }
 
 .register {
@@ -209,8 +216,6 @@ body {
   font-weight: 600;
   text-decoration: none;
   margin-left: 10px;
-
-
 }
 
 .footer {
@@ -226,7 +231,6 @@ body {
   padding: 40px 20px 35px;
   text-align: center;
   margin-top: 40px;
-
 }
 
 .footer_link {
@@ -234,7 +238,6 @@ body {
   justify-content: center;
   align-items: center;
   gap: 35px;
-
 }
 
 .footer_link a {
@@ -242,18 +245,24 @@ body {
   font-size: 10px;
   font-weight: 700;
   letter-spacing: 0.3px;
-
 }
 
+.msg-box {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: #4CAF50;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 6px;
+  font-weight: bold;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
 
-@media screen and (min-width:320px) and (max-width: 767px) {
-
-
+@media screen and (min-width: 320px) and (max-width: 767px) {
   .Desktop_header {
     display: none;
   }
-
-
 
   .image {
     display: none;
@@ -280,14 +289,10 @@ body {
     margin: 20px 5px;
     border-radius: 16px;
     min-height: auto;
-
-
   }
 
   .right {
     padding: 50px 30px;
-
-
   }
 
   .right h1 {
@@ -296,7 +301,7 @@ body {
   }
 
   .subtitle {
-    text-align: center; 
+    text-align: center;
     font-size: 16px;
     margin-bottom: 35px;
   }
@@ -307,29 +312,13 @@ body {
   }
 }
 
-.msg-box {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    background: #4CAF50;
-    color: white;
-    padding: 12px 20px;
-    border-radius: 6px;
-    font-weight: bold;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-}
-
-
 @media screen and (max-width: 480px) {
   .footer_link {
-    gap: 24px
+    gap: 24px;
   }
 }
 
-
-
 @media screen and (min-width: 768px) and (max-width: 1024px) {
-
   .Desktop_header {
     display: none;
   }
@@ -341,7 +330,6 @@ body {
   .footer {
     display: none;
   }
-
 
   .image {
     display: none;
@@ -405,16 +393,15 @@ body {
     border-radius: 12px;
   }
 
-  .forgot-pass{
+  .forgot-pass {
     font-size: 18px;
     margin-top: 10px;
   }
 
-  .rember-me{
+  .rember-me {
     padding: 18px;
     font-size: 18px;
     margin: 18px 0 28px 0;
-    
   }
 
   .right button {
@@ -423,7 +410,7 @@ body {
     margin-top: 8px;
   }
 
-  .register{
+  .register {
     font-size: 18px;
     margin-top: 40px;
   }
@@ -442,18 +429,17 @@ body {
   }
 }
 
-@media screen and (max-width: 1400px){
-  .container{
+@media screen and (max-width: 1400px) {
+  .container {
     max-width: 1150px;
     margin: 50px auto;
   }
 
-  .image{
+  .image {
     width: 560px;
   }
 
-  .right{
+  .right {
     padding: 90px 90px 90px 70px;
   }
-
 }

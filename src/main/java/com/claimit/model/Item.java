@@ -15,7 +15,6 @@ public class Item {
     private Date lostFoundDate;
     private String status;
     private String rejectionReason;
-    private Timestamp expiresAt;
     private Timestamp createdAt;
     private Timestamp updatedAt;
 
@@ -38,7 +37,6 @@ public class Item {
         this.lostFoundDate = lostFoundDate;
         this.status = status;
         this.rejectionReason = rejectionReason;
-        this.expiresAt = expiresAt;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
@@ -123,14 +121,6 @@ public class Item {
 
     public void setRejectionReason(String rejectionReason) {
         this.rejectionReason = rejectionReason;
-    }
-
-    public Timestamp getExpiresAt() {
-        return expiresAt;
-    }
-
-    public void setExpiresAt(Timestamp expiresAt) {
-        this.expiresAt = expiresAt;
     }
 
     public Timestamp getCreatedAt() {

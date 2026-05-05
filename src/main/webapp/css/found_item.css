@@ -66,7 +66,7 @@ body {
     display: inline-block;
 }
 
-.navbar a:hover {
+.navbar a:hover, .navbar a.active {
     color: #1D4ED8;
     border-bottom: 2px solid #1D4ED8;
 }

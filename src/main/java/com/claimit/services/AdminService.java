@@ -10,6 +10,7 @@ import com.claimit.utils.HashPasswordUtil;
 public class AdminService {
 	
 	private AdminDao adminDao=new AdminDao();
+	private AdminLogService adminLogService=new AdminLogService();
 
 	public Admin getAdminByID(String adminId) {
 		if (!adminId.isEmpty() && adminId !=null) {
@@ -29,6 +30,7 @@ public class AdminService {
 	}
 	
 	public boolean approveUser(int userId, int adminId) {
+		adminLogService.createAdminLog(adminId, "approve user", "User", "user id : "+userId);
 	    return adminDao.acceptUser(userId, adminId);
 	}
 

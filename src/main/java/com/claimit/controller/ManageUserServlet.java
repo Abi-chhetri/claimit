@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.util.List;
 
 import com.claimit.model.User;
+import com.claimit.services.AdminLogService;
 import com.claimit.services.AdminService;
 import com.claimit.services.UserService;
 import com.claimit.utils.SessionManager;
@@ -21,6 +22,7 @@ public class ManageUserServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private final UserService userService=new UserService();
 	private final AdminService adminService = new AdminService();
+	private final AdminLogService adminLogService=new AdminLogService();
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -52,13 +54,16 @@ public class ManageUserServlet extends HttpServlet {
 	        case "approve":
 	        case "reinstate":
 	            adminService.approveUser(userId, adminId);
+	            adminLogService.createAdminLog((Integer) SessionManager.getAttribute(request, "adminId"), action, "reinstate/approve user", "userId : "+String.valueOf(userId));
 	            break;
 	        case "suspend":
 	            adminService.updateUserRegistrationStatusOnly(userId, "SUSPENDED");
 	            userService.updateUserStatusOnly(userId, "INACTIVE");
+	            adminLogService.createAdminLog((Integer) SessionManager.getAttribute(request, "adminId"), action, "suspend user", "userId : "+String.valueOf(userId));
 	            break;
 	        case "reject":
 	            adminService.updateUserRegistrationStatusOnly(userId, "REJECTED");
+	            adminLogService.createAdminLog((Integer) SessionManager.getAttribute(request, "adminId"), action, "reject user", "userId : "+String.valueOf(userId));
 	            break;
 	    }
 
