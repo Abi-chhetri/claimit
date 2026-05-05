@@ -21,7 +21,7 @@
                 <a href="${pageContext.request.contextPath}/Home">Home</a>
                 <a href="${pageContext.request.contextPath}/Browse">Browse</a>
                 <a href="${pageContext.request.contextPath}/DashBoard">Dashboard</a>
-                <a href="${pageContext.request.contextPath}/ReportFoundItem">Report Found Item</a>
+                <a href="${pageContext.request.contextPath}/ReportFoundItem" class="active">Report Found Item</a>
                 <a href="${pageContext.request.contextPath}/MyClaim">Claims</a>
                 <a href="${pageContext.request.contextPath}/About">About</a>
             </nav>

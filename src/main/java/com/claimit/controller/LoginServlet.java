@@ -89,12 +89,24 @@ public class LoginServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String email = request.getParameter("email").trim();
-		String password = request.getParameter("password").trim();
+		String email = request.getParameter("email");
+		String password = request.getParameter("password");
+		
+		if(email == null || password==null) {
+			request.setAttribute("error msg", "Please enter your credentials");
+			request.getRequestDispatcher("/public_pages/Login.jsp").forward(request, response);
+			return;
+		}
+		
+		if(email.trim().isEmpty() || password.trim().isEmpty()) {
+			request.setAttribute("error msg", "Please enter your credentials");
+			request.getRequestDispatcher("/public_pages/Login.jsp").forward(request, response);
+			return;
+		}
 
-		User user = userService.getUserByEmail(email);
+		User user = userService.getUserByEmail(email.trim());
 		if (user == null) {
-			Admin admin = adminService.getAdminByEmail(email);
+			Admin admin = adminService.getAdminByEmail(email.trim());
 			
 			if(admin == null) {
 				request.setAttribute("error msg", "Account Not found !");
@@ -115,7 +127,7 @@ public class LoginServlet extends HttpServlet {
 			}
 			
 			String encryptedPassword= admin.getPassword();
-			if(HashPasswordUtil.checkPassword(password, encryptedPassword)) {
+			if(HashPasswordUtil.checkPassword(password.trim(), encryptedPassword)) {
 				SessionManager.setAttribute(request, "adminId", admin.getAdminId());
 				SessionManager.setAttribute(request,"flashMessage", "Successfully Logged In");
 				CookieManager.addCookie(response, "adminId", String.valueOf(admin.getAdminId()), 60*60);

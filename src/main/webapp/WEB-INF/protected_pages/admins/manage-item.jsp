@@ -38,7 +38,7 @@ ItemImageService imageService = new ItemImageService();
                 </div>
 
                 <div class="admin-aside-admin-function">
-                    <a href="manage-item.html" class="admin-functions">
+                    <a href="manage-item.html" class="admin-functions active-nav">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 32 32">
                             <rect width="32" height="32" fill="none" />
                             <path fill="#475569" d="M20 21h-8a2 2 0 0 1-2-2v-2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2m-8-4v2h8v-2Z" />
@@ -59,7 +59,7 @@ ItemImageService imageService = new ItemImageService();
                 </div>
 
                 <div class="admin-aside-admin-function">
-                    <a href="manage-report.html" class="admin-functions active-nav">
+                    <a href="manage-report.html" class="admin-functions">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="16" viewBox="0 0 16 16">
                             <rect width="16" height="16" fill="none" />
                             <path fill="#1D4ED8" d="M0 1.75C0 .784.784 0 1.75 0h12.5C15.216 0 16 .784 16 1.75v9.5A1.75 1.75 0 0 1 14.25 13H8.06l-2.573 2.573A1.458 1.458 0 0 1 3 14.543V13H1.75A1.75 1.75 0 0 1 0 11.25Zm1.75-.25a.25.25 0 0 0-.25.25v9.5c0 .138.112.25.25.25h2a.75.75 0 0 1 .75.75v2.19l2.72-2.72a.75.75 0 0 1 .53-.22h6.5a.25.25 0 0 0 .25-.25v-9.5a.25.25 0 0 0-.25-.25Zm7 2.25v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0M9 9a1 1 0 1 1-2 0a1 1 0 0 1 2 0" />

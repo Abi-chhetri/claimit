@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.util.List;
 
 import com.claimit.model.Admin;
+import com.claimit.services.AdminLogService;
 import com.claimit.services.AdminService;
 import com.claimit.utils.SessionManager;
 
@@ -19,6 +20,7 @@ import com.claimit.utils.SessionManager;
 public class ManageModeratorServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private final AdminService adminService = new AdminService();
+	private final AdminLogService adminLogService=new AdminLogService();
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -67,6 +69,7 @@ public class ManageModeratorServlet extends HttpServlet {
 		
 		if(actionDb != null ) {
 			adminService.updateModStatusById(actionDb, Integer.parseInt(adminId));
+			adminLogService.createAdminLog((Integer) SessionManager.getAttribute(request, "adminId"), actionDb, "Moderator Status Update", "Mod Id: "+adminId);
 		}
 		
 		String action = request.getParameter("action");

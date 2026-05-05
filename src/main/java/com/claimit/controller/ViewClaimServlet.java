@@ -10,6 +10,7 @@ import java.io.IOException;
 import com.claimit.model.Claim;
 import com.claimit.model.Item;
 import com.claimit.model.User;
+import com.claimit.services.AdminLogService;
 import com.claimit.services.ClaimService;
 import com.claimit.services.ItemService;
 import com.claimit.services.UserService;
@@ -24,6 +25,7 @@ public class ViewClaimServlet extends HttpServlet {
 	private final ClaimService claimService=new ClaimService();
 	private final UserService userService=new UserService();
 	private final ItemService itemService=new ItemService();
+	private final AdminLogService adminLogService=new AdminLogService();
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -71,6 +73,7 @@ public class ViewClaimServlet extends HttpServlet {
 	        String pendingAction = request.getParameter("pendingAction");
 	        int adminId = (Integer) SessionManager.getAttribute(request, "adminId");
 	        claimService.updateClaimStatus(Integer.parseInt(claimId), pendingAction, adminNotes, adminId, item.getItemId());
+	        adminLogService.createAdminLog(adminId, action, "Claim Status updated", "Claim id : "+claimId);
 	        response.sendRedirect(request.getContextPath() + "/ManageClaim");
 	        return;
 	    }

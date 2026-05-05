@@ -7,8 +7,11 @@ public class AdminLog {
     private int adminId;
     private String actionType;
     private String targetType;
-    private Integer targetId;
+    private String targetId;
     private String notes;
+    
+    //for join query
+    private String fullName;
 
     // No args constructor
     public AdminLog() {
@@ -16,7 +19,7 @@ public class AdminLog {
 
     // Parameterized constructor
     public AdminLog(int adminLogId, int adminId, String actionType,
-                    String targetType, Integer targetId, String notes) {
+                    String targetType, String targetId, String notes) {
         this.adminLogId = adminLogId;
         this.adminId = adminId;
         this.actionType = actionType;
@@ -59,11 +62,11 @@ public class AdminLog {
         this.targetType = targetType;
     }
 
-    public Integer getTargetId() {
+    public String getTargetId() {
         return targetId;
     }
 
-    public void setTargetId(Integer targetId) {
+    public void setTargetId(String targetId) {
         this.targetId = targetId;
     }
 
@@ -73,5 +76,13 @@ public class AdminLog {
 
     public void setNotes(String notes) {
         this.notes = notes;
+    }
+    
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 }

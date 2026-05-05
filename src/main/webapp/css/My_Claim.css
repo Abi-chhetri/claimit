@@ -21,7 +21,7 @@ body {
     justify-content: space-between;
     background-color: #ffffff;
     padding: 0 32px;
-    height: 64px;
+    height: 60px;          /* changed from 64px */
     border-bottom: 1px solid #e0e0e0;
     position: sticky;
     top: 0;
@@ -31,35 +31,36 @@ body {
 .header1 {
     display: flex;
     align-items: center;
-    gap: 40px;
+    gap: 48px;             /* changed from 40px */
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    gap: 24px;             /* changed from 4px */
+    padding: 0px 60px;     /* changed from 0 */
+}
+
+.navbar a {
+    text-decoration: none;
+    font-size: 16px;       /* changed from 15px */
+    font-weight: 500;
+    color: #475569;
+    padding-bottom: 2px;
+    border-bottom: 2px solid transparent;
+    display: inline-block;
+    transition: background 0.2s, color 0.2s;
+}
+
+.navbar a:hover, .navbar a.active {
+    color: #1D4ED8;
+    border-bottom: 2px solid #1D4ED8;
 }
 
 .claimit-onheader {
     font-size: 24px;
     font-weight: 700;
     color: #1D4ED8;
-}
-
-.navbar {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    padding: 0;
-}
-
-.navbar a {
-    text-decoration: none;
-    font-size: 15px;
-    font-weight: 500;
-    color: #475569;
-    padding: 6px 12px;
-    border-radius: 6px;
-    transition: background 0.2s, color 0.2s;
-}
-
-.navbar a:hover {
-    color: #1D4ED8;
-    background: #EFF6FF;
 }
 
 .header2 {

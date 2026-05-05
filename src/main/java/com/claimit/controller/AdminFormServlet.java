@@ -9,6 +9,7 @@ import java.io.IOException;
 
 import com.claimit.enums.AdminRoles;
 import com.claimit.model.Admin;
+import com.claimit.services.AdminLogService;
 import com.claimit.services.AdminService;
 import com.claimit.utils.SessionManager;
 import com.claimit.utils.UserValidation;
@@ -20,6 +21,7 @@ import com.claimit.utils.UserValidation;
 public class AdminFormServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private final AdminService adminService=new AdminService();
+	private final AdminLogService adminLogService=new AdminLogService();
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -69,6 +71,9 @@ public class AdminFormServlet extends HttpServlet {
 		admin.setRole(AdminRoles.MODERATOR.name());
 		
 		msg = adminService.insertModerator(admin);
+		if(!msg.contains("Failed to create moderator")) {
+			adminLogService.createAdminLog(adminId, "Moderator Creation", "Moderator", "Moderator : "+admin.getFullName());
+		}
 		SessionManager.setAttribute(request, "msg", msg);
 		response.sendRedirect(request.getContextPath()+"/ManageModerator");
 	}

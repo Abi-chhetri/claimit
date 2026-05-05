@@ -11,8 +11,10 @@ import java.util.List;
 
 import com.claimit.enums.ReportStatus;
 import com.claimit.model.ItemReport;
+import com.claimit.services.AdminLogService;
 import com.claimit.services.ItemReportService;
 import com.claimit.services.ItemService;
+import com.claimit.utils.SessionManager;
 
 /**
  * Servlet implementation class ManageReportServlet
@@ -22,6 +24,7 @@ public class ManageReportServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private final ItemReportService itemReportService=new ItemReportService();
 	private final ItemService itemService =new ItemService();
+	private final AdminLogService adminLogService=new AdminLogService();
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -75,6 +78,7 @@ public class ManageReportServlet extends HttpServlet {
 		if(itemId != null && !itemId.isEmpty()) {
 			itemService.updateItemStatusWithReason(Integer.parseInt(itemId), reason.trim());
 			itemReportService.updateItemStatusByItemId(ReportStatus.ACTED.name(),Integer.parseInt(itemId));
+			adminLogService.createAdminLog((Integer) SessionManager.getAttribute(request, "adminId"), reason, "Item Status", "Item Id : "+itemId);
 		}
 		
 		response.sendRedirect(request.getContextPath()+"/ManageReport");

@@ -18,7 +18,7 @@ public class UserValidation {
 	public static String validate(String fullName, String email, String password, String confirmPassword, String checked) {
         
 		if (fullName == null || fullName.trim().isEmpty() || email == null || email.trim().isEmpty() || password == null
-				|| password.trim().isEmpty()) {
+				|| password.trim().isEmpty() || checked==null) {
 			return "Please fill all required fields!";
 		}
         if (password.length() < 8) {

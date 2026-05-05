@@ -135,7 +135,7 @@
 
 
                 <div class="admin-aside-admin-function">
-                    <a href="${pageContext.request.contextPath}/AdminLogs" class="admin-functions">
+                    <a href="${pageContext.request.contextPath}/AdminLog" class="admin-functions">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
                             <rect width="24" height="24" fill="none" />
                             <path fill="#475569"

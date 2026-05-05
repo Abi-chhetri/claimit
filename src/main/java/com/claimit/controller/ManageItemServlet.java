@@ -10,12 +10,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.claimit.model.Item;
+import com.claimit.services.AdminLogService;
 import com.claimit.services.ItemService;
+import com.claimit.utils.SessionManager;
 
 @WebServlet(asyncSupported = true, name = "ManageItem", urlPatterns = { "/ManageItem" })
 public class ManageItemServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private final ItemService itemService = new ItemService();
+	private final AdminLogService adminLogService=new AdminLogService();
 
 	public ManageItemServlet() {
 		super();
@@ -95,6 +98,7 @@ public class ManageItemServlet extends HttpServlet {
 				} else if ("reject".equals(action)) {
 					String reason = request.getParameter("reason");
 					itemService.updateItemStatusWithReason(itemId, reason);
+					adminLogService.createAdminLog((Integer) SessionManager.getAttribute(request, "adminId"), action, "Item Status", "Item Id : "+String.valueOf(itemId));
 				}
 
 			} catch (NumberFormatException e) {

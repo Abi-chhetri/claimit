@@ -43,7 +43,6 @@ public class ItemDao {
 				item.setLostFoundDate(rs.getDate("Lost_Found_Date"));
 				item.setStatus(rs.getString("Status"));
 				item.setRejectionReason(rs.getString("Rejection_Reason"));
-				item.setExpiresAt(rs.getTimestamp("Expires_At"));
 				item.setCreatedAt(rs.getTimestamp("Created_At"));
 				item.setUpdatedAt(rs.getTimestamp("Updated_At"));
 			}
