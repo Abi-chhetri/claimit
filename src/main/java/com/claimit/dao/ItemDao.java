@@ -14,7 +14,7 @@ import com.claimit.utils.DataBase_Config;
 public class ItemDao {
 	private final String selectItemById = "SELECT * FROM ITEMS WHERE Item_ID = ?";
 	private final String selectItem = "SELECT Item_ID, User_ID, Type, Title, Category, Description, Location, Lost_Found_Date,"
-			+ " Status, Rejection_Reason, Expires_At, Created_At, Updated_At FROM ITEMS";
+			+ " Status, Rejection_Reason, Created_At, Updated_At FROM ITEMS";
 	private final String createItem = "insert into ITEMS (User_ID, Type, Title, Category, Description, Location, Lost_Found_Date, Status) values (?, ?, ?, ?, ?, ?, ?, ?)";
 	private final String userReportCountQuery = "select count(*) from ITEMS where User_ID = ?";
 	private final String updateItemType = "UPDATE ITEMS SET Type= ? where Item_ID= ?";
@@ -78,7 +78,6 @@ public class ItemDao {
 				item.setLostFoundDate(rs.getDate("Lost_Found_Date"));
 				item.setStatus(rs.getString("Status"));
 				item.setRejectionReason(rs.getString("Rejection_Reason"));
-				item.setExpiresAt(rs.getTimestamp("Expires_At"));
 				item.setCreatedAt(rs.getTimestamp("Created_At"));
 				item.setUpdatedAt(rs.getTimestamp("Updated_At"));
 

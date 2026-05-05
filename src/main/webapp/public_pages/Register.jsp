@@ -13,10 +13,10 @@
     <header class="site-header">
         <span class="brand-name">ClaimIt</span>
         <nav class="desktop-nav">
-            <a href="#">Home</a>
-            <a href="#">About</a>
-            <a href="#">Login</a>
-            <a href="#">Register</a>
+				<a href="${pageContext.request.contextPath}/Home">Home</a>
+				<a href="${pageContext.request.contextPath}/About">About</a> 
+				<a href="${pageContext.request.contextPath}/Login" class="active"> Login</a> 
+				<a href="${pageContext.request.contextPath}/Register">Registration</a>
         </nav>
     </header>
 
@@ -80,7 +80,7 @@
 
             </form>
 
-            <p class="login-link">Already have an account? <a href="#">Login</a></p>
+            <p class="login-link">Already have an account? <a href="${pageContext.request.contextPath}/Login">Login</a></p>
 
         </section>
     </main>

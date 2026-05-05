@@ -49,14 +49,14 @@ public class AdminDashBoardServlet extends HttpServlet {
 			Map.Entry<Integer, Double> pendingEntry = pendingClaim.entrySet().iterator().next();
 			
 			Integer totalItem=(Integer) claimServices.getTotalItemCount();
-			Integer totalReport=(Integer) itemReportServices.getTotalItemReport();
+			Integer totalPendingReport=(Integer) itemReportServices.getTotalPendingReportCount();
 
 			request.setAttribute("approvedCount", approvedEntry.getKey());
 			request.setAttribute("approvedPercentage", approvedEntry.getValue());
 			request.setAttribute("pendingCount", pendingEntry.getKey());
 			request.setAttribute("pendingPercentage", pendingEntry.getValue());
 			request.setAttribute("totalItem", totalItem);
-			request.setAttribute("totalReport", totalReport);
+			request.setAttribute("totalReport", totalPendingReport);
 			
 			request.setAttribute("admin", admin);
 			Integer userCount=userService.getUserCount();

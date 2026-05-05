@@ -1,7 +1,11 @@
 package com.claimit.services;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.claimit.dao.AdminDao;
 import com.claimit.model.Admin;
+import com.claimit.utils.HashPasswordUtil;
 
 public class AdminService {
 	
@@ -32,4 +36,22 @@ public class AdminService {
 	    return adminDao.changeUserRegistrationStatusOnly(userId, status);
 	}
 	
+	public String insertModerator(Admin admin) {
+		String password = HashPasswordUtil.encryptPassword(admin.getPassword());
+		admin.setPassword(password);
+		boolean result= adminDao.createModerator(admin);
+		
+		if(result != false) {
+			return "Successfully created new moderator "+admin.getFullName();
+		}
+		return "Failed to create moderator";
+	}
+	
+	public List<Admin> getAllModerators(){
+		return adminDao.fetchAllModerators() == null ? new ArrayList<>(): adminDao.fetchAllModerators()  ;
+	}
+	
+	public boolean updateModStatusById(String action, int adminId) {
+		return adminDao.changeStatusByModId(action, adminId);
+	}
 }
