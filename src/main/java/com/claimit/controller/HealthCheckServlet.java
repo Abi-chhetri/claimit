@@ -26,7 +26,7 @@ public class HealthCheckServlet extends HttpServlet {
 
 		boolean dbUp = false;
 
-		try (Connection con = DataBase_Config.getConection()) {
+		try (Connection con = DataBase_Config.getConnection()) {
 			dbUp = true;
 			System.out.println("Connected");
 		} catch (Exception se) {

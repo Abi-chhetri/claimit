@@ -12,7 +12,7 @@ public class DataBase_Config {
 	private static String userName = "claim_it";
 	private static String password = "claimit@890";
 
-	public static Connection getConection() throws SQLException, ClassNotFoundException {
+	public static Connection getConnection() throws SQLException, ClassNotFoundException {
 		Class.forName("com.mysql.cj.jdbc.Driver");
 		return DriverManager.getConnection(dbUrl, userName, password);
 	}

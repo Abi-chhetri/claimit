@@ -15,6 +15,7 @@ import com.claimit.model.User;
 import com.claimit.services.AdminLogService;
 import com.claimit.services.ClaimService;
 import com.claimit.services.ItemService;
+import com.claimit.services.NotificationService;
 import com.claimit.services.UserService;
 import com.claimit.utils.SessionManager;
 
@@ -28,6 +29,7 @@ public class ViewClaimServlet extends HttpServlet {
 	private final UserService userService=new UserService();
 	private final ItemService itemService=new ItemService();
 	private final AdminLogService adminLogService=new AdminLogService();
+	private final NotificationService notificationService=new NotificationService();
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -70,12 +72,13 @@ public class ViewClaimServlet extends HttpServlet {
 	    Claim claim = claimService.getClaimById(id);
 	    User user = userService.getUserByID(String.valueOf(claim.getUserId()));
 	    Item item = itemService.getItemById(claim.getItemId());
-
+	    
 	    if (adminNotes != null) {
-	        String pendingAction = request.getParameter("pendingAction");
+		    String pendingAction = request.getParameter("pendingAction");
 	        int adminId = (Integer) SessionManager.getAttribute(request, "adminId");
 	        claimService.updateClaimStatus(Integer.parseInt(claimId), pendingAction, adminNotes, adminId, item.getItemId());
 	        adminLogService.createAdminLog(adminId, pendingAction, "Claim Status updated "+new SimpleDateFormat("MMM dd, yyyy HH:mm:ss").format(new Date()), "Claim id : "+claimId);
+	        notificationService.insertNotification(user.getUserId(), "Claim Status", "Your claim has been "+pendingAction+"ed "+adminNotes);
 	        response.sendRedirect(request.getContextPath() + "/ManageClaim");
 	        return;
 	    }

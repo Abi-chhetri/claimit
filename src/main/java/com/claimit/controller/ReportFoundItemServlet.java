@@ -3,6 +3,7 @@ package com.claimit.controller;
 import com.claimit.model.Item;
 import com.claimit.services.ItemImageService;
 import com.claimit.services.ItemService;
+import com.claimit.services.NotificationService;
 import com.claimit.utils.ImageUploadUtil;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
@@ -21,6 +22,7 @@ public class ReportFoundItemServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private final ItemService itemService = new ItemService();
     private final ItemImageService itemImageService=new ItemImageService();
+    private final NotificationService notificationService=new NotificationService();
 	
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -71,6 +73,7 @@ public class ReportFoundItemServlet extends HttpServlet {
 	               .forward(request, response);
 	        return;
 	    }
+	    notificationService.insertNotification(userId, "Reported Found Item", "You have just reported an found Item to our admin with description "+description);
 
 	    // upload images and save to DB only if user attached any
 	    ImageUploadUtil imageUtil = new ImageUploadUtil();

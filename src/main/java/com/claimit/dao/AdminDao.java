@@ -22,7 +22,7 @@ public class AdminDao {
 
 	public Admin findAdminById(String adminId) {
 		try {
-			Connection con = DataBase_Config.getConection();
+			Connection con = DataBase_Config.getConnection();
 			PreparedStatement ps = con.prepareStatement(selectAdminByIdQuery);
 			ps.setInt(1, Integer.parseInt(adminId));
 			ResultSet rs = ps.executeQuery();
@@ -50,7 +50,7 @@ public class AdminDao {
 
 	public Admin findAdminByEmail(String email) {
 		try {
-			Connection con = DataBase_Config.getConection();
+			Connection con = DataBase_Config.getConnection();
 			PreparedStatement ps = con.prepareStatement(selectAdminByEmailQuery);
 			ps.setString(1, email);
 			ResultSet rs = ps.executeQuery();
@@ -78,7 +78,7 @@ public class AdminDao {
 
 	public boolean acceptUser(int userId, int adminId) {
 		try {
-			Connection con = DataBase_Config.getConection();
+			Connection con = DataBase_Config.getConnection();
 			PreparedStatement ps = con.prepareStatement(approveUserQuery);
 			ps.setString(1, "APPROVED");
 			ps.setInt(2, adminId);
@@ -95,7 +95,7 @@ public class AdminDao {
 
 	public boolean changeUserRegistrationStatusOnly(int userId, String status) {
 		try {
-			Connection con = DataBase_Config.getConection();
+			Connection con = DataBase_Config.getConnection();
 			PreparedStatement ps = con.prepareStatement(updateRegistrationStatusOnlyQuery);
 			ps.setString(1, status);
 			ps.setInt(2, userId);
@@ -111,7 +111,7 @@ public class AdminDao {
 
 	public boolean createModerator(Admin admin) {
 		try {
-			Connection con = DataBase_Config.getConection();
+			Connection con = DataBase_Config.getConnection();
 			PreparedStatement ps = con.prepareStatement(createModeratorQuery);
 			ps.setString(1, admin.getFullName());
 			ps.setString(2, admin.getEmail());
@@ -133,7 +133,7 @@ public class AdminDao {
 	
 	public List<Admin> fetchAllModerators() {
 		try {
-			Connection con = DataBase_Config.getConection();
+			Connection con = DataBase_Config.getConnection();
 			PreparedStatement ps = con.prepareStatement(selectAllModeratorQuert);
 			ResultSet rs = ps.executeQuery();
 			List<Admin> admins= new ArrayList<>();
@@ -162,7 +162,7 @@ public class AdminDao {
 	
 	public boolean changeStatusByModId(String action, int adminId) {
 		try {
-			Connection con = DataBase_Config.getConection();
+			Connection con = DataBase_Config.getConnection();
 			PreparedStatement ps = con.prepareStatement(updateModStatusByIdQuery);
 			ps.setString(1, action);
 			ps.setInt(2, adminId);

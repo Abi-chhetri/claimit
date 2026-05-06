@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.sql.Timestamp;
 
 import com.claimit.model.User;
+import com.claimit.services.NotificationService;
 import com.claimit.services.UserService;
 import com.claimit.utils.HashPasswordUtil;
 import com.claimit.utils.ImageUploadUtil;
@@ -23,6 +24,7 @@ public class UserProfileServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private final UserService userService = new UserService();
 	private final ImageUploadUtil imageUploadUtil = new ImageUploadUtil();
+	private final NotificationService notificationService=new NotificationService();
 
 	private void loadProfile(HttpServletRequest request, HttpServletResponse response, boolean editMode)
 			throws ServletException, IOException {
@@ -65,6 +67,7 @@ public class UserProfileServlet extends HttpServlet {
 	            user.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
 	            userService.updatePersonalInfo(user);
 	            msg = "Profile updated successfully.";
+	            notificationService.insertNotification(user.getUserId(), "Profile Update", msg);
 	            break;
 
 	        case "profilePic":
@@ -76,6 +79,7 @@ public class UserProfileServlet extends HttpServlet {
 	                user.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
 	                userService.updatePersonalInfo(user);
 	                msg = "Profile picture updated successfully.";
+	                notificationService.insertNotification(user.getUserId(), "Profile Picture updated", msg);
 	            } else {
 	                msg = "Invalid image. Please upload a JPG or PNG under 100MB.";
 	                msgType = "error";
@@ -100,6 +104,7 @@ public class UserProfileServlet extends HttpServlet {
 	                user.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
 	                userService.updatePersonalInfo(user);
 	                msg = "Password changed successfully.";
+	                notificationService.insertNotification(user.getUserId(), "Password Update", msg);
 	            }
 	            break;
 	        }

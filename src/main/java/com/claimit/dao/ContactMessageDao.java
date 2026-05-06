@@ -19,7 +19,7 @@ public class ContactMessageDao {
 
 	public boolean insertContactMessage(ContactMessage msg) {
 		try {
-			Connection con = DataBase_Config.getConection();
+			Connection con = DataBase_Config.getConnection();
 			PreparedStatement ps = con.prepareStatement(insertMessage);
 
 			if(msg.getUserId()==null) {
@@ -44,7 +44,7 @@ public class ContactMessageDao {
     public List<ContactMessage> fetchAllMessages() {
         List<ContactMessage> list = new ArrayList<>();
         try {
-            Connection con = DataBase_Config.getConection();
+            Connection con = DataBase_Config.getConnection();
             PreparedStatement ps = con.prepareStatement(retrieveAllMessages);
             ResultSet rs = ps.executeQuery();
 
@@ -71,7 +71,7 @@ public class ContactMessageDao {
     
     public boolean changeReadStatus(int contactMessageId) {
     	try {
-    		Connection con= DataBase_Config.getConection();
+    		Connection con= DataBase_Config.getConnection();
     		PreparedStatement ps= con.prepareStatement(updateReadStatus);
     		
     		ps.setInt(1, 1);

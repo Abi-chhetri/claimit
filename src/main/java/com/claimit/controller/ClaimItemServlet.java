@@ -16,6 +16,7 @@ import com.claimit.model.User;
 import com.claimit.services.ClaimService;
 import com.claimit.services.ItemImageService;
 import com.claimit.services.ItemService;
+import com.claimit.services.NotificationService;
 import com.claimit.services.UserService;
 import com.claimit.utils.ImageUploadUtil;
 
@@ -27,6 +28,7 @@ public class ClaimItemServlet extends HttpServlet {
     private final ItemService itemService = new ItemService();
     private final UserService userService = new UserService();
     private final ItemImageService itemImageService = new ItemImageService();
+    private final NotificationService notificationService=new NotificationService();
     
     
     @Override
@@ -50,6 +52,8 @@ public class ClaimItemServlet extends HttpServlet {
         String proofImage = uploadedImages.isEmpty() ? null : String.join(",", uploadedImages);
 
         String msg = claimService.insertClaim(itemId, userId, proofImage, ownershipDescription);
+        notificationService.insertNotification(userId, "Claimed Item", "Your claim was successfull submitted");
+        
 
         Item item = itemService.getItemById(itemId);
         User user = userService.getUserByID(String.valueOf(item.getUserId()));

@@ -18,7 +18,7 @@ public class ItemImageDao {
 	        
 
 	        try {
-	        	Connection conn = DataBase_Config.getConection();
+	        	Connection conn = DataBase_Config.getConnection();
 	            PreparedStatement ps = conn.prepareStatement(saveIamgeQuery);
 
 	            for (String path : imagePaths) {
@@ -43,7 +43,7 @@ public class ItemImageDao {
 		    List<ItemImage> images = new ArrayList<>();
 
 		    try {
-		    	Connection conn = DataBase_Config.getConection();
+		    	Connection conn = DataBase_Config.getConnection();
 		        PreparedStatement ps = conn.prepareStatement(getImageByIdQuery);
 		        ps.setInt(1, itemId);
 		        ResultSet rs = ps.executeQuery();
