@@ -1,11 +1,15 @@
 <%@page import="com.claimit.enums.AdminRoles"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@page import="com.claimit.model.Admin" %>
+<%@page import="com.claimit.model.Admin, com.claimit.model.AdminLog, java.util.List" %>
 <!DOCTYPE html>
 <html lang="en">
 <%Integer totalUsers=(Integer) request.getAttribute("userCount"); %>
-<%Admin admin=(Admin) request.getAttribute("admin"); %>
+<%
+Admin admin=(Admin) request.getAttribute("admin"); 
+List<AdminLog> logs=(List<AdminLog>) request.getAttribute("logs");
+%>
+
 
 <head>
     <meta charset="UTF-8">
@@ -206,25 +210,6 @@
                     </span>
 
                     <span class="no-admin-dashboar-overview">
-
-                        <a href="" class="notification-logo-mark">
-
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
-                                <rect width="24" height="24" fill="none" />
-                                <g fill="none" stroke="#005BBF" stroke-width="1.5">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M6 19v-9a6 6 0 0 1 6-6v0a6 6 0 0 1 6 6v9M6 19h12M6 19H4m14 0h2m-9 3h2" />
-                                    <circle cx="12" cy="3" r="1" />
-                                </g>
-                            </svg>
-
-                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 32 32">
-                                <rect width="32" height="32" fill="none" />
-                                <circle cx="16" cy="16" r="8" fill="red" />
-                            </svg>
-
-                        </a>
-
                         <span class="admin-dashboard-nav-txt">
                             <p class="admin-dashboard-name">${admin.fullName}</p>
                             <p class="admin-dashboard-type">${admin.role}</p>
@@ -317,9 +302,10 @@
                                         events.</p>
                                 </span>
 
-                                <p class="admin-dash-recent-activity-view-all">View All</p>
+                                <p class="admin-dash-recent-activity-view-all">logs</p>
                             </div>
 
+                            <%for(int i=0; i<5; i++){ %>
                             <a href="" class="admin-dash-recent-activity-body-content">
                                 <span class="admin-dash-recent-activity-body-logo">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 16 16">
@@ -329,85 +315,15 @@
                                     </svg>
                                 </span>
                                 <span class="admin-dash-ra-txt-status">
-                                    <p class="admin-dash-ra-txt-1"> <b class="admin-dash-ra-txt-1-bold">Claim #8291</b>
-                                        was
-                                        approved by Moderator Sarah J.
+                                    <p class="admin-dash-ra-txt-1"> <b class="admin-dash-ra-txt-1-bold"><%=logs.get(i).getTargetType() +" "+ logs.get(i).getTargetId() %>
                                     </p>
                                     <p class="admin-dash-ra1-status-time">Live feed of system actions and security
                                         events.</p>
                                 </span>
 
-                                <p class="admin-dash-ra1-status-time">2m ago</p>
+                                <p class="admin-dash-ra1-status-time">recent</p>
                             </a>
-
-
-                            <a href="" class="admin-dash-recent-activity-body-content">
-                                <span id="admin-dash-recent-activity-body-logo-id2"
-                                    class="admin-dash-recent-activity-body-logo">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                                        <rect width="24" height="24" fill="none" />
-                                        <path fill="#fff"
-                                            d="M8.27 3L3 8.27v7.46L8.27 21h7.46C17.5 19.24 21 15.73 21 15.73V8.27L15.73 3M9.1 5h5.8L19 9.1v5.8L14.9 19H9.1L5 14.9V9.1m6 5.9h2v2h-2zm0-8h2v6h-2z" />
-                                    </svg>
-                                </span>
-                                <span class="admin-dash-ra-txt-status">
-                                    <p class="admin-dash-ra-txt-1"> User <b
-                                            class="admin-dash-ra-txt-1-bold">@lost_soul_04</b> reported a suspicious
-                                        claim.
-                                    </p>
-                                    <p class="admin-dash-ra1-status-time">Flagged for potential duplicate
-                                        identification.
-                                    </p>
-                                </span>
-
-                                <p class="admin-dash-ra1-status-time">14m ago</p>
-                            </a>
-
-
-
-                            <a href="" class="admin-dash-recent-activity-body-content">
-                                <span id="admin-dash-recent-activity-body-logo-id3"
-                                    class="admin-dash-recent-activity-body-logo">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                                        <rect width="24" height="24" fill="none" />
-                                        <g class="user-add-outline">
-                                            <g fill="#fff" fill-rule="evenodd" class="Vector" clip-rule="evenodd">
-                                                <path
-                                                    d="M9.5 10a2 2 0 1 0 0-4a2 2 0 0 0 0 4m0 2a4 4 0 1 0 0-8a4 4 0 0 0 0 8m8.975-4a1 1 0 0 1 1 1v1.475h1.475a1 1 0 1 1 0 2h-1.475v1.475a1 1 0 1 1-2 0v-1.475H16a1 1 0 1 1 0-2h1.475V9a1 1 0 0 1 1-1M3.354 15.176C4.311 13.836 5.77 13 7.643 13h3.714c1.873 0 3.332.837 4.289 2.176C16.577 16.479 17 18.202 17 20a1 1 0 1 1-2 0c0-1.516-.36-2.793-.981-3.661c-.595-.832-1.457-1.339-2.662-1.339H7.643c-1.205 0-2.067.507-2.662 1.339c-.62.868-.981 2.145-.981 3.66a1 1 0 1 1-2 0c0-1.797.422-3.52 1.354-4.823" />
-                                                <path d="M2 20a1 1 0 0 1 1-1h12.969a1 1 0 0 1 0 2H3a1 1 0 0 1-1-1" />
-                                            </g>
-                                        </g>
-                                    </svg>
-                                </span>
-                                <span class="admin-dash-ra-txt-status">
-                                    <p class="admin-dash-ra-txt-1">New moderator account created for <b
-                                            class="admin-dash-ra-txt-1-bold">David Chen.</b>
-                                    </p>
-                                    <p class="admin-dash-ra1-status-time">Live feed of system actions and security
-                                        events.</p>
-                                </span>
-
-                                <p class="admin-dash-ra1-status-time">1h ago</p>
-                            </a>
-
-                            <a href="" class="admin-dash-recent-activity-body-content">
-                                <span id="admin-dash-recent-activity-body-logo-id4"
-                                    class="admin-dash-recent-activity-body-logo">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                                        <rect width="24" height="24" fill="none" />
-                                        <path fill="#414754"
-                                            d="M6.5 20q-2.28 0-3.89-1.57Q1 16.85 1 14.58q0-1.95 1.17-3.48q1.18-1.53 3.08-1.95q.63-2.3 2.5-3.72Q9.63 4 12 4q2.93 0 4.96 2.04Q19 8.07 19 11q1.73.2 2.86 1.5q1.14 1.28 1.14 3q0 1.88-1.31 3.19T18.5 20H13q-.82 0-1.41-.59Q11 18.83 11 18v-5.15L9.4 14.4L8 13l4-4l4 4l-1.4 1.4l-1.6-1.55V18h5.5q1.05 0 1.77-.73q.73-.72.73-1.77t-.73-1.77Q19.55 13 18.5 13H17v-2q0-2.07-1.46-3.54Q14.08 6 12 6Q9.93 6 8.46 7.46Q7 8.93 7 11h-.5q-1.45 0-2.47 1.03Q3 13.05 3 14.5T4.03 17q1.02 1 2.47 1H9v2m3-7" />
-                                    </svg>
-                                </span>
-                                <span class="admin-dash-ra-txt-status">
-                                    <p class="admin-dash-ra-txt-1">Database backup successfully synchronized.
-                                    </p>
-                                    <p class="admin-dash-ra1-status-time">Storage Cluster: AWS East-1 · Size: 4.2GB.</p>
-                                </span>
-
-                                <p class="admin-dash-ra1-status-time">3h ago</p>
-                            </a>
-
+                            <%} %>
                         </div>
 
                         <section class="admin-dash-quick-guideline">
@@ -454,7 +370,7 @@
                                     </a>
 
                                     <!--  -->
-                                    <a href="${pageContext.request.contextPath}/ManageReports" class="admin-dash-qa-item-outer">
+                                    <a href="${pageContext.request.contextPath}/ManageReport" class="admin-dash-qa-item-outer">
                                         <p class="admin-dash-ri-main-txt">View Reports</p>
 
                                         <span class="admin-dash-items-main-logo">
