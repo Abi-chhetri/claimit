@@ -7,10 +7,13 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import com.claimit.enums.*;
 import com.claimit.model.Admin;
 import com.claimit.model.User;
+import com.claimit.services.AdminLogService;
 import com.claimit.services.AdminService;
 import com.claimit.services.UserService;
 import com.claimit.utils.CookieManager;
@@ -25,6 +28,7 @@ public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private UserService userService = new UserService();
 	private AdminService adminService = new AdminService();
+	private AdminLogService adminLogService =new AdminLogService();
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -132,6 +136,12 @@ public class LoginServlet extends HttpServlet {
 				SessionManager.setAttribute(request,"flashMessage", "Successfully Logged In");
 				CookieManager.addCookie(response, "adminId", String.valueOf(admin.getAdminId()), 60*60);
 //				CookieManager.addCookie(response, "role", admin.getRole(), 60*60);
+				if(admin.getRole().equals(AdminRoles.ADMIN.name())) {
+					adminLogService.createAdminLog(admin.getAdminId(), "Login", "Login "+new SimpleDateFormat("MMM dd, yyyy HH:mm:ss").format(new Date()), "Admin : "+admin.getAdminId());
+				}else {
+					adminLogService.createAdminLog(admin.getAdminId(), "Login", "Login "+new SimpleDateFormat("MMM dd, yyyy HH:mm:ss").format(new Date()), "Moderator : "+admin.getAdminId());
+				}
+
 				response.sendRedirect(request.getContextPath()+"/AdminDashBoard");
 				return;
 			}

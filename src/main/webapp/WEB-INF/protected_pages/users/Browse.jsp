@@ -192,13 +192,14 @@ if (flash != null) {
                 <%
                         }
                     }
-                    if (!anyFound) {
+                    if (!anyFound && isSearching) {
                 %>
                 <p class="no-results-msg">No items match your search. Try different keywords or a wider date range.</p>
                 <%
-                    }
-                }
-                %>
+                    }else{ %>
+                    <p class="no-results-msg">No Item Uploaded to show.</p>
+               		<%} %> 
+               <%} %>
             </div>
         </section>
 

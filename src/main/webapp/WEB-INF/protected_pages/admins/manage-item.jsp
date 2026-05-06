@@ -28,7 +28,7 @@ ItemImageService imageService = new ItemImageService();
             <div class="admin-aside-admin-function-outer">
 
                 <div class="admin-aside-admin-function">
-                    <a href="admin-dashboard.html" class="admin-functions">
+                    <a href="${pageContext.request.contextPath}/AdminDashBoard" class="admin-functions">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
                             <rect width="24" height="24" fill="none" />
                             <path fill="#475569" d="M13 9V3h8v6zM3 13V3h8v10zm10 8V11h8v10zM3 21v-6h8v6zm2-10h4V5H5zm10 8h4v-6h-4zm0-12h4V5h-4zM5 19h4v-2H5zm4-2" />
@@ -38,7 +38,7 @@ ItemImageService imageService = new ItemImageService();
                 </div>
 
                 <div class="admin-aside-admin-function">
-                    <a href="manage-item.html" class="admin-functions active-nav">
+                    <a href="${pageContext.request.contextPath}/ManageItem" class="admin-functions active-nav">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 32 32">
                             <rect width="32" height="32" fill="none" />
                             <path fill="#475569" d="M20 21h-8a2 2 0 0 1-2-2v-2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2m-8-4v2h8v-2Z" />
@@ -49,7 +49,7 @@ ItemImageService imageService = new ItemImageService();
                 </div>
 
                 <div class="admin-aside-admin-function">
-                    <a href="manage-claim.html" class="admin-functions">
+                    <a href="${pageContext.request.contextPath}/ManageClaim" class="admin-functions">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
                             <rect width="24" height="24" fill="none" />
                             <path fill="#475569" fill-rule="evenodd" d="M20 4H4a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1M4 2a3 3 0 0 0-3 3v14a3 3 0 0 0 3 3h16a3 3 0 0 0 3-3V5a3 3 0 0 0-3-3zm2 5h2v2H6zm5 0a1 1 0 1 0 0 2h6a1 1 0 1 0 0-2zm-3 4H6v2h2zm2 1a1 1 0 0 1 1-1h6a1 1 0 1 1 0 2h-6a1 1 0 0 1-1-1m-2 3H6v2h2zm2 1a1 1 0 0 1 1-1h6a1 1 0 1 1 0 2h-6a1 1 0 0 1-1-1" clip-rule="evenodd" />
@@ -59,7 +59,7 @@ ItemImageService imageService = new ItemImageService();
                 </div>
 
                 <div class="admin-aside-admin-function">
-                    <a href="manage-report.html" class="admin-functions">
+                    <a href="${pageContext.request.contextPath}/ManageReport" class="admin-functions">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="16" viewBox="0 0 16 16">
                             <rect width="16" height="16" fill="none" />
                             <path fill="#1D4ED8" d="M0 1.75C0 .784.784 0 1.75 0h12.5C15.216 0 16 .784 16 1.75v9.5A1.75 1.75 0 0 1 14.25 13H8.06l-2.573 2.573A1.458 1.458 0 0 1 3 14.543V13H1.75A1.75 1.75 0 0 1 0 11.25Zm1.75-.25a.25.25 0 0 0-.25.25v9.5c0 .138.112.25.25.25h2a.75.75 0 0 1 .75.75v2.19l2.72-2.72a.75.75 0 0 1 .53-.22h6.5a.25.25 0 0 0 .25-.25v-9.5a.25.25 0 0 0-.25-.25Zm7 2.25v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0M9 9a1 1 0 1 1-2 0a1 1 0 0 1 2 0" />
@@ -69,7 +69,7 @@ ItemImageService imageService = new ItemImageService();
                 </div>
 
                 <div class="admin-aside-admin-function">
-                    <a href="manage-user.html" class="admin-functions">
+                    <a href="${pageContext.request.contextPath}/ManageUser" class="admin-functions">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="21" viewBox="0 0 21 21">
                             <rect width="21" height="21" fill="none" />
                             <g fill="none" fill-rule="evenodd" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="1">
@@ -82,7 +82,7 @@ ItemImageService imageService = new ItemImageService();
                 </div>
 
                 <div class="admin-aside-admin-function">
-                    <a href="manage-moderators.html" class="admin-functions">
+                    <a href="${pageContext.request.contextPath}/ManageModerator" class="admin-functions">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="18" viewBox="0 0 8 8">
                             <rect width="8" height="8" fill="none" />
                             <path fill="#475569" d="M4 4v3q2 0 3-3M4 4V1L1 2v2m3-4l4 2c0 8-8 8-8 0" />
@@ -92,7 +92,7 @@ ItemImageService imageService = new ItemImageService();
                 </div>
 
                 <div class="admin-aside-admin-function">
-                    <a href="contact-message.html" class="admin-functions">
+                    <a href="${pageContext.request.contextPath}/ManageContactMessage" class="admin-functions">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 32 32">
                             <rect width="32" height="32" fill="none" />
                             <path fill="#475569" d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z" />
@@ -102,7 +102,7 @@ ItemImageService imageService = new ItemImageService();
                 </div>
 
                 <div class="admin-aside-admin-function">
-                    <a href="admin-logs.html" class="admin-functions">
+                    <a href="${pageContext.request.contextPath}/AdminLog" class="admin-functions">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
                             <rect width="24" height="24" fill="none" />
                             <path fill="#475569" d="M12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12h2a8 8 0 1 0 1.385-4.5H8v2H2v-6h2V6a9.99 9.99 0 0 1 8-4m1 5v4.585l3.243 3.243l-1.415 1.415L11 12.413V7z" />
@@ -115,7 +115,7 @@ ItemImageService imageService = new ItemImageService();
 
             <div class="admin-aside-admin-logout">
                 <div id="admin-logo">
-                    <a href="#" class="admin-logo">
+                    <a href="${pageContext.request.contextPath}/Logout" class="admin-logo">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                             <rect width="24" height="24" fill="none" />
                             <g fill="#475569">
@@ -256,6 +256,7 @@ ItemImageService imageService = new ItemImageService();
 							String rejectItemIdStr = request.getParameter("rejectItemId");
 							for (Item eachItem : items) {
 								boolean showReject = rejectItemIdStr != null && rejectItemIdStr.equals(String.valueOf(eachItem.getItemId()));
+								if(eachItem.getType().equals("RETURNED")) continue;
 							%>
 							<tr>
                                 <td><a href="#" class="mr-report-id">#<%= eachItem.getItemId() %></a></td>

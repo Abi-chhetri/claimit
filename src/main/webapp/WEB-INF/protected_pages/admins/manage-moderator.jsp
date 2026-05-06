@@ -52,7 +52,7 @@ List<Admin> admins= (List<Admin>) request.getAttribute("admins");
 
             <div class="admin-aside-admin-function-outer">
                 <div class="admin-aside-admin-function">
-                    <a href="admin-dashboard.html" class="admin-functions">
+                    <a href="${pageContext.request.contextPath}/AdminDashBoard" class="admin-functions">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
                             <rect width="24" height="24" fill="none" />
                             <path fill="#475569"
@@ -62,7 +62,7 @@ List<Admin> admins= (List<Admin>) request.getAttribute("admins");
                     </a>
                 </div>
                 <div class="admin-aside-admin-function">
-                    <a href="manage-item.html" class="admin-functions">
+                    <a href="${pageContext.request.contextPath}/ManageItem" class="admin-functions">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 32 32">
                             <rect width="32" height="32" fill="none" />
                             <path fill="#475569"
@@ -74,7 +74,7 @@ List<Admin> admins= (List<Admin>) request.getAttribute("admins");
                     </a>
                 </div>
                 <div class="admin-aside-admin-function">
-                    <a href="manage-claim.html" class="admin-functions">
+                    <a href="${pageContext.request.contextPath}/ManageClaim" class="admin-functions">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
                             <rect width="24" height="24" fill="none" />
                             <path fill="#475569" fill-rule="evenodd"
@@ -85,7 +85,7 @@ List<Admin> admins= (List<Admin>) request.getAttribute("admins");
                     </a>
                 </div>
                 <div class="admin-aside-admin-function">
-                    <a href="manage-report.html" class="admin-functions">
+                    <a href="${pageContext.request.contextPath}/ManageReport" class="admin-functions">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="16" viewBox="0 0 16 16">
                             <rect width="16" height="16" fill="none" />
                             <path fill="#475569"
@@ -95,7 +95,7 @@ List<Admin> admins= (List<Admin>) request.getAttribute("admins");
                     </a>
                 </div>
                 <div class="admin-aside-admin-function">
-                    <a href="manage-user.html" class="admin-functions">
+                    <a href="${pageContext.request.contextPath}/ManageUser" class="admin-functions">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="21" viewBox="0 0 21 21">
                             <rect width="21" height="21" fill="none" />
                             <g fill="none" fill-rule="evenodd" stroke="#000" stroke-linecap="round"
@@ -110,7 +110,7 @@ List<Admin> admins= (List<Admin>) request.getAttribute("admins");
                     </a>
                 </div>
                 <div class="admin-aside-admin-function">
-                    <a href="manage-moderators.html" class="admin-functions active-nav"
+                    <a href="${pageContext.request.contextPath}/ManageModerator" class="admin-functions active-nav"
                         style="color:#1D4ED8;background:#1d4fd813;border-right:4px solid #1D4ED8;">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="18" viewBox="0 0 8 8">
                             <rect width="8" height="8" fill="none" />
@@ -120,7 +120,7 @@ List<Admin> admins= (List<Admin>) request.getAttribute("admins");
                     </a>
                 </div>
                 <div class="admin-aside-admin-function">
-                    <a href="contact-message.html" class="admin-functions">
+                    <a href="${pageContext.request.contextPath}/ManageContactMessage" class="admin-functions">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 32 32">
                             <rect width="32" height="32" fill="none" />
                             <path fill="#475569"
@@ -130,7 +130,7 @@ List<Admin> admins= (List<Admin>) request.getAttribute("admins");
                     </a>
                 </div>
                 <div class="admin-aside-admin-function">
-                    <a href="admin-logs.html" class="admin-functions">
+                    <a href="${pageContext.request.contextPath}/AdminLog" class="admin-functions">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
                             <rect width="24" height="24" fill="none" />
                             <path fill="#475569"
@@ -316,7 +316,7 @@ List<Admin> admins= (List<Admin>) request.getAttribute("admins");
                                     <th>FULL NAME</th>
                                     <th>EMAIL</th>
                                     <th>DATE ADDED</th>
-                                    <th>ACTIONS</th>
+                                    <th>AVAILABLE ACTIONS</th>
                                 </tr>
                             </thead>
                             <tbody>

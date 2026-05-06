@@ -69,7 +69,7 @@ String searchQuery = request.getParameter("search") != null ? request.getParamet
                 </div>
 
                 <div class="admin-aside-admin-function">
-                    <a href="${pageContext.request.contextPath}/ManageReports" class="admin-functions">
+                    <a href="${pageContext.request.contextPath}/ManageReport" class="admin-functions">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="16" viewBox="0 0 16 16">
                             <rect width="16" height="16" fill="none" />
                             <path fill="#475569"
@@ -80,7 +80,7 @@ String searchQuery = request.getParameter("search") != null ? request.getParamet
                 </div>
 
                 <div class="admin-aside-admin-function">
-                    <a href="${pageContext.request.contextPath}/ManageUser" class="admin-functions">
+                    <a href="${pageContext.request.contextPath}/ManageUser" class="admin-functions active-nav">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="21" viewBox="0 0 21 21">
                             <rect width="21" height="21" fill="none" />
                             <g fill="none" fill-rule="evenodd" stroke="#000" stroke-linecap="round"
@@ -96,7 +96,7 @@ String searchQuery = request.getParameter("search") != null ? request.getParamet
                 </div>
 
                 <div class="admin-aside-admin-function">
-                    <a href="${pageContext.request.contextPath}/ManageModerators" class="admin-functions">
+                    <a href="${pageContext.request.contextPath}/ManageModerator" class="admin-functions">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="18" viewBox="0 0 8 8">
                             <rect width="8" height="8" fill="none" />
                             <path fill="#475569" d="M4 4v3q2 0 3-3M4 4V1L1 2v2m3-4l4 2c0 8-8 8-8 0" />
@@ -106,7 +106,7 @@ String searchQuery = request.getParameter("search") != null ? request.getParamet
                 </div>
 
                 <div class="admin-aside-admin-function">
-                    <a href="${pageContext.request.contextPath}/ContactMessage" class="admin-functions">
+                    <a href="${pageContext.request.contextPath}/ManageContactMessage" class="admin-functions">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 32 32">
                             <rect width="32" height="32" fill="none" />
                             <path fill="#475569"
@@ -117,7 +117,7 @@ String searchQuery = request.getParameter("search") != null ? request.getParamet
                 </div>
 
                 <div class="admin-aside-admin-function">
-                    <a href="${pageContext.request.contextPath}/AdminLogs" class="admin-functions">
+                    <a href="${pageContext.request.contextPath}/AdminLog" class="admin-functions">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
                             <rect width="24" height="24" fill="none" />
                             <path fill="#475569"

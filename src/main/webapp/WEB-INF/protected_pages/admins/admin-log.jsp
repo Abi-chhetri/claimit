@@ -10,7 +10,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> Admin Dashboard </title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/Admin-logs.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin-dashboard.css">
 </head>
 
 <body>
@@ -67,7 +66,7 @@
 				</div>
 
 				<div class="admin-aside-admin-function">
-					<a href="${pageContext.request.contextPath}/ManageReports"
+					<a href="${pageContext.request.contextPath}/ManageReport"
 						class="admin-functions"> <svg
 							xmlns="http://www.w3.org/2000/svg" width="20" height="16"
 							viewBox="0 0 16 16">
@@ -99,7 +98,7 @@
 				</div>
 
 				<div class="admin-aside-admin-function">
-					<a href="${pageContext.request.contextPath}/ManageModerators"
+					<a href="${pageContext.request.contextPath}/ManageModerator"
 						class="admin-functions"> <svg
 							xmlns="http://www.w3.org/2000/svg" width="20" height="18"
 							viewBox="0 0 8 8">
@@ -112,7 +111,7 @@
 				</div>
 
 				<div class="admin-aside-admin-function">
-					<a href="${pageContext.request.contextPath}/ContactMessage"
+					<a href="${pageContext.request.contextPath}/ManageContactMessage"
 						class="admin-functions"> <svg
 							xmlns="http://www.w3.org/2000/svg" width="20" height="20"
 							viewBox="0 0 32 32">
@@ -125,7 +124,7 @@
 				</div>
 
 				<div class="admin-aside-admin-function">
-					<a href="${pageContext.request.contextPath}/AdminLogs"
+					<a href="${pageContext.request.contextPath}/AdminLog"
 						class="admin-functions active-nav"> <svg
 							xmlns="http://www.w3.org/2000/svg" width="20" height="20"
 							viewBox="0 0 24 24">

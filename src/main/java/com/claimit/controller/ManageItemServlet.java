@@ -6,7 +6,9 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.claimit.model.Item;
@@ -98,7 +100,7 @@ public class ManageItemServlet extends HttpServlet {
 				} else if ("reject".equals(action)) {
 					String reason = request.getParameter("reason");
 					itemService.updateItemStatusWithReason(itemId, reason);
-					adminLogService.createAdminLog((Integer) SessionManager.getAttribute(request, "adminId"), action, "Item Status", "Item Id : "+String.valueOf(itemId));
+					adminLogService.createAdminLog((Integer) SessionManager.getAttribute(request, "adminId"), action, "Item Status "+new SimpleDateFormat("MMM dd, yyyy HH:mm:ss").format(new Date()), "Item Id : "+String.valueOf(itemId));
 				}
 
 			} catch (NumberFormatException e) {
