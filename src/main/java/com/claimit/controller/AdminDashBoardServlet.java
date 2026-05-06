@@ -7,9 +7,12 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.claimit.model.Admin;
+import com.claimit.model.AdminLog;
+import com.claimit.services.AdminLogService;
 import com.claimit.services.AdminService;
 import com.claimit.services.ClaimService;
 import com.claimit.services.ItemReportService;
@@ -26,6 +29,7 @@ public class AdminDashBoardServlet extends HttpServlet {
 	private UserService userService =new UserService();
 	private ClaimService claimServices=new ClaimService();
 	private ItemReportService itemReportServices=new ItemReportService();
+	private AdminLogService adminLogService=new AdminLogService();
    
     /**
      * @see HttpServlet#HttpServlet()
@@ -41,6 +45,7 @@ public class AdminDashBoardServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		String adminId = String.valueOf(SessionManager.getAttribute(request, "adminId"));
+		List<AdminLog> logs= adminLogService.getAllAdminLogs().reversed();
 		if(adminId != null) {
 			Admin admin=adminService.getAdminByID(adminId);
 			HashMap <Integer,Double> pendingClaim = claimServices.getPendingClaims();
@@ -61,6 +66,7 @@ public class AdminDashBoardServlet extends HttpServlet {
 			request.setAttribute("admin", admin);
 			Integer userCount=userService.getUserCount();
 			request.setAttribute("userCount", userCount);
+			request.setAttribute("logs", logs);
 		}
 		request.getRequestDispatcher("/WEB-INF/protected_pages/admins/admin-dashboard.jsp").forward(request, response);
 	}

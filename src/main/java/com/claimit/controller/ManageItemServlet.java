@@ -33,6 +33,7 @@ public class ManageItemServlet extends HttpServlet {
 
 		String search = request.getParameter("search");
 		String status = request.getParameter("status");
+		
 
 		// blank strings as null
 		if (search != null && search.trim().isEmpty())

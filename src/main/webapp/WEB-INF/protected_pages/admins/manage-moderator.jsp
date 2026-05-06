@@ -188,25 +188,6 @@ List<Admin> admins= (List<Admin>) request.getAttribute("admins");
                         <p class="overview">Overview</p>
                     </span>
                     <span class="no-admin-dashboar-overview">
-
-                        <a href="" class="notification-logo-mark">
-
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
-                                <rect width="24" height="24" fill="none" />
-                                <g fill="none" stroke="#005BBF" stroke-width="1.5">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M6 19v-9a6 6 0 0 1 6-6v0a6 6 0 0 1 6 6v9M6 19h12M6 19H4m14 0h2m-9 3h2" />
-                                    <circle cx="12" cy="3" r="1" />
-                                </g>
-                            </svg>
-
-                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 32 32">
-                                <rect width="32" height="32" fill="none" />
-                                <circle cx="16" cy="16" r="8" fill="red" />
-                            </svg>
-
-                        </a>
-
                         <span class="admin-dashboard-nav-txt">
                             <p class="admin-dashboard-name">${admin.fullName}</p>
                             <p class="admin-dashboard-type">${admin.role}</p>

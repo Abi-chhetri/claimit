@@ -6,11 +6,14 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
+import com.claimit.model.Notification;
 import com.claimit.model.User;
 import com.claimit.services.ClaimService;
 import com.claimit.services.ItemService;
+import com.claimit.services.NotificationService;
 import com.claimit.services.UserService;
 import com.claimit.utils.SessionManager;
 
@@ -23,6 +26,7 @@ public class DashBoardServlet extends HttpServlet {
 	private UserService userService = new UserService();
 	private ClaimService claimServices = new ClaimService();
 	private ItemService itemService = new ItemService();
+	private NotificationService notificationService=new NotificationService();
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -42,6 +46,7 @@ public class DashBoardServlet extends HttpServlet {
 			response.sendRedirect(request.getContextPath() + "/login.jsp");
 			return;
 		}
+		List<Notification>notif=notificationService.getNotificationByIdWithLim(userId);
 		User user = userService.getUserByID(userId.toString()); // or change service to accept int
 		request.setAttribute("user", user);
 
@@ -52,6 +57,7 @@ public class DashBoardServlet extends HttpServlet {
 
 		Integer userReportCount = itemService.getUserReportCount(userId);
 		request.setAttribute("userReportCount", userReportCount);
+		request.setAttribute("notif", notif);
 		request.getRequestDispatcher("/WEB-INF/protected_pages/users/DashBoard.jsp").forward(request, response);
 	}
 

@@ -1,7 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="com.claimit.model.User" %>
-<% User user= (User) request.getAttribute("user");%>
+<%@ page import="com.claimit.model.User, com.claimit.model.Notification, java.util.List, java.text.SimpleDateFormat" %>
+<%
+User user= (User) request.getAttribute("user");
+List<Notification> notif= (List<Notification>) request.getAttribute("notif");
+%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -192,53 +195,39 @@
                     <div class="activity-one">
 
                         <p class="activity-one-txt">Recent Activity</p>
-                        <a href="#" class="activity-one-link">View All</a>
+                        <a href="#" class="activity-one-link">Log Status</a>
                     </div>
 
+                    <%for(Notification eachNot:notif){ %>
                     <div class="activity-box">
-
-                        <img src="../black lether wallet.jpg" alt="" class="activity-img">
                         <div class="activity-main-txt">
-                            <p class="activity-txt">Black Leather Wallet</p>
-                            <p class="activity-status-txt">Claim request submitted • 2 hours ago</p>
+                            <p class="activity-txt"><%=eachNot.getMessage() %></p>
+                            <p class="activity-status-txt">Time : <%=new SimpleDateFormat("HH:mm a").format(eachNot.getCreatedAt()) %></p>
                         </div>
 
-                        <div class="status-sign"  id="pending-status">Pending</div>
+                        <div class="status-sign" id="returned-status"><%=eachNot.getType() %></div>
 
                     </div>
-
-
-                    <div class="activity-box">
-
-                        <img src="../black lether wallet.jpg" alt="" class="activity-img">
-                        <div class="activity-main-txt">
-                            <p class="activity-txt">Black Leather Wallet</p>
-                            <p class="activity-status-txt">Item verified by staff • Yesterday</p>
-                        </div>
-
-                        <div class="status-sign" id="verified-status">Verified</div>
-
-                    </div>
-
-
-
-                    <div class="activity-box">
-
-                        <img src="../black lether wallet.jpg" alt="" class="activity-img">
-                        <div class="activity-main-txt">
-                            <p class="activity-txt">Black Leather Wallet</p>
-                            <p class="activity-status-txt">Claim successfully returned • 3 days ago</p>
-                        </div>
-
-                        <div class="status-sign" id="returned-status">Returned</div>
-
-                    </div>
-
+                    <%} %>
                 </div>
 
             </section>
         </article>
     </main>
 </body>
+    <footer class="site-footer">
+        <div class="footer-left">
+            <span class="footer-brand">ClaimIt</span>
+        </div>
+        <div class="footer-middle">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+            <a href="#">Help Center</a>
+            <a href="#">Contact Us</a>
+        </div>
+        <div class="footer-right">
+            <p>&copy; 2026 ClaimIt Protocol. All rights reserved.</p>
+        </div>
+    </footer>
 
 </html>
