@@ -1,5 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<%@page import="com.claimit.model.ContactMessage, java.util.List , java.text.SimpleDateFormat" %>
+<% List<ContactMessage> messages= (List<ContactMessage>) request.getAttribute("contactMessage");%>
+<%
+String suc=(String) request.getAttribute("suc");
+String err=(String) request.getAttribute("err");
+int read=0;
+int unRead=0;
+%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,6 +26,9 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <%if(suc != null || err != null){ %>
+	    <meta http-equiv="refresh" content="3">
+	    <%} %>
         <title> Admin Dashboard </title>
         <link rel="stylesheet" href="Admin-logs.css">
     </head>
@@ -165,8 +177,6 @@
                 <header class="head">
                     <span>ClaimIt</span>
                     <div class="header2">
-                        <span>Mission</span>
-                        <span>Claims</span>
                         <span class="Acti">Admin</span>
                         <button class="noti-acc-button">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
@@ -190,6 +200,16 @@
                 </section>
 
                 <section class="table-container">
+                <% if(suc != null){ %>
+				<p style="background:#ECFDF5; color:#065F46; border:1px solid #6EE7B7; border-radius:8px; padding:10px 16px; text-align:center; font-size:14px; font-weight:500; margin-bottom:16px;">
+				    <%= suc %>
+				</p>
+				<%} %>
+				<% if(err != null){ %>
+				    <p style="background:#FEF2F2; color:#991B1B; border:1px solid #FCA5A5; border-radius:8px; padding:10px 16px; text-align:center; font-size:14px; font-weight:500; margin-bottom:16px;">
+				        <%= err %>
+				    </p>
+				<%} %>
 
                     <div class="table-header">
                         <span>ID</span>
@@ -199,32 +219,31 @@
                         <span>STATUS</span>
                         <span>ACTION</span>
                     </div>
-
+                    <%for(ContactMessage each: messages){ 
+                    	if(!each.getIsRead()){
+                    		unRead++;
+                    %>
                     <div class="row">
-                        <div class="MSG">MSG-<br> 4829</div>
+                        <div class="MSG">MSG-<%=each.getContactMessageId() %></div>
 
                         <div class="sender">
-                            <div class="avatar-un">JH</div>
+                            <div class="avatar-un"><%= each.getEmail().substring(0,2).toUpperCase() %></div>
                             <div class="sender-info">
-                                Julianne Hance
-                                <span>j.hance@example.com</span>
+                                <%= each.getUserId() == 0 ? "N/A" : each.getUserId() %>
+                                <span><%= each.getEmail()%></span>
                             </div>
                         </div>
 
                         <div>
-                            <div class="message-title">Lost heirloom watch near terminal...</div>
+                            <div class="message-title"><%= each.getMessage().substring(0,11) %></div>
                             <div class="message-desc">
-                                The ancient lighthouse stood tall against the stormy horizon, 
-                                its beam cutting through thick fog while sailors navigated treacherous
-                                 waters below. Seagulls circled overhead, crying into the wind as waves
-                                  crashed violently against the rocky shore, sending white spray high into
-                                   the cold evening air.
+                            	<%= each.getMessage() %>
                             </div>
                         </div>
 
                         <div class="date">
-                            Oct 24, 2024
-                            <span>14:20 PM</span>
+                            <%= new SimpleDateFormat("MMM dd, yyyy").format(each.getSubmittedAt()) %>
+                            <span><%= new SimpleDateFormat("HH:mm a").format(each.getSubmittedAt()) %></span>
                         </div>
 
                         <div>
@@ -232,33 +251,35 @@
                         </div>
 
                          <div>
-                            <button class="btnact">Mark as Read</button>
+                            <form action="${pageContext.request.contextPath}/ManageContactMessage" method="POST">
+							    <input type="hidden" name="messageId" value="<%= each.getContactMessageId() %>">
+							    <button type="submit" class="btnact">Mark as Read</button>
+							</form>
                         </div>
                     </div>
-
-
+                    <%}else{  read++;%>
                     <div class="row">
-                        <div class="MSG">MSG-<br> 4825</div>
+                        <div class="MSG">MSG-<%=each.getContactMessageId() %> </div>
 
                         <div class="sender">
-                            <div class="avatar-rk">RK</div>
+                            <div class="avatar"><%= each.getEmail().substring(0,2).toUpperCase() %></div>
                             <div class="sender-info">
-                                Robert Kenedy
-                                <span>rk@outlook.com</span>
+                                <%= each.getUserId() == 0 ? "N/A" : each.getUserId() %>
+                                <span><%= each.getEmail()%></span>
                             </div>
                         </div>
 
                         <div>
-                            <div class="message-title">Feedback on retrieval process</div>
+                            <div class="message-title"><%= each.getMessage().substring(0,11) %></div>
                             <div class="message-desc">
-                                The concierge team was exceptionally <br>helpful when I recovered my lost briefcase...
+                                <%= each.getMessage() %>
                             </div>
                         </div>
 
 
                         <div class="date">
-                            Oct 23,<br> 2024
-                            <span>09:12 AM</span>
+                            <%= new SimpleDateFormat("MMM dd, yyyy").format(each.getSubmittedAt()) %>
+                            <span><%= new SimpleDateFormat("HH:mm a").format(each.getSubmittedAt()) %></span>
                         </div>
 
                         <div>
@@ -266,44 +287,11 @@
                         </div>
 
                         <div>
-                            <button class="gray">View</button>
-                        </div> 
-                    </div>
-
-
-                    <div class="row">
-                        <div class="MSG">MSG-<br> 4811</div>
-
-                        <div class="sender">
-                            <div class="avatar">MT</div>
-                            <div class="sender-info">
-                                Marcus Throne
-                                <span>m.throne@outlook.com</span>
-                            </div>
-                        </div>
-
-                        <div>
-                            <div class="message-title">Item found: Leather wallet</div>
-                            <div class="message-desc">
-                                T found a brown leather wallet near the <br> fountain. It has several credit cards..
-                            </div>
-                        </div>
-
-
-                        <div class="date">
-                            Oct 22,<br> 2024
-                            <span>11:12 AM</span>
-                        </div>
-
-                        <div>
-                            <span class="status-read">Read</span>
-                        </div>
-
-                        <div>
-                            <button class="gray">View</button>
+                            <button class="gray">N/A</button>
                         </div>
                     </div>
-
+                    
+                    <%}} %>
                 </section>
 
                 <section class="Message-bottom">
@@ -313,7 +301,7 @@
                         </div>
                         <div class="text">
                             <p>UNREAD MESSAGE</p>
-                            <h1>12</h1>
+                            <h1><%=unRead %></h1>
                         </div>
                     </div>
 
@@ -324,7 +312,7 @@
                         <div>
                             <div class="text">
                                 <p>READ</p>
-                                <span>45</span>
+                                <span><%=read %></span>
                             </div>
                         </div>
                     </div>

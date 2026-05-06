@@ -6,14 +6,10 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.claimit.enums.AdminRoles;
 import com.claimit.model.Admin;
-import com.claimit.services.AdminLogService;
 import com.claimit.services.AdminService;
 import com.claimit.services.ClaimService;
 import com.claimit.services.ItemReportService;
@@ -30,7 +26,6 @@ public class AdminDashBoardServlet extends HttpServlet {
 	private UserService userService =new UserService();
 	private ClaimService claimServices=new ClaimService();
 	private ItemReportService itemReportServices=new ItemReportService();
-	private AdminLogService adminLogService =new AdminLogService();
    
     /**
      * @see HttpServlet#HttpServlet()
@@ -66,13 +61,6 @@ public class AdminDashBoardServlet extends HttpServlet {
 			request.setAttribute("admin", admin);
 			Integer userCount=userService.getUserCount();
 			request.setAttribute("userCount", userCount);
-			
-			if(admin.getRole().equals(AdminRoles.ADMIN.name())) {
-				adminLogService.createAdminLog(Integer.parseInt(adminId), "Login", "Login "+new SimpleDateFormat("MMM dd, yyyy HH:mm:ss").format(new Date()), "Admin : "+adminId);
-			}else {
-				adminLogService.createAdminLog(Integer.parseInt(adminId), "Login", "Login "+new SimpleDateFormat("MMM dd, yyyy HH:mm:ss").format(new Date()), "Moderator : "+adminId);
-			}
-
 		}
 		request.getRequestDispatcher("/WEB-INF/protected_pages/admins/admin-dashboard.jsp").forward(request, response);
 	}

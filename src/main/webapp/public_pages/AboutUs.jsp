@@ -1,12 +1,18 @@
-<%@page import="com.claimit.utils.SessionManager"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<% Integer userId=(Integer) SessionManager.getAttribute(request, "userId"); %>
+<% 
+Integer userId=(Integer) request.getAttribute("userId"); 
+String erMsg= (String) request.getAttribute("erMsg");
+String suc = (String) request.getAttribute("suc");
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%if(suc != null){ %>
+    <meta http-equiv="refresh" content="3">
+    <%} %>
     <title>ClaimIt - About</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/AboutPage.css">
 </head>
@@ -49,6 +55,11 @@
         </div>
         <%} %>
     </header>
+    <% if(suc != null){ %>
+	<p style="background:#ECFDF5; color:#065F46; border:1px solid #6EE7B7; border-radius:8px; padding:10px 16px; text-align:center; font-size:14px; font-weight:500; margin-bottom:16px;">
+	    <%= suc %>
+	</p>
+	<% } %>
     <main class="main-content">
         <section class="about-hero">
             <div class="about-left">
@@ -56,7 +67,7 @@
                 <h1 class="about-heading">About<span class="about-heading-blue"> ClaimIt</span></h1>
                 <p class="about-desc">Redefining the lost and found experience with a premium, digital-first approach.
                     We connect missing memories with their rightful owners through an elegant, high-trust ecosystem.</p>
-                <button class="about-btn">Start Searching</button>
+                <button class="about-btn" onclick="window.location.href='${pageContext.request.contextPath}/Browse'">Start Searching</button>
             </div>
             <div class="about-right">
                 <div class="about-image-wrapper">
@@ -176,6 +187,30 @@
                 </div>
             </div>
         </section>
+        
+        <section class="contact-section" id="contact">
+		    <div class="contact-header">
+		        <span class="contact-tag">GET IN TOUCH</span>
+		        <h2 class="contact-title">Contact Us</h2>
+		        <p class="contact-subtitle">Have a question or need help? We'd love to hear from you.</p>
+		    </div>
+		    <div class="contact-wrapper">
+		        <form class="contact-form" action="${pageContext.request.contextPath}/About" method="POST">
+		        <span style="text-align: center; color:red; width:100%;"><%= erMsg != null ? erMsg:"" %></span>
+		        <%if(userId == null){ %>
+		        	<div class="contact-form-group">
+		                <label class="contact-label" for="contact-email">Email Address</label>
+		                <input class="contact-input" type="email" id="contact-email" name="email" placeholder="abcd@gmail.com"/>
+		            </div>
+		        <%} %>
+		            <div class="contact-form-group">
+		                <label class="contact-label" for="contact-message">Message</label>
+		                <textarea class="contact-input contact-textarea" id="contact-message" name="message" placeholder="Write your message here..."></textarea>
+		            </div>
+		            <button class="contact-submit-btn" type="submit">Send Message</button>
+		        </form>
+		    </div>
+		</section>
     </main>
     <footer class="site-footer">
         <div class="footer-left">

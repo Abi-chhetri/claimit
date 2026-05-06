@@ -77,11 +77,8 @@ public class ManageModeratorServlet extends HttpServlet {
 		String action = request.getParameter("action");
 		if (action != null && action.equals("addMod")) {
 			request.setAttribute("showModal", true);
-			request.getRequestDispatcher("/WEB-INF/protected_pages/admins/manage-moderator.jsp").forward(request,response);
-			return;
 		}
-		response.sendRedirect(request.getContextPath()+"/ManageModerator");
-		
+		doGet(request, response);
 	}
 
 }

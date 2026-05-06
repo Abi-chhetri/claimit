@@ -129,7 +129,7 @@
             <section class="report-lost-found-needhelp">
 				
 				<div class="report-lost-item">
-					<a href="${pageContext.request.contextPath}/Claims">
+					<a href="${pageContext.request.contextPath}/MyClaim">
 					    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
 					        <path fill="#fff"
 					            d="M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2m-7 3a3 3 0 1 1 0 6a3 3 0 0 1 0-6m5 12H7v-.5c0-2.33 3.33-3.5 5-3.5s5 1.17 5 3.5z"/>
@@ -169,7 +169,7 @@
                     <p class="need-help-nor-txt">Our concierge team is here to help you reunite with your lost items
                         24/7. Connect with a specialist now.</p>
 
-                    <a href="#" class="need-help-btn-a-link">
+                    <a href="${pageContext.request.contextPath}/About#contact" class="need-help-btn-a-link">
                         <button class="need-help-btn">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                                 <path fill="#0d99ff"

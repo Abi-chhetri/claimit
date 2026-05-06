@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 public class ContactMessage {
 
 	private int contactMessageId;
-	private int userId;
+	private Integer userId;
 	private String email;
 	private String message;
 	private Timestamp submittedAt;
@@ -14,7 +14,7 @@ public class ContactMessage {
 	public ContactMessage() {
 	}
 
-	public ContactMessage(int contactMessageId, int userId, String email, String message, Timestamp submittedAt,
+	public ContactMessage(int contactMessageId, Integer userId, String email, String message, Timestamp submittedAt,
 			boolean isRead) {
 		this.contactMessageId = contactMessageId;
 		this.userId = userId;
@@ -32,11 +32,11 @@ public class ContactMessage {
 		this.contactMessageId = contactMessageId;
 	}
 
-	public int getUserId() {
+	public Integer getUserId() {
 		return userId;
 	}
 
-	public void setUserId(int userId) {
+	public void setUserId(Integer userId) {
 		this.userId = userId;
 	}
 
@@ -64,11 +64,11 @@ public class ContactMessage {
 		this.submittedAt = submittedAt;
 	}
 
-	public boolean isRead() {
+	public boolean getIsRead() {
 		return isRead;
 	}
 
-	public void setRead(boolean read) {
+	public void setIsRead(boolean read) {
 		isRead = read;
 	}
 }
