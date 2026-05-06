@@ -6,6 +6,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import com.claimit.model.Admin;
@@ -69,7 +71,7 @@ public class ManageModeratorServlet extends HttpServlet {
 		
 		if(actionDb != null ) {
 			adminService.updateModStatusById(actionDb, Integer.parseInt(adminId));
-			adminLogService.createAdminLog((Integer) SessionManager.getAttribute(request, "adminId"), actionDb, "Moderator Status Update", "Mod Id: "+adminId);
+			adminLogService.createAdminLog((Integer) SessionManager.getAttribute(request, "adminId"), actionDb, "Moderator Status Update "+new SimpleDateFormat("MMM dd, yyyy HH:mm:ss").format(new Date()), "Mod Id: "+adminId);
 		}
 		
 		String action = request.getParameter("action");

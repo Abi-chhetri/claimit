@@ -6,6 +6,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import com.claimit.model.User;
@@ -54,16 +56,16 @@ public class ManageUserServlet extends HttpServlet {
 	        case "approve":
 	        case "reinstate":
 	            adminService.approveUser(userId, adminId);
-	            adminLogService.createAdminLog((Integer) SessionManager.getAttribute(request, "adminId"), action, "reinstate/approve user", "userId : "+String.valueOf(userId));
+	            adminLogService.createAdminLog((Integer) SessionManager.getAttribute(request, "adminId"), action, "reinstate/approve user "+new SimpleDateFormat("MMM dd, yyyy HH:mm:ss").format(new Date()), "userId : "+String.valueOf(userId));
 	            break;
 	        case "suspend":
 	            adminService.updateUserRegistrationStatusOnly(userId, "SUSPENDED");
 	            userService.updateUserStatusOnly(userId, "INACTIVE");
-	            adminLogService.createAdminLog((Integer) SessionManager.getAttribute(request, "adminId"), action, "suspend user", "userId : "+String.valueOf(userId));
+	            adminLogService.createAdminLog((Integer) SessionManager.getAttribute(request, "adminId"), action, "suspend user "+new SimpleDateFormat("MMM dd, yyyy HH:mm:ss").format(new Date()), "userId : "+String.valueOf(userId));
 	            break;
 	        case "reject":
 	            adminService.updateUserRegistrationStatusOnly(userId, "REJECTED");
-	            adminLogService.createAdminLog((Integer) SessionManager.getAttribute(request, "adminId"), action, "reject user", "userId : "+String.valueOf(userId));
+	            adminLogService.createAdminLog((Integer) SessionManager.getAttribute(request, "adminId"), action, "reject user "+new SimpleDateFormat("MMM dd, yyyy HH:mm:ss").format(new Date()), "userId : "+String.valueOf(userId));
 	            break;
 	    }
 

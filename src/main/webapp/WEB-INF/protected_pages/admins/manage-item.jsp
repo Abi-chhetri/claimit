@@ -256,6 +256,7 @@ ItemImageService imageService = new ItemImageService();
 							String rejectItemIdStr = request.getParameter("rejectItemId");
 							for (Item eachItem : items) {
 								boolean showReject = rejectItemIdStr != null && rejectItemIdStr.equals(String.valueOf(eachItem.getItemId()));
+								if(eachItem.getType().equals("RETURNED")) continue;
 							%>
 							<tr>
                                 <td><a href="#" class="mr-report-id">#<%= eachItem.getItemId() %></a></td>

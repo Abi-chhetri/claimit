@@ -214,13 +214,16 @@
                         <div>
                             <div class="message-title">Lost heirloom watch near terminal...</div>
                             <div class="message-desc">
-                                I believe I left my silver Omega Speedmaster<br> in the lounge near Gate B12
-                                yesterday...
+                                The ancient lighthouse stood tall against the stormy horizon, 
+                                its beam cutting through thick fog while sailors navigated treacherous
+                                 waters below. Seagulls circled overhead, crying into the wind as waves
+                                  crashed violently against the rocky shore, sending white spray high into
+                                   the cold evening air.
                             </div>
                         </div>
 
                         <div class="date">
-                            Oct 24,<br> 2024
+                            Oct 24, 2024
                             <span>14:20 PM</span>
                         </div>
 
@@ -228,8 +231,8 @@
                             <span class="status-unread">Unread</span>
                         </div>
 
-                        <div>
-                            <button class="btnact">View</button>
+                         <div>
+                            <button class="btnact">Mark as Read</button>
                         </div>
                     </div>
 
@@ -264,7 +267,7 @@
 
                         <div>
                             <button class="gray">View</button>
-                        </div>
+                        </div> 
                     </div>
 
 

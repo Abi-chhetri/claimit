@@ -316,7 +316,7 @@ List<Admin> admins= (List<Admin>) request.getAttribute("admins");
                                     <th>FULL NAME</th>
                                     <th>EMAIL</th>
                                     <th>DATE ADDED</th>
-                                    <th>ACTIONS</th>
+                                    <th>AVAILABLE ACTIONS</th>
                                 </tr>
                             </thead>
                             <tbody>

@@ -6,6 +6,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -66,9 +68,9 @@ public class AdminDashBoardServlet extends HttpServlet {
 			request.setAttribute("userCount", userCount);
 			
 			if(admin.getRole().equals(AdminRoles.ADMIN.name())) {
-				adminLogService.createAdminLog(Integer.parseInt(adminId), "Login", "Login", "Admin : "+adminId);
+				adminLogService.createAdminLog(Integer.parseInt(adminId), "Login", "Login "+new SimpleDateFormat("MMM dd, yyyy HH:mm:ss").format(new Date()), "Admin : "+adminId);
 			}else {
-				adminLogService.createAdminLog(Integer.parseInt(adminId), "Login", "Login", "Moderator : "+adminId);
+				adminLogService.createAdminLog(Integer.parseInt(adminId), "Login", "Login "+new SimpleDateFormat("MMM dd, yyyy HH:mm:ss").format(new Date()), "Moderator : "+adminId);
 			}
 
 		}

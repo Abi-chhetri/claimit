@@ -6,7 +6,9 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.claimit.enums.ReportStatus;
@@ -78,7 +80,7 @@ public class ManageReportServlet extends HttpServlet {
 		if(itemId != null && !itemId.isEmpty()) {
 			itemService.updateItemStatusWithReason(Integer.parseInt(itemId), reason.trim());
 			itemReportService.updateItemStatusByItemId(ReportStatus.ACTED.name(),Integer.parseInt(itemId));
-			adminLogService.createAdminLog((Integer) SessionManager.getAttribute(request, "adminId"), reason, "Item Status", "Item Id : "+itemId);
+			adminLogService.createAdminLog((Integer) SessionManager.getAttribute(request, "adminId"), reason, "Item Status "+new SimpleDateFormat("MMM dd, yyyy HH:mm:ss").format(new Date()), "Item Id : "+itemId);
 		}
 		
 		response.sendRedirect(request.getContextPath()+"/ManageReport");

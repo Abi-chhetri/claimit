@@ -6,6 +6,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import com.claimit.enums.AdminRoles;
 import com.claimit.model.Admin;
@@ -72,7 +74,7 @@ public class AdminFormServlet extends HttpServlet {
 		
 		msg = adminService.insertModerator(admin);
 		if(!msg.contains("Failed to create moderator")) {
-			adminLogService.createAdminLog(adminId, "Moderator Creation", "Moderator", "Moderator : "+admin.getFullName());
+			adminLogService.createAdminLog(adminId, "Moderator Creation", "Moderator "+new SimpleDateFormat("MMM dd, yyyy HH:mm:ss").format(new Date()), "Moderator : "+admin.getFullName());
 		}
 		SessionManager.setAttribute(request, "msg", msg);
 		response.sendRedirect(request.getContextPath()+"/ManageModerator");

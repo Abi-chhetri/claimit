@@ -6,6 +6,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import com.claimit.model.Claim;
 import com.claimit.model.Item;
@@ -73,7 +75,7 @@ public class ViewClaimServlet extends HttpServlet {
 	        String pendingAction = request.getParameter("pendingAction");
 	        int adminId = (Integer) SessionManager.getAttribute(request, "adminId");
 	        claimService.updateClaimStatus(Integer.parseInt(claimId), pendingAction, adminNotes, adminId, item.getItemId());
-	        adminLogService.createAdminLog(adminId, action, "Claim Status updated", "Claim id : "+claimId);
+	        adminLogService.createAdminLog(adminId, pendingAction, "Claim Status updated "+new SimpleDateFormat("MMM dd, yyyy HH:mm:ss").format(new Date()), "Claim id : "+claimId);
 	        response.sendRedirect(request.getContextPath() + "/ManageClaim");
 	        return;
 	    }
