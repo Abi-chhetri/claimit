@@ -40,7 +40,7 @@ public class ClaimsDao {
    
 	public List<Claim> fetchAllClaims() {
 	    try {
-	        Connection con = DataBase_Config.getConection();
+	        Connection con = DataBase_Config.getConnection();
 	        Statement st = con.createStatement();
 	        ResultSet rs = st.executeQuery(selectAll);
 	        List<Claim> claims = new ArrayList<>();
@@ -80,7 +80,7 @@ public class ClaimsDao {
 	
     private Integer executeCount(String query) {
         try {
-            Connection con = DataBase_Config.getConection();
+            Connection con = DataBase_Config.getConnection();
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery(query);
             if (rs.next()) {
@@ -136,7 +136,7 @@ public class ClaimsDao {
 
 	public Map<String, Integer> fetchUserClaimStats(int userId) {
 		try {
-			Connection con = DataBase_Config.getConection();
+			Connection con = DataBase_Config.getConnection();
 			PreparedStatement ps = con.prepareStatement(userClaimStatsQuery);
 			ps.setInt(1, userId);
 			ResultSet rs = ps.executeQuery();
@@ -159,7 +159,7 @@ public class ClaimsDao {
 	
 	public boolean createClaim(int itemId, int userId, String proofImage, String ownershipDescription) {
 	    try {
-	        Connection con = DataBase_Config.getConection();
+	        Connection con = DataBase_Config.getConnection();
 	        PreparedStatement ps = con.prepareStatement(insertClaimQuery);
 	        ps.setInt(1, itemId);
 	        ps.setInt(2, userId);
@@ -177,7 +177,7 @@ public class ClaimsDao {
 	
 	public Claim fetchClaimById(int claimId) {
 	    try {
-	        Connection con = DataBase_Config.getConection();
+	        Connection con = DataBase_Config.getConnection();
 	        PreparedStatement ps = con.prepareStatement(selectClaimByIdQuery);
 	        ps.setInt(1, claimId);
 
@@ -218,7 +218,7 @@ public class ClaimsDao {
 	
 	public boolean updateClaimStatus(int claimId, String status, String adminNotes, int approvedBy) {
 	    try {
-	        Connection con = DataBase_Config.getConection();
+	        Connection con = DataBase_Config.getConnection();
 	        PreparedStatement ps = con.prepareStatement(updateClaimStatusQuery);
 	        ps.setString(1, status.toUpperCase());
 	        ps.setString(2, adminNotes);
@@ -238,7 +238,7 @@ public class ClaimsDao {
 	
 	public List<Claim> fetchClaimsByUserId(int userId) {
 	    try {
-	        Connection con = DataBase_Config.getConection();
+	        Connection con = DataBase_Config.getConnection();
 	        PreparedStatement ps = con.prepareStatement(selectClaimsByUserIdQuery);
 	        ps.setInt(1, userId);
 	        ResultSet rs = ps.executeQuery();

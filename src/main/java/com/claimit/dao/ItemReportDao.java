@@ -24,7 +24,7 @@ public class ItemReportDao {
 
 	public String createItemReport(int itemId, int userId, String reason) {
 		try {
-			Connection con = DataBase_Config.getConection();
+			Connection con = DataBase_Config.getConnection();
 			PreparedStatement ps = con.prepareStatement(createItemReportQuery);
 
 			ps.setInt(1, itemId);
@@ -43,7 +43,7 @@ public class ItemReportDao {
 
 	public boolean changeItemStatusByItemId(String status, int itemId) {
 		try {
-			Connection con = DataBase_Config.getConection();
+			Connection con = DataBase_Config.getConnection();
 			PreparedStatement ps = con.prepareStatement(updateStatusQuery);
 
 			ps.setString(1, status);
@@ -60,7 +60,7 @@ public class ItemReportDao {
 	public List<ItemReport> fetchAllItemReport() {
 	    List<ItemReport> list = new ArrayList<>();
 	    try {
-	        Connection con = DataBase_Config.getConection();
+	        Connection con = DataBase_Config.getConnection();
 	        PreparedStatement ps = con.prepareStatement(getAllItemReportWithName);
 	        ResultSet rs = ps.executeQuery();
 	        while (rs.next()) {
@@ -88,7 +88,7 @@ public class ItemReportDao {
 
 	private Integer executeCount(String countQuery) {
 		try {
-			Connection con = DataBase_Config.getConection();
+			Connection con = DataBase_Config.getConnection();
 			Statement st = con.createStatement();
 			ResultSet rs = st.executeQuery(countQuery);
 			if (rs.next()) {

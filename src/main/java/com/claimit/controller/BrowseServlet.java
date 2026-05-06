@@ -13,6 +13,7 @@ import com.claimit.model.Item;
 import com.claimit.services.ClaimService;
 import com.claimit.services.ItemReportService;
 import com.claimit.services.ItemService;
+import com.claimit.services.NotificationService;
 import com.claimit.utils.SessionManager;
 
 @WebServlet(asyncSupported = true, name = "Browse", urlPatterns = { "/Browse" })
@@ -22,6 +23,7 @@ public class BrowseServlet extends HttpServlet {
     private final ItemService itemService = new ItemService();
     private final ItemReportService itemReportService = new ItemReportService();
     private final ClaimService claimService = new ClaimService();
+    private final NotificationService notificationService=new NotificationService();
 
     public BrowseServlet() {
         super();
@@ -106,6 +108,7 @@ public class BrowseServlet extends HttpServlet {
 
         int itemId = Integer.parseInt(itemIdStr);
         String flashMessage = itemReportService.insertItemReport(itemId, userId, reason);
+        notificationService.insertNotification(userId, "Reported Item", "You have reported an item with itemId :"+itemId+" with reason which is "+reason);
         SessionManager.setAttribute(request, "flashMessage", flashMessage);
         response.sendRedirect(request.getContextPath() + "/Browse");
     }

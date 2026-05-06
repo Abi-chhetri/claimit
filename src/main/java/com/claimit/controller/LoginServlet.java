@@ -15,6 +15,7 @@ import com.claimit.model.Admin;
 import com.claimit.model.User;
 import com.claimit.services.AdminLogService;
 import com.claimit.services.AdminService;
+import com.claimit.services.NotificationService;
 import com.claimit.services.UserService;
 import com.claimit.utils.CookieManager;
 import com.claimit.utils.HashPasswordUtil;
@@ -29,6 +30,7 @@ public class LoginServlet extends HttpServlet {
 	private UserService userService = new UserService();
 	private AdminService adminService = new AdminService();
 	private AdminLogService adminLogService =new AdminLogService();
+	private NotificationService notificationService= new NotificationService();
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -175,6 +177,7 @@ public class LoginServlet extends HttpServlet {
 				SessionManager.setAttribute(request,"flashMessage", "Successfully Logged In");
 				CookieManager.addCookie(response, "userId", String.valueOf(user.getUserId()), 60*60);
 				userService.updateUserStatusOnly(user.getUserId(), ActivityStatus.ACTIVE.name());
+				notificationService.insertNotification(user.getUserId(), "Login", "Your account was logged in just now. If this was not you then please change your password");
 				response.sendRedirect(request.getContextPath()+"/DashBoard");
 				return;
 			}

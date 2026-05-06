@@ -24,7 +24,7 @@ public class ItemDao {
 	public Item findItemById(int itemId) {
 		Item item = null;
 		try {
-			Connection con = DataBase_Config.getConection();
+			Connection con = DataBase_Config.getConnection();
 			PreparedStatement ps = con.prepareStatement(selectItemById);
 			ps.setInt(1, itemId);
 
@@ -59,7 +59,7 @@ public class ItemDao {
 	public List<Item> fetchAllItems() {
 		List<Item> items = new ArrayList<>();
 		try {
-			Connection con = DataBase_Config.getConection();
+			Connection con = DataBase_Config.getConnection();
 			Statement st = con.createStatement();
 			ResultSet rs = st.executeQuery(selectItem);
 
@@ -96,7 +96,7 @@ public class ItemDao {
 
 	public int createItem(Item item) {
 		try {
-			Connection con = DataBase_Config.getConection();
+			Connection con = DataBase_Config.getConnection();
 			PreparedStatement ps = con.prepareStatement(createItem, Statement.RETURN_GENERATED_KEYS);
 			ps.setInt(1, item.getUserId());
 			ps.setString(2, item.getType());
@@ -127,7 +127,7 @@ public class ItemDao {
 
 	public Integer findUserReportCount(int userId) {
 		try {
-			Connection con = DataBase_Config.getConection();
+			Connection con = DataBase_Config.getConnection();
 			PreparedStatement ps = con.prepareStatement(userReportCountQuery);
 			ps.setInt(1, userId);
 			ResultSet rs = ps.executeQuery();
@@ -150,7 +150,7 @@ public class ItemDao {
 
 	public void changeItemtype(String type, int itemId) {
 		try {
-			Connection con = DataBase_Config.getConection();
+			Connection con = DataBase_Config.getConnection();
 			PreparedStatement ps = con.prepareStatement(updateItemType);
 			ps.setString(1, type);
 			ps.setInt(2, itemId);
@@ -165,7 +165,7 @@ public class ItemDao {
 
 	public boolean updateItemStatus(int itemId, String status) {
 		try {
-			Connection con = DataBase_Config.getConection();
+			Connection con = DataBase_Config.getConnection();
 			PreparedStatement ps = con.prepareStatement(updateItemStatus);
 			ps.setString(1, status);
 			ps.setInt(2, itemId);
@@ -181,7 +181,7 @@ public class ItemDao {
 
 	public boolean updateItemStatusWithReason(int itemId, String status, String reason) {
 		try {
-			Connection con = DataBase_Config.getConection();
+			Connection con = DataBase_Config.getConnection();
 			PreparedStatement ps = con.prepareStatement(updateItemStatusWithReason);
 			ps.setString(1, status);
 			ps.setString(2, reason);

@@ -8,7 +8,7 @@
 }
 
 body {
-    background-color: #F9F9FF;
+    background-color: #F2F3FD;
     min-width: 1200px;
 }
 
@@ -82,7 +82,8 @@ body {
 }
 
 .main-page {
-    padding: 28px 32px 500px;
+    padding: 28px 32px 100px;
+   	background-color: #F2F3FD;
 }
 
 .notifications-header {

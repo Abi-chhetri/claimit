@@ -26,7 +26,7 @@ public class UserDao {
 
 	public boolean updatePersonalInfo(User user) {
 		try {
-			Connection con = DataBase_Config.getConection();
+			Connection con = DataBase_Config.getConnection();
 			PreparedStatement ps = con.prepareStatement(updatePersonalInfoQuery);
 			ps.setString(1, user.getFullName());
 			ps.setString(2, user.getEmail());
@@ -47,7 +47,7 @@ public class UserDao {
 
 	public String createUser(User user) {
 		try {
-			Connection con = DataBase_Config.getConection();
+			Connection con = DataBase_Config.getConnection();
 			PreparedStatement ps = con.prepareStatement(insertQuery);
 			ps.setString(1, user.getFullName());
 			ps.setString(2, user.getEmail());
@@ -90,7 +90,7 @@ public class UserDao {
 
 	public User findUserById(String userId) {
 		try {
-			Connection con = DataBase_Config.getConection();
+			Connection con = DataBase_Config.getConnection();
 			PreparedStatement ps = con.prepareStatement(selectUserByIdQuery);
 			ps.setInt(1, Integer.parseInt(userId));
 			ResultSet rs = ps.executeQuery();
@@ -122,7 +122,7 @@ public class UserDao {
 
 	public User findUserByEmail(String email) {
 		try {
-			Connection con = DataBase_Config.getConection();
+			Connection con = DataBase_Config.getConnection();
 			PreparedStatement ps = con.prepareStatement(selectUserByEmailQuery);
 			ps.setString(1, email);
 			ResultSet rs = ps.executeQuery();
@@ -154,7 +154,7 @@ public class UserDao {
 
 	public List<User> fetchAll() {
 		try {
-			Connection con = DataBase_Config.getConection();
+			Connection con = DataBase_Config.getConnection();
 			Statement st = con.createStatement();
 			ResultSet rs = st.executeQuery(selectAll);
 			List<User> users = new ArrayList<>();
@@ -186,7 +186,7 @@ public class UserDao {
 
 	public Integer findUserCount() {
 		try {
-			Connection con = DataBase_Config.getConection();
+			Connection con = DataBase_Config.getConnection();
 			Statement st = con.createStatement();
 			ResultSet rs = st.executeQuery(counter);
 			if (rs.next()) {
@@ -208,7 +208,7 @@ public class UserDao {
 
 	public boolean changeUserStatusOnly(int userId, String status) {
 		try {
-			Connection con = DataBase_Config.getConection();
+			Connection con = DataBase_Config.getConnection();
 			PreparedStatement ps = con.prepareStatement(updateStatusOnlyQuery);
 			ps.setString(1, status);
 			ps.setInt(2, userId);

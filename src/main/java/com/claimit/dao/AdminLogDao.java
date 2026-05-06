@@ -22,7 +22,7 @@ public class AdminLogDao {
         PreparedStatement ps = null;
 
         try {
-            con = DataBase_Config.getConection();
+            con = DataBase_Config.getConnection();
             ps = con.prepareStatement(createLogQuery);
 
             ps.setInt(1, adminLog.getAdminId());
@@ -50,7 +50,7 @@ public class AdminLogDao {
         ResultSet rs = null;
 
         try {
-            con = DataBase_Config.getConection();
+            con = DataBase_Config.getConnection();
             ps = con.prepareStatement(selectLogsQuery);
             rs = ps.executeQuery();
 
