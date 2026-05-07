@@ -192,7 +192,7 @@ body {
     height: 650px;
     background-color: #D1D5DB;
     border-radius: 20px;
-    background-image: url("BG.jpg");
+    background-image: url("../images/hero.jpeg");
     background-size: cover;
     background-position: center;
 }

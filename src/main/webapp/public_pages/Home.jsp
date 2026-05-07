@@ -98,7 +98,7 @@
 
                 <article class="hiw-card">
                     <div class="hiw-icon-box hiw-icon-purple">
-                        <img class="hiw-png" src="hiw1.png" width="48" height="48" alt="Report" />
+                        <img class="hiw-png" src="${pageContext.request.contextPath}/images/pencil.jpeg" width="48" height="48" alt="Report" />
                     </div>
                     <h3 class="hiw-step-title">1. Report</h3>
                     <p class="hiw-step-desc">Log the details of what you've lost or found. High-quality photos and
@@ -108,7 +108,7 @@
 
                 <article class="hiw-card">
                     <div class="hiw-icon-box hiw-icon-green">
-                        <img class="hiw-png" src="hiw2.png" width="48" height="48" alt="Report" />
+                        <img class="hiw-png" src="${pageContext.request.contextPath}/images/search.jpeg" width="48" height="48" alt="Report" />
                     </div>
                     <h3 class="hiw-step-title">2. Browse</h3>
                     <p class="hiw-step-desc">Our intelligent algorithm scans reported items in real-time, matching
@@ -118,7 +118,7 @@
 
                 <article class="hiw-card">
                     <div class="hiw-icon-box hiw-icon-yellow">
-                        <img class="hiw-png" src="hiw3.png" width="48" height="48" alt="Report" />
+                        <img class="hiw-png" src="${pageContext.request.contextPath}/images/tick1.jpg" width="48" height="48" alt="Report" />
                     </div>
                     <h3 class="hiw-step-title">3. Claim</h3>
                     <p class="hiw-step-desc">Once a match is identified, follow our secure verification process to
@@ -163,7 +163,7 @@
                         </svg>
                     </button>
                     <button class="big-footer-icon-btn">
-                        <img class="earth-png" src="earth.png" width="18" height="18" alt="Report" />
+                        <img class="earth-png" src="${pageContext.request.contextPath}/images/glb.jpeg" width="18" height="18" alt="Report" />
                     </button>
                 </div>
             </div>

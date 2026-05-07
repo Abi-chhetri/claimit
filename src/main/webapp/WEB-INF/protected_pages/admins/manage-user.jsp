@@ -1,439 +1,559 @@
-<%@page import="com.claimit.enums.ActivityStatus"%>
-<%@page import="com.claimit.enums.RegistrationStatus"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ page import="com.claimit.model.User" %>
-<%@ page import="java.util.List" %>
-<%@ page import="java.sql.Timestamp" %>
-
-<%List<User> users=(List<User>) request.getAttribute("users");%>
-<%
-String selectedStatus = request.getParameter("approveStatus") != null ? request.getParameter("approveStatus") : "";
-String searchQuery = request.getParameter("search") != null ? request.getParameter("search").toLowerCase().trim() : "";
-%>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin-dashboard-nav.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/manage-user.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Dashboard</title>
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/admin-dashboard-nav.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/manage-user.css">
 </head>
 
 <body>
-    <aside>
-        <section class="admin-aside-outer">
-            <div class="admin-aside-claimit-console">
-                <p class="claimit-admin-console">ClaimIt Admin Console</p>
-                <p class="management-dashboard">Management Dashboard</p>
-            </div>
+	<aside>
+		<section class="admin-aside-outer">
+			<div class="admin-aside-claimit-console">
+				<p class="claimit-admin-console">ClaimIt Admin Console</p>
+				<p class="management-dashboard">Management Dashboard</p>
+			</div>
 
-            <div class="admin-aside-admin-function-outer">
+			<div class="admin-aside-admin-function-outer">
 
-                <div class="admin-aside-admin-function">
-                    <a href="${pageContext.request.contextPath}/AdminDashBoard" class="admin-functions">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+				<div class="admin-aside-admin-function">
+					<a href="${pageContext.request.contextPath}/AdminDashBoard"
+						class="admin-functions"> <svg
+							xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+							viewBox="0 0 24 24">
                             <rect width="24" height="24" fill="none" />
                             <path fill="#475569"
-                                d="M13 9V3h8v6zM3 13V3h8v10zm10 8V11h8v10zM3 21v-6h8v6zm2-10h4V5H5zm10 8h4v-6h-4zm0-12h4V5h-4zM5 19h4v-2H5zm4-2" />
+								d="M13 9V3h8v6zM3 13V3h8v10zm10 8V11h8v10zM3 21v-6h8v6zm2-10h4V5H5zm10 8h4v-6h-4zm0-12h4V5h-4zM5 19h4v-2H5zm4-2" />
                         </svg>
-                        <p class="admin-function-name">Dashboard</p>
-                    </a>
-                </div>
+						<p class="admin-function-name">Dashboard</p>
+					</a>
+				</div>
 
-                <div class="admin-aside-admin-function">
-                    <a href="${pageContext.request.contextPath}/ManageItem" class="admin-functions">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 32 32">
+				<div class="admin-aside-admin-function">
+					<a href="${pageContext.request.contextPath}/ManageItem"
+						class="admin-functions"> <svg
+							xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+							viewBox="0 0 32 32">
                             <rect width="32" height="32" fill="none" />
                             <path fill="#475569"
-                                d="M20 21h-8a2 2 0 0 1-2-2v-2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2m-8-4v2h8v-2Z" />
+								d="M20 21h-8a2 2 0 0 1-2-2v-2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2m-8-4v2h8v-2Z" />
                             <path fill="#475569"
-                                d="M28 4H4a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2v16a2 2 0 0 0 2 2h20a2 2 0 0 0 2-2V12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2m-2 24H6V12h20Zm2-18H4V6h24z" />
+								d="M28 4H4a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2v16a2 2 0 0 0 2 2h20a2 2 0 0 0 2-2V12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2m-2 24H6V12h20Zm2-18H4V6h24z" />
                         </svg>
-                        <p class="admin-function-name">Manage Items</p>
-                    </a>
-                </div>
+						<p class="admin-function-name">Manage Items</p>
+					</a>
+				</div>
 
-                <div class="admin-aside-admin-function">
-                    <a href="${pageContext.request.contextPath}/ManageClaim" class="admin-functions">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+				<div class="admin-aside-admin-function">
+					<a href="${pageContext.request.contextPath}/ManageClaim"
+						class="admin-functions"> <svg
+							xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+							viewBox="0 0 24 24">
                             <rect width="24" height="24" fill="none" />
                             <path fill="#475569" fill-rule="evenodd"
-                                d="M20 4H4a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1M4 2a3 3 0 0 0-3 3v14a3 3 0 0 0 3 3h16a3 3 0 0 0 3-3V5a3 3 0 0 0-3-3zm2 5h2v2H6zm5 0a1 1 0 1 0 0 2h6a1 1 0 1 0 0-2zm-3 4H6v2h2zm2 1a1 1 0 0 1 1-1h6a1 1 0 1 1 0 2h-6a1 1 0 0 1-1-1m-2 3H6v2h2zm2 1a1 1 0 0 1 1-1h6a1 1 0 1 1 0 2h-6a1 1 0 0 1-1-1"
-                                clip-rule="evenodd" />
+								d="M20 4H4a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1M4 2a3 3 0 0 0-3 3v14a3 3 0 0 0 3 3h16a3 3 0 0 0 3-3V5a3 3 0 0 0-3-3zm2 5h2v2H6zm5 0a1 1 0 1 0 0 2h6a1 1 0 1 0 0-2zm-3 4H6v2h2zm2 1a1 1 0 0 1 1-1h6a1 1 0 1 1 0 2h-6a1 1 0 0 1-1-1m-2 3H6v2h2zm2 1a1 1 0 0 1 1-1h6a1 1 0 1 1 0 2h-6a1 1 0 0 1-1-1"
+								clip-rule="evenodd" />
                         </svg>
-                        <p class="admin-function-name">Manage Claims</p>
-                    </a>
-                </div>
+						<p class="admin-function-name">Manage Claims</p>
+					</a>
+				</div>
 
-                <div class="admin-aside-admin-function">
-                    <a href="${pageContext.request.contextPath}/ManageReport" class="admin-functions">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="16" viewBox="0 0 16 16">
+				<div class="admin-aside-admin-function">
+					<a href="${pageContext.request.contextPath}/ManageReport"
+						class="admin-functions"> <svg
+							xmlns="http://www.w3.org/2000/svg" width="20" height="16"
+							viewBox="0 0 16 16">
                             <rect width="16" height="16" fill="none" />
                             <path fill="#475569"
-                                d="M0 1.75C0 .784.784 0 1.75 0h12.5C15.216 0 16 .784 16 1.75v9.5A1.75 1.75 0 0 1 14.25 13H8.06l-2.573 2.573A1.458 1.458 0 0 1 3 14.543V13H1.75A1.75 1.75 0 0 1 0 11.25Zm1.75-.25a.25.25 0 0 0-.25.25v9.5c0 .138.112.25.25.25h2a.75.75 0 0 1 .75.75v2.19l2.72-2.72a.75.75 0 0 1 .53-.22h6.5a.25.25 0 0 0 .25-.25v-9.5a.25.25 0 0 0-.25-.25Zm7 2.25v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0M9 9a1 1 0 1 1-2 0a1 1 0 0 1 2 0" />
+								d="M0 1.75C0 .784.784 0 1.75 0h12.5C15.216 0 16 .784 16 1.75v9.5A1.75 1.75 0 0 1 14.25 13H8.06l-2.573 2.573A1.458 1.458 0 0 1 3 14.543V13H1.75A1.75 1.75 0 0 1 0 11.25Zm1.75-.25a.25.25 0 0 0-.25.25v9.5c0 .138.112.25.25.25h2a.75.75 0 0 1 .75.75v2.19l2.72-2.72a.75.75 0 0 1 .53-.22h6.5a.25.25 0 0 0 .25-.25v-9.5a.25.25 0 0 0-.25-.25Zm7 2.25v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0M9 9a1 1 0 1 1-2 0a1 1 0 0 1 2 0" />
                         </svg>
-                        <p class="admin-function-name">Manage Reports</p>
-                    </a>
-                </div>
+						<p class="admin-function-name">Manage Reports</p>
+					</a>
+				</div>
 
-                <div class="admin-aside-admin-function">
-                    <a href="${pageContext.request.contextPath}/ManageUser" class="admin-functions active-nav">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="21" viewBox="0 0 21 21">
+				<div class="admin-aside-admin-function">
+					<a href="${pageContext.request.contextPath}/ManageUser"
+						class="admin-functions active-nav"> <svg
+							xmlns="http://www.w3.org/2000/svg" width="20" height="21"
+							viewBox="0 0 21 21">
                             <rect width="21" height="21" fill="none" />
-                            <g fill="none" fill-rule="evenodd" stroke="#000" stroke-linecap="round"
-                                stroke-linejoin="round" stroke-width="1">
+                            <g fill="none" fill-rule="evenodd"
+								stroke="#000" stroke-linecap="round" stroke-linejoin="round"
+								stroke-width="1">
                                 <path
-                                    d="M8.5 2.5a3 3 0 0 1 3 3v2a3 3 0 1 1-6 0v-2a3 3 0 0 1 3-3m7 14v-.728c0-3.187-3.686-5.272-7-5.272s-7 2.085-7 5.272v.728a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1" />
+								d="M8.5 2.5a3 3 0 0 1 3 3v2a3 3 0 1 1-6 0v-2a3 3 0 0 1 3-3m7 14v-.728c0-3.187-3.686-5.272-7-5.272s-7 2.085-7 5.272v.728a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1" />
                                 <path fill="#475569"
-                                    d="M12.52 2.678A3 3 0 0 1 14.5 5.5v1c0 1.297-.848 2.581-2 3q1.01-1.379 1.01-3.5c0-2.122-.331-2.523-.99-3.322M17.5 17.5h1a1 1 0 0 0 1-1v-.728c0-2.17-1.71-3.83-3.847-4.667c0 0 2.847 2.395 1.847 6.395" />
+								d="M12.52 2.678A3 3 0 0 1 14.5 5.5v1c0 1.297-.848 2.581-2 3q1.01-1.379 1.01-3.5c0-2.122-.331-2.523-.99-3.322M17.5 17.5h1a1 1 0 0 0 1-1v-.728c0-2.17-1.71-3.83-3.847-4.667c0 0 2.847 2.395 1.847 6.395" />
                             </g>
                         </svg>
-                        <p class="admin-function-name">Manage Users</p>
-                    </a>
-                </div>
+						<p class="admin-function-name">Manage Users</p>
+					</a>
+				</div>
 
-                <div class="admin-aside-admin-function">
-                    <a href="${pageContext.request.contextPath}/ManageModerator" class="admin-functions">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="18" viewBox="0 0 8 8">
-                            <rect width="8" height="8" fill="none" />
-                            <path fill="#475569" d="M4 4v3q2 0 3-3M4 4V1L1 2v2m3-4l4 2c0 8-8 8-8 0" />
-                        </svg>
-                        <p class="admin-function-name">Manage Moderators</p>
-                    </a>
-                </div>
+				<%-- Only super admins see the moderator management link --%>
+				<c:if test="${admin.role == 'ADMIN'}">
+					<div class="admin-aside-admin-function">
+						<a href="${pageContext.request.contextPath}/ManageModerator"
+							class="admin-functions"> <svg
+								xmlns="http://www.w3.org/2000/svg" width="20" height="18"
+								viewBox="0 0 8 8">
+                                <rect width="8" height="8" fill="none" />
+                                <path fill="#475569"
+									d="M4 4v3q2 0 3-3M4 4V1L1 2v2m3-4l4 2c0 8-8 8-8 0" />
+                            </svg>
+							<p class="admin-function-name">Manage Moderators</p>
+						</a>
+					</div>
+				</c:if>
 
-                <div class="admin-aside-admin-function">
-                    <a href="${pageContext.request.contextPath}/ManageContactMessage" class="admin-functions">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 32 32">
+				<div class="admin-aside-admin-function">
+					<a href="${pageContext.request.contextPath}/ManageContactMessage"
+						class="admin-functions"> <svg
+							xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+							viewBox="0 0 32 32">
                             <rect width="32" height="32" fill="none" />
                             <path fill="#475569"
-                                d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z" />
+								d="M2.004 9.303A4.5 4.5 0 0 1 6.5 5h19a4.5 4.5 0 0 1 4.496 4.303l-1.476.82L16 16.864L3.48 10.123zM2 11.588V22.5A4.5 4.5 0 0 0 6.5 27h19a4.5 4.5 0 0 0 4.5-4.5V11.588l-.526.293l-13 7a1 1 0 0 1-.948 0L2.514 11.874z" />
                         </svg>
-                        <p class="admin-function-name">Contact Messages</p>
-                    </a>
-                </div>
+						<p class="admin-function-name">Contact Messages</p>
+					</a>
+				</div>
 
-                <div class="admin-aside-admin-function">
-                    <a href="${pageContext.request.contextPath}/AdminLog" class="admin-functions">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+				<div class="admin-aside-admin-function">
+					<a href="${pageContext.request.contextPath}/AdminLog"
+						class="admin-functions"> <svg
+							xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+							viewBox="0 0 24 24">
                             <rect width="24" height="24" fill="none" />
                             <path fill="#475569"
-                                d="M12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12h2a8 8 0 1 0 1.385-4.5H8v2H2v-6h2V6a9.99 9.99 0 0 1 8-4m1 5v4.585l3.243 3.243l-1.415 1.415L11 12.413V7z" />
+								d="M12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12h2a8 8 0 1 0 1.385-4.5H8v2H2v-6h2V6a9.99 9.99 0 0 1 8-4m1 5v4.585l3.243 3.243l-1.415 1.415L11 12.413V7z" />
                         </svg>
-                        <p class="admin-function-name">Admin Logs</p>
-                    </a>
-                </div>
-            </div>
+						<p class="admin-function-name">Admin Logs</p>
+					</a>
+				</div>
+			</div>
 
-            <div class="admin-aside-admin-logout">
-
-                <div id="admin-logo" class="">
-                    <a href="${pageContext.request.contextPath}/Logout" class="admin-logo">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+			<div class="admin-aside-admin-logout">
+				<div id="admin-logo" class="">
+					<a href="${pageContext.request.contextPath}/Logout"
+						class="admin-logo"> <svg xmlns="http://www.w3.org/2000/svg"
+							width="24" height="24" viewBox="0 0 24 24">
                             <rect width="24" height="24" fill="none" />
                             <g fill="#475569">
                                 <path
-                                    d="M6.5 3.75c-.526 0-1.25.63-1.25 1.821V18.43c0 1.192.724 1.821 1.25 1.821h6.996a.75.75 0 1 1 0 1.5H6.5c-1.683 0-2.75-1.673-2.75-3.321V5.57c0-1.648 1.067-3.321 2.75-3.321h7a.75.75 0 0 1 0 1.5z" />
+								d="M6.5 3.75c-.526 0-1.25.63-1.25 1.821V18.43c0 1.192.724 1.821 1.25 1.821h6.996a.75.75 0 1 1 0 1.5H6.5c-1.683 0-2.75-1.673-2.75-3.321V5.57c0-1.648 1.067-3.321 2.75-3.321h7a.75.75 0 0 1 0 1.5z" />
                                 <path
-                                    d="M16.53 7.97a.75.75 0 0 0-1.06 0v3.276H9.5a.75.75 0 0 0 0 1.5h5.97v3.284a.75.75 0 0 0 1.06 0l3.5-3.5a.75.75 0 0 0 .22-.532v-.002a.75.75 0 0 0-.269-.575z" />
+								d="M16.53 7.97a.75.75 0 0 0-1.06 0v3.276H9.5a.75.75 0 0 0 0 1.5h5.97v3.284a.75.75 0 0 0 1.06 0l3.5-3.5a.75.75 0 0 0 .22-.532v-.002a.75.75 0 0 0-.269-.575z" />
                             </g>
                         </svg>
-                        <p class="">Logout</p>
-                    </a>
-                </div>
+						<p class="">Logout</p>
+					</a>
+				</div>
 
-                <div id="admin-logo">
-                    <a href="#" class="admin-user-system-outer">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 36 36">
+				<div id="admin-logo">
+					<a href="#" class="admin-user-system-outer"> <svg
+							xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+							viewBox="0 0 36 36">
                             <rect width="36" height="36" fill="none" />
                             <path fill="#475569"
-                                d="M14.68 14.81a6.76 6.76 0 1 1 6.76-6.75a6.77 6.77 0 0 1-6.76 6.75m0-11.51a4.76 4.76 0 1 0 4.76 4.76a4.76 4.76 0 0 0-4.76-4.76"
-                                class="clr-i-outline clr-i-outline-path-1" />
+								d="M14.68 14.81a6.76 6.76 0 1 1 6.76-6.75a6.77 6.77 0 0 1-6.76 6.75m0-11.51a4.76 4.76 0 1 0 4.76 4.76a4.76 4.76 0 0 0-4.76-4.76"
+								class="clr-i-outline clr-i-outline-path-1" />
                             <path fill="#475569"
-                                d="M16.42 31.68A2.14 2.14 0 0 1 15.8 30H4v-5.78a14.8 14.8 0 0 1 11.09-4.68h.72a2.2 2.2 0 0 1 .62-1.85l.12-.11c-.47 0-1-.06-1.46-.06A16.47 16.47 0 0 0 2.2 23.26a1 1 0 0 0-.2.6V30a2 2 0 0 0 2 2h12.7Z"
-                                class="clr-i-outline clr-i-outline-path-2" />
-                            <path fill="#475569" d="M26.87 16.29a.4.4 0 0 1 .15 0a.4.4 0 0 0-.15 0"
-                                class="clr-i-outline clr-i-outline-path-3" />
+								d="M16.42 31.68A2.14 2.14 0 0 1 15.8 30H4v-5.78a14.8 14.8 0 0 1 11.09-4.68h.72a2.2 2.2 0 0 1 .62-1.85l.12-.11c-.47 0-1-.06-1.46-.06A16.47 16.47 0 0 0 2.2 23.26a1 1 0 0 0-.2.6V30a2 2 0 0 0 2 2h12.7Z"
+								class="clr-i-outline clr-i-outline-path-2" />
                             <path fill="#475569"
-                                d="m33.68 23.32l-2-.61a7.2 7.2 0 0 0-.58-1.41l1-1.86A.38.38 0 0 0 32 19l-1.45-1.45a.36.36 0 0 0-.44-.07l-1.84 1a7 7 0 0 0-1.43-.61l-.61-2a.36.36 0 0 0-.36-.24h-2.05a.36.36 0 0 0-.35.26l-.61 2a7 7 0 0 0-1.44.6l-1.82-1a.35.35 0 0 0-.43.07L17.69 19a.38.38 0 0 0-.06.44l1 1.82a6.8 6.8 0 0 0-.63 1.43l-2 .6a.36.36 0 0 0-.26.35v2.05A.35.35 0 0 0 16 26l2 .61a7 7 0 0 0 .6 1.41l-1 1.91a.36.36 0 0 0 .06.43l1.45 1.45a.38.38 0 0 0 .44.07l1.87-1a7 7 0 0 0 1.4.57l.6 2a.38.38 0 0 0 .35.26h2.05a.37.37 0 0 0 .35-.26l.61-2.05a7 7 0 0 0 1.38-.57l1.89 1a.36.36 0 0 0 .43-.07L32 30.4a.35.35 0 0 0 0-.4l-1-1.88a7 7 0 0 0 .58-1.39l2-.61a.36.36 0 0 0 .26-.35v-2.1a.36.36 0 0 0-.16-.35M24.85 28a3.34 3.34 0 1 1 3.33-3.33A3.34 3.34 0 0 1 24.85 28"
-                                class="clr-i-outline clr-i-outline-path-4" />
+								d="M26.87 16.29a.4.4 0 0 1 .15 0a.4.4 0 0 0-.15 0"
+								class="clr-i-outline clr-i-outline-path-3" />
+                            <path fill="#475569"
+								d="m33.68 23.32l-2-.61a7.2 7.2 0 0 0-.58-1.41l1-1.86A.38.38 0 0 0 32 19l-1.45-1.45a.36.36 0 0 0-.44-.07l-1.84 1a7 7 0 0 0-1.43-.61l-.61-2a.36.36 0 0 0-.36-.24h-2.05a.36.36 0 0 0-.35.26l-.61 2a7 7 0 0 0-1.44.6l-1.82-1a.35.35 0 0 0-.43.07L17.69 19a.38.38 0 0 0-.06.44l1 1.82a6.8 6.8 0 0 0-.63 1.43l-2 .6a.36.36 0 0 0-.26.35v2.05A.35.35 0 0 0 16 26l2 .61a7 7 0 0 0 .6 1.41l-1 1.91a.36.36 0 0 0 .06.43l1.45 1.45a.38.38 0 0 0 .44.07l1.87-1a7 7 0 0 0 1.4.57l.6 2a.38.38 0 0 0 .35.26h2.05a.37.37 0 0 0 .35-.26l.61-2.05a7 7 0 0 0 1.38-.57l1.89 1a.36.36 0 0 0 .43-.07L32 30.4a.35.35 0 0 0 0-.4l-1-1.88a7 7 0 0 0 .58-1.39l2-.61a.36.36 0 0 0 .26-.35v-2.1a.36.36 0 0 0-.16-.35M24.85 28a3.34 3.34 0 1 1 3.33-3.33A3.34 3.34 0 0 1 24.85 28"
+								class="clr-i-outline clr-i-outline-path-4" />
                             <path fill="none" d="M0 0h36v36H0z" />
-                        </svg>
-                        <span class="admin-user-system">
-                            <p class="admin-user">Admin User</p>
-                            <p class="system-oversight">System Oversight</p>
-                        </span>
-                    </a>
-                </div>
-            </div>
+                        </svg> <span class="admin-user-system">
+							<p class="admin-user">Admin User</p>
+							<p class="system-oversight">System Oversight</p>
+					</span>
+					</a>
+				</div>
+			</div>
 
-        </section>
-    </aside>
+		</section>
+	</aside>
 
-    <article class="main-footer">
-        <main>
-            <section class="admin-main-outer">
+	<article class="main-footer">
+		<main>
+			<section class="admin-main-outer">
 
-                <!-- Page Header -->
-                <div class="mu-header">
-                    <div>
-                        <h1 class="mu-title">Manage Users</h1>
-                        <p class="mu-subtitle">Overview and control of the Claimit user base.</p>
-                    </div>
+				<!-- Page Header -->
+				<div class="mu-header">
+					<div>
+						<h1 class="mu-title">Manage Users</h1>
+						<p class="mu-subtitle">Overview and control of the Claimit
+							user base.</p>
+					</div>
 
-                    <div class="mu-header-actions">
+					<div class="mu-header-actions">
 
-                        <!-- Search -->
-                        <div class="mu-search">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
-                                fill="none" stroke="#94A3B8" stroke-width="2">
+						<!-- Search bar — the input is wired to search-form below via the form attribute -->
+						<div class="mu-search">
+							<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+								viewBox="0 0 24 24" fill="none" stroke="#94A3B8"
+								stroke-width="2">
                                 <circle cx="11" cy="11" r="8" />
-                                <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                                <line x1="21" y1="21" x2="16.65"
+									y2="16.65" />
                             </svg>
-                            <input type="text" placeholder="Search by name or email..."
-                                   form="search-form" name="search"
-                                   value="<%=request.getParameter("search") != null ? request.getParameter("search") : ""%>" />
-                            <button type="submit" form="search-form" class="mu-search-btn">Search</button>
-                        </div>
+							<%-- Pre-fill the search box with whatever the user previously typed --%>
+							<input type="text" placeholder="Search by name or email..."
+								form="search-form" name="search" value="${param.search}" />
+							<button type="submit" form="search-form" class="mu-search-btn">Search</button>
+						</div>
 
-                        <!-- Hidden search form (carries both search + status) -->
-                        <form id="search-form" method="get" action="${pageContext.request.contextPath}/ManageUser">
-                            <input type="hidden" name="approveStatus" value="<%=selectedStatus%>" />
-                        </form>
+						<%-- Hidden form that submits the search term while keeping the current status filter intact --%>
+						<form id="search-form" method="get"
+							action="${pageContext.request.contextPath}/ManageUser">
+							<input type="hidden" name="approveStatus"
+								value="${param.approveStatus}" />
+						</form>
 
-                        <!-- Filter checkbox hack -->
-                        <input type="checkbox" id="mu-filter-toggle" class="mu-filter-checkbox" />
-                        <div for="mu-filter-toggle" class="mu-filter-btn">
-                            Filters
-                            <form method="get" action="${pageContext.request.contextPath}/ManageUser">
-                                <!-- Preserve search query when changing status filter -->
-                                <input type="hidden" name="search" value="<%=request.getParameter("search") != null ? request.getParameter("search") : ""%>" />
-                                <select name="approveStatus" onchange="this.form.submit()"
-                                    style="padding: 6px 10px; border: 1px solid #E2E8F0; border-radius: 8px; font-size: 13px; color: #374151; background: #fff; cursor: pointer; outline: none;">
-                                    <option value="">All</option>
-                                    <option value="APPROVED"  <%=selectedStatus.equals("APPROVED")  ? "selected" : ""%>>Approved</option>
-                                    <option value="PENDING"   <%=selectedStatus.equals("PENDING")   ? "selected" : ""%>>Pending</option>
-                                    <option value="REJECTED"  <%=selectedStatus.equals("REJECTED")  ? "selected" : ""%>>Rejected</option>
-                                    <option value="SUSPENDED" <%=selectedStatus.equals("SUSPENDED") ? "selected" : ""%>>Suspended</option>
-                                </select>
-                            </form>
-                        </div>
+						<!-- Status filter dropdown — auto-submits on change so no button needed -->
+						<input type="checkbox" id="mu-filter-toggle"
+							class="mu-filter-checkbox" />
+						<div for="mu-filter-toggle" class="mu-filter-btn">
+							Filters
+							<form method="get"
+								action="${pageContext.request.contextPath}/ManageUser">
+								<%-- Keep search term when status filter changes --%>
+								<input type="hidden" name="search" value="${param.search}" /> <select
+									name="approveStatus" onchange="this.form.submit()"
+									style="padding: 6px 10px; border: 1px solid #E2E8F0; border-radius: 8px; font-size: 13px; color: #374151; background: #fff; cursor: pointer; outline: none;">
+									<option value="">All</option>
+									<%-- Keep option selected if it match current filter param --%>
+									<option value="APPROVED"
+										<c:if test="${param.approveStatus == 'APPROVED'}">selected</c:if>>Approved</option>
+									<option value="PENDING"
+										<c:if test="${param.approveStatus == 'PENDING'}">selected</c:if>>Pending</option>
+									<option value="REJECTED"
+										<c:if test="${param.approveStatus == 'REJECTED'}">selected</c:if>>Rejected</option>
+									<option value="SUSPENDED"
+										<c:if test="${param.approveStatus == 'SUSPENDED'}">selected</c:if>>Suspended</option>
+								</select>
+							</form>
+						</div>
 
-                    </div>
-                </div>
+					</div>
+				</div>
 
-                <!-- Stats Cards -->
-                <div class="mu-stats">
-                    <div class="mu-stat-card">
-                        <p class="mu-stat-label">TOTAL USERS</p>
-                        <p class="mu-stat-value"><%= users.size() %></p>
-                        <p class="mu-stat-note green">↗ Increased</p>
-                    </div>
-                    <div class="mu-stat-card">
-                        <p class="mu-stat-label">ACTIVE NOW</p>
-                        <p class="mu-stat-value">
-                        <%
-                        int verifiedRegistration = 0;
-                        int activeUsers = 0;
-                        int pendingRequest = 0;
-                        for (User user : users) {
-                            if (user.getStatus().equals("ACTIVE")) activeUsers++;
-                            if (user.getApproveStatus().equals("PENDING")) pendingRequest++;
-                            if (user.getApproveStatus().equals(RegistrationStatus.APPROVED.name())) verifiedRegistration++;
-                        }
-                        %>
-                        <%= activeUsers %>
-                        </p>
-                        <p class="mu-stat-note gray">Real-time engagement</p>
-                    </div>
-                    <div class="mu-stat-card">
-                        <p class="mu-stat-label">Total</p>
-                        <p class="mu-stat-value"><%= verifiedRegistration %></p>
-                        <p class="mu-stat-note green">Verified registrations</p>
-                    </div>
-                    <div class="mu-stat-card">
-                        <p class="mu-stat-label">REQUEST</p>
-                        <p class="mu-stat-value red"><%= pendingRequest %></p>
-                        <p class="mu-stat-note gray">Pending review</p>
-                    </div>
-                </div>
+				<!-- Stats Cards -->
+				<div class="mu-stats">
 
-                <!-- Filter Panel -->
-                <div class="mu-filter-panel">
-                    <div class="mu-filter-group">
-                        <label>Status</label>
-                        <select>
-                            <option>All</option>
-                            <option>Active</option>
-                            <option>Blocked</option>
-                        </select>
-                    </div>
-                    <div class="mu-filter-group">
-                        <label>Registration</label>
-                        <select>
-                            <option>All Time</option>
-                            <option>Last 7 Days</option>
-                            <option>Last 30 Days</option>
-                            <option>Last 90 Days</option>
-                        </select>
-                    </div>
-                    <div class="mu-filter-group">
-                        <label>Verified</label>
-                        <select>
-                            <option>All</option>
-                            <option>Verified</option>
-                            <option>Unverified</option>
-                        </select>
-                    </div>
-                </div>
+					<%-- Total users is just the full list size --%>
+					<div class="mu-stat-card">
+						<p class="mu-stat-label">TOTAL USERS</p>
+						<p class="mu-stat-value">${fn:length(users)}</p>
+						<p class="mu-stat-note green">↗ Increased</p>
+					</div>
 
-                <!-- Users Table -->
-                <div class="mu-table-wrap">
-                    <table class="mu-table">
-                        <thead>
-                            <tr>
-                                <th>USER ID</th>
-                                <th>FULL NAME</th>
-                                <th>CONTACT INFORMATION</th>
-                                <th>REGISTRATION</th>
-                                <th>STATUS</th>
-                                <th>ACTIONS</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <%
-                            int visibleRows = 0;
-                            for (User user : users) {
-                                if (!selectedStatus.isEmpty() && !user.getApproveStatus().equals(selectedStatus)) continue;
-                                if (!searchQuery.isEmpty()
-                                        && !user.getFullName().toLowerCase().contains(searchQuery)
-                                        && !user.getEmail().toLowerCase().contains(searchQuery)) continue;
-                                visibleRows++;
-                            %>
-                            <tr>
-                                <td class="mu-uid">#<%=user.getUserId()%></td>
-                                <td>
-                                    <div class="mu-user-info">
-                                        <div class="mu-avatar" style="background:#fce7f3;color:#9d174d;">
-                                            <%if(user.getProfilePhoto() != null && !user.getProfilePhoto().isEmpty()) {%>
-                                            	<img src="<%=user.getProfilePhoto()%>" alt="Profile Photo">
-                                            <%}else{ %>
-                                            	<%= user.getFullName().split(" ")[0].toUpperCase().charAt(0)+""+user.getFullName().split(" ")[1].toUpperCase().charAt(0) %>
-                                            <%} %>
-                                        </div>
-                                        <div>
-                                            <p class="mu-name"><%= user.getFullName() %></p>
-                                            <%= ("PENDING".equals(user.getApproveStatus()) || "SUSPENDED".equals(user.getApproveStatus()) || "REJECTED".equals(user.getApproveStatus()))
-                                                ? "<p style='color: red;font-size: 11px;margin-top: 2px;'>✗ Un-Verified</p>"
-                                                : "<p class='mu-verified'>✔ Verified</p>" %>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <p class="mu-email"><%=user.getEmail()%></p>
-                                    <p class="mu-phone"><%=user.getPhoneNumber() == null ? "N/A":user.getPhoneNumber() %></p>
-                                </td>
-                                <td>
-                                    <p class="mu-date">
-                                        <%= user.getApprovedAt() != null ? user.getApprovedAt().toString().substring(0, 10) : "N/A" %>
-                                    </p>
-                                    <%
-                                    Timestamp ts = user.getApprovedAt();
-                                    String formattedTime = ts != null ? new java.text.SimpleDateFormat("hh:mm a").format(ts) : "";
-                                    %>
-                                    <p class="mu-time"><%=formattedTime%></p>
-                                </td>
-                                <td>
-                                    <% if (user.getApproveStatus().equals(RegistrationStatus.REJECTED.name())) { %>
-                                        <span class="mu-badge blocked"><%=user.getApproveStatus()%></span>
-                                    <% } else if (user.getApproveStatus().equals(RegistrationStatus.APPROVED.name())) { %>
-                                        <span class="mu-badge active"><%=user.getApproveStatus()%></span>
-                                    <% } else if (user.getApproveStatus().equals(RegistrationStatus.SUSPENDED.name())) { %>
-                                        <span class="mu-badge susp"><%=user.getApproveStatus()%></span>
-                                    <% } else if (user.getApproveStatus().equals(RegistrationStatus.PENDING.name())) { %>
-                                        <span class="mu-badge pen"><%=user.getApproveStatus()%></span>
-                                    <% } %>
-                                </td>
-                                <td>
-                                    <div class="mu-actions">
-                                        <% if (user.getApproveStatus().equals(RegistrationStatus.APPROVED.name())) { %>
-                                            <form method="POST" action="${pageContext.request.contextPath}/ManageUser">
-                                                <input type="hidden" name="action" value="suspend">
-                                                <input type="hidden" name="userId" value="<%=user.getUserId()%>">
-                                                <button type="submit" class="mu-btn">Suspend</button>
-                                            </form>
-                                        <% } else if (user.getApproveStatus().equals(RegistrationStatus.PENDING.name())) { %>
-                                            <form method="POST" action="${pageContext.request.contextPath}/ManageUser">
-                                                <input type="hidden" name="action" value="approve">
-                                                <input type="hidden" name="userId" value="<%=user.getUserId()%>">
-                                                <button type="submit" class="mu-btn">Approve</button>
-                                            </form>
-                                            <form method="POST" action="${pageContext.request.contextPath}/ManageUser">
-                                                <input type="hidden" name="action" value="reject">
-                                                <input type="hidden" name="userId" value="<%=user.getUserId()%>">
-                                                <button type="submit" class="mu-btn">Reject</button>
-                                            </form>
-                                        <% } else if (user.getApproveStatus().equals(RegistrationStatus.SUSPENDED.name())) { %>
-                                            <form method="POST" action="${pageContext.request.contextPath}/ManageUser">
-                                                <input type="hidden" name="action" value="reinstate">
-                                                <input type="hidden" name="userId" value="<%=user.getUserId()%>">
-                                                <button type="submit" class="mu-btn">Reinstate</button>
-                                            </form>
-                                        <% } else if (user.getApproveStatus().equals(RegistrationStatus.REJECTED.name())) { %>
-                                            <form method="POST" action="${pageContext.request.contextPath}/ManageUser">
-                                                <input type="hidden" name="action" value="approve">
-                                                <input type="hidden" name="userId" value="<%=user.getUserId()%>">
-                                                <button type="submit" class="mu-btn">Approve</button>
-                                            </form>
-                                        <% } %>
-                                    </div>
-                                </td>
-                            </tr>
-                            <% } %>
+					<%-- Count active users — status field equals "ACTIVE" --%>
+					<div class="mu-stat-card">
+						<p class="mu-stat-label">ACTIVE NOW</p>
+						<p class="mu-stat-value">
+							<c:set var="activeUsers" value="0" />
+							<c:forEach var="user" items="${users}">
+								<c:if test="${user.status == 'ACTIVE'}">
+									<c:set var="activeUsers" value="${activeUsers + 1}" />
+								</c:if>
+							</c:forEach>
+							${activeUsers}
+						</p>
+						<p class="mu-stat-note gray">Real-time engagement</p>
+					</div>
 
-                            <!-- No results row -->
-                            <% if (visibleRows == 0) { %>
-                            <tr>
-                                <td colspan="6" class="mu-no-results">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="38" height="38" viewBox="0 0 24 24"
-                                        fill="none" stroke="#CBD5E1" stroke-width="1.5">
-                                        <circle cx="11" cy="11" r="8" />
-                                        <line x1="21" y1="21" x2="16.65" y2="16.65" />
-                                    </svg>
-                                    <p>No results found</p>
-                                    <% if (!searchQuery.isEmpty()) { %>
-                                        <span>No users match "<strong><%=searchQuery%></strong>"</span>
-                                    <% } else if (!selectedStatus.isEmpty()) { %>
-                                        <span>No users with status <strong><%=selectedStatus%></strong></span>
-                                    <% } %>
-                                </td>
-                            </tr>
-                            <% } %>
+					<%-- Count users whose registration has been approved --%>
+					<div class="mu-stat-card">
+						<p class="mu-stat-label">Total</p>
+						<p class="mu-stat-value">
+							<c:set var="verifiedRegistration" value="0" />
+							<c:forEach var="user" items="${users}">
+								<c:if test="${user.approveStatus == 'APPROVED'}">
+									<c:set var="verifiedRegistration"
+										value="${verifiedRegistration + 1}" />
+								</c:if>
+							</c:forEach>
+							${verifiedRegistration}
+						</p>
+						<p class="mu-stat-note green">Verified registrations</p>
+					</div>
 
-                        </tbody>
-                    </table>
-                </div>
+					<%-- Count users still waiting for admin review --%>
+					<div class="mu-stat-card">
+						<p class="mu-stat-label">REQUEST</p>
+						<p class="mu-stat-value red">
+							<c:set var="pendingRequest" value="0" />
+							<c:forEach var="user" items="${users}">
+								<c:if test="${user.approveStatus == 'PENDING'}">
+									<c:set var="pendingRequest" value="${pendingRequest + 1}" />
+								</c:if>
+							</c:forEach>
+							${pendingRequest}
+						</p>
+						<p class="mu-stat-note gray">Pending review</p>
+					</div>
+				</div>
 
-            </section>
-        </main>
+				<!-- Filter Panel -->
+				<div class="mu-filter-panel">
+					<div class="mu-filter-group">
+						<label>Status</label> <select>
+							<option>All</option>
+							<option>Active</option>
+							<option>Blocked</option>
+						</select>
+					</div>
+					<div class="mu-filter-group">
+						<label>Registration</label> <select>
+							<option>All Time</option>
+							<option>Last 7 Days</option>
+							<option>Last 30 Days</option>
+							<option>Last 90 Days</option>
+						</select>
+					</div>
+					<div class="mu-filter-group">
+						<label>Verified</label> <select>
+							<option>All</option>
+							<option>Verified</option>
+							<option>Unverified</option>
+						</select>
+					</div>
+				</div>
 
-        <footer class="admin-dash-nav">
-            <div class="footer-left">
-                <p class="footer-brand">ClaimIt Admin Console</p>
-                <p class="footer-copy">© 2024 ClaimIt Digital Concierge. All rights reserved.</p>
-            </div>
-            <div class="footer-links">
-                <a href="#">Privacy Policy</a>
-                <a href="#">Terms of Service</a>
-                <a href="#">Security Audit</a>
-                <a href="#">Support</a>
-            </div>
-        </footer>
-    </article>
+				<!-- Users Table -->
+				<div class="mu-table-wrap">
+					<table class="mu-table">
+						<thead>
+							<tr>
+								<th>USER ID</th>
+								<th>FULL NAME</th>
+								<th>CONTACT INFORMATION</th>
+								<th>REGISTRATION</th>
+								<th>STATUS</th>
+								<th>ACTIONS</th>
+							</tr>
+						</thead>
+						<tbody>
+
+							<%-- Track how many rows actually render after filtering, used for the empty-state row --%>
+							<c:set var="visibleRows" value="0" />
+
+							<c:forEach var="user" items="${users}">
+
+								<%-- Skip this user if a status filter is active and this user doesn't match it --%>
+								<c:set var="statusMatch"
+									value="${empty param.approveStatus or user.approveStatus == param.approveStatus}" />
+
+								<%-- Skip this user if a search term is active and neither name nor email contains it --%>
+								<c:set var="searchLower" value="${fn:toLowerCase(param.search)}" />
+								<c:set var="nameLower" value="${fn:toLowerCase(user.fullName)}" />
+								<c:set var="emailLower" value="${fn:toLowerCase(user.email)}" />
+								<c:set var="searchMatch"
+									value="${empty param.search or fn:contains(nameLower, searchLower) or fn:contains(emailLower, searchLower)}" />
+
+								<c:if test="${statusMatch and searchMatch}">
+
+									<%-- This user passed both filters, count it --%>
+									<c:set var="visibleRows" value="${visibleRows + 1}" />
+
+									<tr>
+										<td class="mu-uid">#${user.userId}</td>
+										<td>
+											<div class="mu-user-info">
+												<div class="mu-avatar"
+													style="background: #fce7f3; color: #9d174d;">
+													<%-- Show profile photo if available, otherwise fall back to initials --%>
+													<c:choose>
+														<c:when test="${not empty user.profilePhoto}">
+															<img src="${user.profilePhoto}" alt="Profile Photo">
+														</c:when>
+														<c:otherwise>
+															<%-- Split full name on space and grab first char of each part --%>
+															<c:set var="nameParts"
+																value="${fn:split(user.fullName, ' ')}" />
+                                                            ${fn:toUpperCase(fn:substring(nameParts[0], 0, 1))}${fn:toUpperCase(fn:substring(nameParts[1], 0, 1))}
+                                                        </c:otherwise>
+													</c:choose>
+												</div>
+												<div>
+													<p class="mu-name">${user.fullName}</p>
+													<%-- Show un-verified label for any status that isn't APPROVED --%>
+													<c:choose>
+														<c:when
+															test="${user.approveStatus == 'PENDING' or user.approveStatus == 'SUSPENDED' or user.approveStatus == 'REJECTED'}">
+															<p style="color: red; font-size: 11px; margin-top: 2px;">✗
+																Un-Verified</p>
+														</c:when>
+														<c:otherwise>
+															<p class="mu-verified">✔ Verified</p>
+														</c:otherwise>
+													</c:choose>
+												</div>
+											</div>
+										</td>
+										<td>
+											<p class="mu-email">${user.email}</p> <%-- Show N/A when no phone number is stored --%>
+											<p class="mu-phone">
+												<c:choose>
+													<c:when test="${empty user.phoneNumber}">N/A</c:when>
+													<c:otherwise>${user.phoneNumber}</c:otherwise>
+												</c:choose>
+											</p>
+										</td>
+										<td>
+											<%-- Show only the date part (first 10 chars) of the approval timestamp --%>
+											<p class="mu-date">
+												<c:choose>
+													<c:when test="${not empty user.approvedAt}">
+														<fmt:formatDate value="${user.approvedAt}"
+															pattern="MMM dd, yyyy" />
+													</c:when>
+													<c:otherwise>N/A</c:otherwise>
+												</c:choose>
+											</p> <%-- Format the time portion of the timestamp as hh:mm AM/PM --%>
+											<p class="mu-time">
+												<c:if test="${not empty user.approvedAt}">
+													<fmt:formatDate value="${user.approvedAt}"
+														pattern="hh:mm a" />
+												</c:if>
+											</p>
+										</td>
+										<td>
+											<%-- Render the correct badge colour based on registration status --%>
+											<c:choose>
+												<c:when test="${user.approveStatus == 'REJECTED'}">
+													<span class="mu-badge blocked">${user.approveStatus}</span>
+												</c:when>
+												<c:when test="${user.approveStatus == 'APPROVED'}">
+													<span class="mu-badge active">${user.approveStatus}</span>
+												</c:when>
+												<c:when test="${user.approveStatus == 'SUSPENDED'}">
+													<span class="mu-badge susp">${user.approveStatus}</span>
+												</c:when>
+												<c:when test="${user.approveStatus == 'PENDING'}">
+													<span class="mu-badge pen">${user.approveStatus}</span>
+												</c:when>
+											</c:choose>
+										</td>
+										<td>
+											<div class="mu-actions">
+												<%-- Show the appropriate action button based on current status --%>
+												<c:choose>
+
+													<%-- Approved users can be suspended --%>
+													<c:when test="${user.approveStatus == 'APPROVED'}">
+														<form method="POST"
+															action="${pageContext.request.contextPath}/ManageUser">
+															<input type="hidden" name="action" value="suspend">
+															<input type="hidden" name="userId" value="${user.userId}">
+															<button type="submit" class="mu-btn">Suspend</button>
+														</form>
+													</c:when>
+
+													<%-- Pending users can be approved or rejected --%>
+													<c:when test="${user.approveStatus == 'PENDING'}">
+														<form method="POST"
+															action="${pageContext.request.contextPath}/ManageUser">
+															<input type="hidden" name="action" value="approve">
+															<input type="hidden" name="userId" value="${user.userId}">
+															<button type="submit" class="mu-btn">Approve</button>
+														</form>
+														<form method="POST"
+															action="${pageContext.request.contextPath}/ManageUser">
+															<input type="hidden" name="action" value="reject">
+															<input type="hidden" name="userId" value="${user.userId}">
+															<button type="submit" class="mu-btn">Reject</button>
+														</form>
+													</c:when>
+
+													<%-- Suspended users can be reinstated --%>
+													<c:when test="${user.approveStatus == 'SUSPENDED'}">
+														<form method="POST"
+															action="${pageContext.request.contextPath}/ManageUser">
+															<input type="hidden" name="action" value="reinstate">
+															<input type="hidden" name="userId" value="${user.userId}">
+															<button type="submit" class="mu-btn">Reinstate</button>
+														</form>
+													</c:when>
+
+													<%-- Rejected users can be given a second chance via approve --%>
+													<c:when test="${user.approveStatus == 'REJECTED'}">
+														<form method="POST"
+															action="${pageContext.request.contextPath}/ManageUser">
+															<input type="hidden" name="action" value="approve">
+															<input type="hidden" name="userId" value="${user.userId}">
+															<button type="submit" class="mu-btn">Approve</button>
+														</form>
+													</c:when>
+
+												</c:choose>
+											</div>
+										</td>
+									</tr>
+
+								</c:if>
+							</c:forEach>
+
+							<%-- If no rows rendered after filtering, show the empty-state message --%>
+							<c:if test="${visibleRows == 0}">
+								<tr>
+									<td colspan="6" class="mu-no-results"><svg
+											xmlns="http://www.w3.org/2000/svg" width="38" height="38"
+											viewBox="0 0 24 24" fill="none" stroke="#CBD5E1"
+											stroke-width="1.5">
+                                            <circle cx="11" cy="11"
+												r="8" />
+                                            <line x1="21" y1="21"
+												x2="16.65" y2="16.65" />
+                                        </svg>
+										<p>No results found</p> <%-- Tell the user what filter produced zero results --%>
+										<c:choose>
+											<c:when test="${not empty param.search}">
+												<span>No users match "<strong>${param.search}</strong>"
+												</span>
+											</c:when>
+											<c:when test="${not empty param.approveStatus}">
+												<span>No users with status <strong>${param.approveStatus}</strong></span>
+											</c:when>
+										</c:choose></td>
+								</tr>
+							</c:if>
+
+						</tbody>
+					</table>
+				</div>
+
+			</section>
+		</main>
+
+		<footer class="admin-dash-nav">
+			<div class="footer-left">
+				<p class="footer-brand">ClaimIt Admin Console</p>
+				<p class="footer-copy">© 2024 ClaimIt Digital Concierge. All
+					rights reserved.</p>
+			</div>
+			<div class="footer-links">
+				<a href="#">Privacy Policy</a> <a href="#">Terms of Service</a> <a
+					href="#">Security Audit</a> <a href="#">Support</a>
+			</div>
+		</footer>
+	</article>
 
 </body>
-
 </html>
