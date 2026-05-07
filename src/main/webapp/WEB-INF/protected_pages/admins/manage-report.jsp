@@ -1,10 +1,9 @@
-<%@page import="com.claimit.enums.ReportStatus"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="com.claimit.model.ItemReport, java.util.List, java.text.SimpleDateFormat" %>
-<%
-List<ItemReport> itemReports= (List<ItemReport>) request.getAttribute("itemReports");
-%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -89,6 +88,7 @@ List<ItemReport> itemReports= (List<ItemReport>) request.getAttribute("itemRepor
                     </a>
                 </div>
 
+                <%-- Show Manage Moderators link only if the logged-in admin has ADMIN role --%>
                 <c:if test="${admin.role == 'ADMIN'}">
                     <div class="admin-aside-admin-function">
                         <a href="${pageContext.request.contextPath}/ManageModerator" class="admin-functions">
@@ -183,30 +183,33 @@ List<ItemReport> itemReports= (List<ItemReport>) request.getAttribute("itemRepor
                     <div class="mr-header-stats">
                         <div class="mr-header-stat">
                             <p class="mr-header-stat-label red">PENDING</p>
+                            <%-- Display count of pending reports passed from servlet --%>
                             <p class="mr-header-stat-value red">${pending}</p>
                         </div>
                         <div class="mr-header-stat">
                             <p class="mr-header-stat-label green">RESOLVED</p>
+                            <%-- Display count of resolved reports passed from servlet --%>
                             <p class="mr-header-stat-value green">${resolved}</p>
                         </div>
                     </div>
                 </div>
 
                 <!-- Filter Bar -->
-				<div class="mr-filter-bar">
-				    <form action="${pageContext.request.contextPath}/ManageReport" method="GET" class="mr-filter-pill">
-				        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="20" viewBox="0 0 32 32">
-				            <rect width="32" height="32" fill="none" />
-				            <path fill="#636567"
-				                d="M4 5v6h6V5zm2 2h2v2H6zm6 0v2h15V7zm-8 6v6h6v-6zm2 2h2v2H6zm6 0v2h15v-2zm-8 6v6h6v-6zm2 2h2v2H6zm6 0v2h15v-2z" />
-				        </svg>
-						<select name="status" onchange="this.form.submit()">
-						    <option value="">Status: All Reports</option>
-						    <option value="PENDING" ${param.status == 'PENDING' ? 'selected' : ''}>Pending</option>
-						    <option value="ACTED" ${param.status == 'ACTED' ? 'selected' : ''}>Acted</option>
-						</select>
-				    </form>
-				</div>
+                <div class="mr-filter-bar">
+                    <form action="${pageContext.request.contextPath}/ManageReport" method="GET" class="mr-filter-pill">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="20" viewBox="0 0 32 32">
+                            <rect width="32" height="32" fill="none" />
+                            <path fill="#636567"
+                                d="M4 5v6h6V5zm2 2h2v2H6zm6 0v2h15V7zm-8 6v6h6v-6zm2 2h2v2H6zm6 0v2h15v-2zm-8 6v6h6v-6zm2 2h2v2H6zm6 0v2h15v-2z" />
+                        </svg>
+                        <%-- Status filter dropdown — pre-selects the current filter from request param and resubmits on change --%>
+                        <select name="status" onchange="this.form.submit()">
+                            <option value="">Status: All Reports</option>
+                            <option value="PENDING" ${param.status == 'PENDING' ? 'selected' : ''}>Pending</option>
+                            <option value="ACTED"   ${param.status == 'ACTED'   ? 'selected' : ''}>Acted</option>
+                        </select>
+                    </form>
+                </div>
 
                 <!-- Reports Table -->
                 <div class="mr-table-wrap">
@@ -223,56 +226,95 @@ List<ItemReport> itemReports= (List<ItemReport>) request.getAttribute("itemRepor
                             </tr>
                         </thead>
                         <tbody>
-                            <% for(ItemReport eachIR: itemReports){ %>
-                            <tr>
-                                <td><a href="#" class="mr-report-id">#<%=eachIR.getItemReportId() %></a></td>
-                                <td>
-                                    <div class="mr-item-info">
-                                        <div class="mr-item-thumb">
-                                        <img src="<%= eachIR.getItemImage()%>">
+
+                            <%-- Loop through each item report in the itemReports list set by the servlet --%>
+                            <c:forEach var="eachIR" items="${itemReports}">
+                                <tr>
+                                    <%-- Display the report ID --%>
+                                    <td><a href="#" class="mr-report-id">#${eachIR.itemReportId}</a></td>
+
+                                    <td>
+                                        <div class="mr-item-info">
+                                            <div class="mr-item-thumb">
+                                                <%-- Display the item thumbnail image --%>
+                                                <img src="${eachIR.itemImage}">
+                                            </div>
+                                            <div>
+                                                <%-- Display the reported item name --%>
+                                                <p class="mr-item-name">${eachIR.itemName}</p>
+                                            </div>
                                         </div>
-                                        <div>
-                                            <p class="mr-item-name"><%=eachIR.getItemName() %></p>
+                                    </td>
+
+                                    <td>
+                                        <div class="mr-reporter">
+                                            <%-- Avatar initials: split full name by space, take first char of first and last name parts --%>
+                                            <c:set var="nameParts" value="${fn:split(eachIR.userName, ' ')}" />
+                                            <div class="mr-reporter-av" style="background:#dbeafe;color:#1e40af;">
+                                                <c:choose>
+                                                    <%-- If name has at least two parts, show two initials --%>
+                                                    <c:when test="${fn:length(nameParts) >= 2}">
+                                                        ${fn:substring(nameParts[0], 0, 1)}${fn:substring(nameParts[1], 0, 1)}
+                                                    </c:when>
+                                                    <%-- Otherwise show only the first initial --%>
+                                                    <c:otherwise>
+                                                        ${fn:substring(eachIR.userName, 0, 1)}
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </div>
+                                            <%-- Display the full name of the reporter --%>
+                                            <p class="mr-reporter-name">${eachIR.userName}</p>
                                         </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="mr-reporter">
-                                        <div class="mr-reporter-av" style="background:#dbeafe;color:#1e40af;"><%= eachIR.getUserName().split(" ")[0].charAt(0) + "" + eachIR.getUserName().split(" ")[1].charAt(0) %></div>
-                                        <p class="mr-reporter-name"><%=eachIR.getUserName() %></p>
-                                    </div>
-                                </td>
-                                <td>
-                                    <p class="mr-reason"><%=eachIR.getReason() %></p>
-                                </td>
-                                <td>
-                                    <p class="mr-date"><%= new SimpleDateFormat("MMM dd, YYYY").format(eachIR.getCreatedAt()) %></p>
-                                </td>
-                                <td>
-                                	<%if(eachIR.getStatus().equals(ReportStatus.PENDING.name())){ %>
-                                	<span class="mr-badge pending"><%=eachIR.getStatus() %></span>
-                                	<%} else{ %>
-                                		<span class="mr-badge urgent"><%=eachIR.getStatus() %></span>
-                                	<%} %>
-                                </td>
-                                <td>
-                                    <div class="mr-actions">
-                                    <%if(eachIR.getStatus().equals(ReportStatus.PENDING.name())){ %>
-                                    	<form action="${pageContext.request.contextPath}/ManageReport" method="POST" style="display:inline;">
-										    <input type="hidden" name="itemId" value="<%= eachIR.getItemId() %>">
-										    <input type="hidden" name="reason" value="<%= eachIR.getReason() %>">
-										    <button type="submit" class="mc-btn mc-btn-view">Block Item</button>
-										</form>
-                                    <%}else{ %>
-										    N/A
-                                    <% } %>
-                                    </div>
-                                </td>
-                            </tr>
-                            <%} %>
+                                    </td>
+
+                                    <td>
+                                        <%-- Display the report reason --%>
+                                        <p class="mr-reason">${eachIR.reason}</p>
+                                    </td>
+
+                                    <td>
+                                        <%-- Format and display the report creation date --%>
+                                        <p class="mr-date">
+                                            <fmt:formatDate value="${eachIR.createdAt}" pattern="MMM dd, yyyy" />
+                                        </p>
+                                    </td>
+
+                                    <td>
+                                        <%-- Show 'pending' badge if status is PENDING, otherwise show 'urgent' badge --%>
+                                        <c:choose>
+                                            <c:when test="${eachIR.status == 'PENDING'}">
+                                                <span class="mr-badge pending">${eachIR.status}</span>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <span class="mr-badge urgent">${eachIR.status}</span>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </td>
+
+                                    <td>
+                                        <div class="mr-actions">
+                                            <%-- Show Block Item form only if report status is PENDING; otherwise show N/A --%>
+                                            <c:choose>
+                                                <c:when test="${eachIR.status == 'PENDING'}">
+                                                    <form action="${pageContext.request.contextPath}/ManageReport" method="POST" style="display:inline;">
+                                                        <%-- Pass the item ID and reason to the servlet for the block action --%>
+                                                        <input type="hidden" name="itemId" value="${eachIR.itemId}">
+                                                        <input type="hidden" name="reason" value="${eachIR.reason}">
+                                                        <button type="submit" class="mc-btn mc-btn-view">Block Item</button>
+                                                    </form>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    N/A
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </c:forEach>
+                            <%-- End of item reports loop --%>
+
                         </tbody>
                     </table>
-
                 </div>
 
                 <!-- Info Cards -->
