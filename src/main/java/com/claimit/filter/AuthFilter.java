@@ -131,9 +131,8 @@ public class AuthFilter extends HttpFilter implements Filter {
         // User only pages
         boolean isUserPage = path.equals("/DashBoard") || path.equals("/MyClaim")
                 || path.equals("/MyRequestedClaim") || path.equals("/Claims")
-                || path.equals("/ViewDetails") || path.equals("/ReportFoundItem")
-                || path.equals("/Browse") || path.equals("/UserProfile")
-                || path.equals("/Notification");
+                || path.equals("/ReportFoundItem") || path.equals("/Browse")
+                || path.equals("/UserProfile")  || path.equals("/Notification");
 
         // Block admin/moderator from user pages
         if (adminId != null && isUserPage) {
