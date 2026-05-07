@@ -7,10 +7,16 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import com.claimit.enums.ItemStatus;
 import com.claimit.model.Claim;
 import com.claimit.model.Item;
+import com.claimit.model.ItemImage;
 import com.claimit.services.ClaimService;
+import com.claimit.services.ItemImageService;
 import com.claimit.services.ItemReportService;
 import com.claimit.services.ItemService;
 import com.claimit.services.NotificationService;
@@ -21,6 +27,7 @@ public class BrowseServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
     private final ItemService itemService = new ItemService();
+    private final ItemImageService itemImageService=new ItemImageService();
     private final ItemReportService itemReportService = new ItemReportService();
     private final ClaimService claimService = new ClaimService();
     private final NotificationService notificationService=new NotificationService();
@@ -44,7 +51,7 @@ public class BrowseServlet extends HttpServlet {
 
         for (Item item : allItems) {
 
-            // keyword filter (title, category, location) 
+            // keyword filter (title, category, location)
             boolean matchesKeyword = true;
             if (keyword != null && !keyword.trim().isEmpty()) {
                 String kw = keyword.trim().toLowerCase();
@@ -59,19 +66,14 @@ public class BrowseServlet extends HttpServlet {
             if (dateRange != null && !dateRange.trim().isEmpty()) {
                 try {
                     int days = Integer.parseInt(dateRange.trim());
-                    /*
-                     * Calculate the cutoff timestamp by subtracting X days (converted to milliseconds)
-                     * from the current time. Formula: days × 24hrs × 60min × 60sec × 1000ms
-                     * Any item whose lostFoundDate.getTime() >= cutoff falls within the selected range.
-                     */
                     long cutoff = now - (long) days * 24 * 60 * 60 * 1000;
                     matchesDate = item.getLostFoundDate() != null &&
-                                  item.getLostFoundDate().getTime() >= cutoff; // getTime() returns the item's date as milliseconds
+                                  item.getLostFoundDate().getTime() >= cutoff;
                 } catch (NumberFormatException e) {
-                    matchesDate = true; // skip date filter
+                    matchesDate = true;
                     System.err.println("[BrowseServlet] Invalid dateRange value: '" + dateRange + "' — ignoring date filter.");
                 } catch (NullPointerException e) {
-                    matchesDate = false; // item.getLostFoundDate() is null then exclude from results
+                    matchesDate = false;
                     System.err.println("[BrowseServlet] Item ID " + item.getItemId() + " has null lostFoundDate.");
                 }
             }
@@ -81,8 +83,25 @@ public class BrowseServlet extends HttpServlet {
             }
         }
 
-        request.setAttribute("items", filtered);
-        request.setAttribute("claim", claim);
+        // resultCount (FOUND items only) for the JSP result bar
+        int resultCount = 0;
+        for (Item item : filtered) {
+            if ("FOUND".equals(item.getType()) && item.getStatus().equals(ItemStatus.APPROVED.name())) {
+                resultCount++;
+            }
+        }
+
+        Map<Integer, List<ItemImage>> itemImagesMap = new HashMap<>();
+        for (Item item : filtered) {
+            List<ItemImage> images = itemImageService.getImagesByItemId(item.getItemId());
+            itemImagesMap.put(item.getItemId(), images);
+        }
+
+        request.setAttribute("items",         filtered);
+        request.setAttribute("claim",         claim);
+        request.setAttribute("resultCount",   resultCount);     
+        request.setAttribute("itemImagesMap", itemImagesMap);    
+
         request.getRequestDispatcher("/WEB-INF/protected_pages/users/Browse.jsp")
                .forward(request, response);
     }
