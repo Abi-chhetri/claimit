@@ -45,6 +45,12 @@ public class AdminDashBoardServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		String adminId = String.valueOf(SessionManager.getAttribute(request, "adminId"));
+		String flash = (String) SessionManager.getAttribute(request, "flashMessage");
+		if (flash != null) {
+		    request.setAttribute("flash", flash);
+		    SessionManager.deleteSession(request, "flashMessage");
+		}
+		// then forward to JSP
 		List<AdminLog> logs= adminLogService.getAllAdminLogs().reversed();
 		if(adminId != null) {
 			Admin admin=adminService.getAdminByID(adminId);

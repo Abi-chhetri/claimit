@@ -31,7 +31,7 @@ public class ManageContactMessageServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		List<ContactMessage> messages= contactMessageService.getAllMessage();
+		List<ContactMessage> messages= contactMessageService.getAllMessage().reversed();
 		request.setAttribute("contactMessage", messages);
 		request.getRequestDispatcher("WEB-INF/protected_pages/admins/manage-contact-message.jsp").forward(request, response);
 	}
