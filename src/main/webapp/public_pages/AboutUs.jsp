@@ -73,7 +73,9 @@ String suc = (String) request.getAttribute("suc");
             </div>
             <div class="about-right">
                 <div class="about-image-wrapper">
-                    <div class="about-image-placeholder"></div>
+                    <div class="about-image-placeholder">
+                    	<img alt="handshake" width="100%" height="500px" src="${pageContext.request.contextPath}/images/group.jpg">
+                    </div>
                     <div class="about-float-card">
                         <div class="about-float-icon">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
@@ -100,19 +102,19 @@ String suc = (String) request.getAttribute("suc");
             </div>
             <div class="mission-cards">
                 <article class="mission-card">
-                    <img src="misn1.png" alt="Community First" width="35" height="35" />
+                    <img src="${pageContext.request.contextPath}/images/group.jpg" alt="Community First" width="35" height="35" />
                     <h3 class="mission-card-title">Community First</h3>
                     <p class="mission-card-desc">We believe every lost item is a story waiting for a happy ending,
                         powered by a community that cares.</p>
                 </article>
                 <article class="mission-card">
-                    <img src="misn2.png" alt="Absolute Privacy" width="35" height="35" />
+                    <img src="${pageContext.request.contextPath}/images/head.jpeg" alt="Absolute Privacy" width="35" height="35" />
                     <h3 class="mission-card-title">Absolute Privacy</h3>
                     <p class="mission-card-desc">Your data and personal details are handled with the highest level of
                         encryption and professional discretion.</p>
                 </article>
                 <article class="mission-card">
-                    <img src="misn3.png" alt="Rapid Recovery" width="35" height="35" />
+                    <img src="${pageContext.request.contextPath}/images/speed.jpeg" alt="Rapid Recovery" width="35" height="35" />
                     <h3 class="mission-card-title">Rapid Recovery</h3>
                     <p class="mission-card-desc">Our smart matching algorithms connect found items with reports in
                         real-time, cutting recovery days by 70%.</p>
@@ -129,7 +131,7 @@ String suc = (String) request.getAttribute("suc");
                 <div class="process-step">
                     <div class="process-icon-wrapper">
                         <span class="process-step-number">1</span>
-                        <img src="prst1.png" alt="Report" width="48" height="40" class="process-icon" />
+                        <img src="${pageContext.request.contextPath}/images/cam.jpeg" alt="Report" width="48" height="40" class="process-icon" />
                     </div>
                     <h3 class="process-step-title">Report</h3>
                     <p class="process-step-desc">Snap a photo and provide a few key details. Our AI assists with
@@ -138,7 +140,7 @@ String suc = (String) request.getAttribute("suc");
                 <div class="process-step">
                     <div class="process-icon-wrapper">
                         <span class="process-step-number">2</span>
-                        <img src="prst2.png" alt="Browse" width="48" height="40" class="process-icon" />
+                        <img src="${pageContext.request.contextPath}/images/globe.jpeg" alt="Browse" width="48" height="40" class="process-icon" />
                     </div>
                     <h3 class="process-step-title">Browse</h3>
                     <p class="process-step-desc">Search our verified database of found items filtered by location, date,
@@ -147,7 +149,7 @@ String suc = (String) request.getAttribute("suc");
                 <div class="process-step">
                     <div class="process-icon-wrapper">
                         <span class="process-step-number">3</span>
-                        <img src="prst3.png" alt="Claim" width="48" height="40" class="process-icon" />
+                        <img src="${pageContext.request.contextPath}/images/shake.jpeg" alt="Claim" width="48" height="40" class="process-icon" />
                     </div>
                     <h3 class="process-step-title">Claim</h3>
                     <p class="process-step-desc">Verify ownership through our secure messaging system and arrange for a
@@ -161,34 +163,43 @@ String suc = (String) request.getAttribute("suc");
                 <span class="team-tag">OUR CURATORS</span>
                 <h2 class="team-title">Meet the Minds Behind ClaimIt</h2>
             </div>
-            <div class="team-grid">
-                <div class="team-card">
-                    <div class="team-photo"></div>
-                    <h4 class="team-name">Marcus Chen</h4>
-                    <p class="team-role">Founder & CEO</p>
-                </div>
-                <div class="team-card">
-                    <div class="team-photo"></div>
-                    <h4 class="team-name">Sarah Jenkins</h4>
-                    <p class="team-role">Chief Technology Officer</p>
-                </div>
-                <div class="team-card">
-                    <div class="team-photo"></div>
-                    <h4 class="team-name">David Rivera</h4>
-                    <p class="team-role">Head of Operations</p>
-                </div>
-                <div class="team-card">
-                    <div class="team-photo"></div>
-                    <h4 class="team-name">Elena Moretti</h4>
-                    <p class="team-role">Lead Experience Designer</p>
-                </div>
-                <div class="team-card">
-                    <div class="team-photo"></div>
-                    <h4 class="team-name">James Okafor</h4>
-                    <p class="team-role">Community Manager</p>
-                </div>
-            </div>
-        </section>
+			<div class="team-grid">
+				<div class="team-card">
+					<div class="team-photo">
+						<img src="${pageContext.request.contextPath}/images/abi.jpg" width="100%" style="object-fit:cover; object-position:center" height="280px">
+					</div>
+					<h4 class="team-name">Abi Loniya</h4>
+				</div>
+				<div class="team-card">
+					<div class="team-photo">
+						<img src="${pageContext.request.contextPath}/images/Gaurav.jpg" alt="" width="100%" height="280px">
+					</div>
+					<h4 class="team-name">Gaurav Chaudhary</h4>
+
+				</div>
+				<div class="team-card">
+					<div class="team-photo">
+						<img src="${pageContext.request.contextPath}/images/" alt="" width="100%" height="280px">
+					</div>
+					<h4 class="team-name">Shivam Jaiswal</h4>
+
+				</div>
+				<div class="team-card">
+					<div class="team-photo">
+						<img src="${pageContext.request.contextPath}/images/" alt="" width="100%" height="280px">
+					</div>
+					<h4 class="team-name">Sajal Dangal</h4>
+
+				</div>
+				<div class="team-card">
+					<div class="team-photo">
+						<img src="${pageContext.request.contextPath}/images/sachin.jpg" alt="" width="100%" height="280px">
+					</div>
+					<h4 class="team-name">Sachin Jaiswal</h4>
+
+				</div>
+			</div>
+		</section>
         
         <section class="contact-section" id="contact">
 		    <div class="contact-header">
@@ -198,8 +209,10 @@ String suc = (String) request.getAttribute("suc");
 		    </div>
 		    <div class="contact-wrapper">
 		        <form class="contact-form" action="${pageContext.request.contextPath}/About" method="POST">
-		        <span style="text-align: center; color:red; width:100%;"><%= erMsg != null ? erMsg:"" %></span>
-		        <%if(userId == null){ %>
+		        <span style="text-align: center; color:red; width:100%;"><%=erMsg != null ? erMsg : ""%></span>
+		        <%
+		        if (userId == null) {
+		        %>
 		        	<div class="contact-form-group">
 		                <label class="contact-label" for="contact-email">Email Address</label>
 		                <input class="contact-input" type="email" id="contact-email" name="email" placeholder="abcd@gmail.com"/>

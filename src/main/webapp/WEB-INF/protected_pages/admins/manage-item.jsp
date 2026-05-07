@@ -1,10 +1,8 @@
-<%@page import="com.claimit.enums.ItemStatus"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="java.util.ArrayList, java.util.List, com.claimit.model.Item, com.claimit.services.ItemImageService, java.text.SimpleDateFormat" %>
-<%
-List<Item> items = (List<Item>) request.getAttribute("items");
-ItemImageService imageService = new ItemImageService();
-%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -81,15 +79,18 @@ ItemImageService imageService = new ItemImageService();
                     </a>
                 </div>
 
-                <div class="admin-aside-admin-function">
-                    <a href="${pageContext.request.contextPath}/ManageModerator" class="admin-functions">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="18" viewBox="0 0 8 8">
-                            <rect width="8" height="8" fill="none" />
-                            <path fill="#475569" d="M4 4v3q2 0 3-3M4 4V1L1 2v2m3-4l4 2c0 8-8 8-8 0" />
-                        </svg>
-                        <p class="admin-function-name">Manage Moderators</p>
-                    </a>
-                </div>
+                <%-- Show Manage Moderators only if logged-in admin has ADMIN role --%>
+                <c:if test="${admin.role == 'ADMIN'}">
+                    <div class="admin-aside-admin-function">
+                        <a href="${pageContext.request.contextPath}/ManageModerator" class="admin-functions">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="18" viewBox="0 0 8 8">
+                                <rect width="8" height="8" fill="none" />
+                                <path fill="#475569" d="M4 4v3q2 0 3-3M4 4V1L1 2v2m3-4l4 2c0 8-8 8-8 0" />
+                            </svg>
+                            <p class="admin-function-name">Manage Moderators</p>
+                        </a>
+                    </div>
+                </c:if>
 
                 <div class="admin-aside-admin-function">
                     <a href="${pageContext.request.contextPath}/ManageContactMessage" class="admin-functions">
@@ -175,7 +176,7 @@ ItemImageService imageService = new ItemImageService();
                     </div>
                 </div>
 
-                <!-- Filter Bar -->
+                <!-- Filter Bar — search input + status dropdown, both submit the same form -->
                 <div class="mr-filter-bar">
                     <form action="${pageContext.request.contextPath}/ManageItem" method="get" class="mr-filter-form">
 
@@ -184,12 +185,9 @@ ItemImageService imageService = new ItemImageService();
                                 <rect width="24" height="24" fill="none" />
                                 <path fill="#636567" d="M9.5 16q-2.725 0-4.612-1.888T3 9.5t1.888-4.612T9.5 3t4.613 1.888T16 9.5q0 1.1-.35 2.075T14.7 13.3l5.6 5.6q.275.275.275.7t-.275.7t-.7.275t-.7-.275l-5.6-5.6q-.75.6-1.725.95T9.5 16m0-2q1.875 0 3.188-1.312T14 9.5t-1.312-3.187T9.5 5T6.313 6.313T5 9.5t1.313 3.188T9.5 14" />
                             </svg>
-                            <input
-                                type="text"
-                                name="search"
-                                placeholder="Search items by ID or title"
-                                value="<%= request.getAttribute("search") != null ? request.getAttribute("search") : "" %>"
-                            />
+                            <%-- Pre-fill search input with current search value from request attribute --%>
+                            <input type="text" name="search" placeholder="Search items by ID or title"
+                                value="${search}" />
                         </div>
 
                         <button type="submit" class="mr-refresh-btn">
@@ -205,15 +203,13 @@ ItemImageService imageService = new ItemImageService();
                                 <rect width="32" height="32" fill="none" />
                                 <path fill="#636567" d="M4 5v6h6V5zm2 2h2v2H6zm6 0v2h15V7zm-8 6v6h6v-6zm2 2h2v2H6zm6 0v2h15v-2zm-8 6v6h6v-6zm2 2h2v2H6zm6 0v2h15v-2z" />
                             </svg>
-                            <%
-                                String selectedStatus = (String) request.getAttribute("statusFilter");
-                                if (selectedStatus == null) selectedStatus = "";
-                            %>
+
+                            <%-- Status dropdown — pre-selects the option matching the current statusFilter attribute --%>
                             <select name="status" onchange="this.form.submit()">
-                                <option value="" <%= selectedStatus.equals("") ? "selected" : "" %>>Status: All Items</option>
-                                <option value="PENDING"  <%= selectedStatus.equals("PENDING")  ? "selected" : "" %>>Pending</option>
-                                <option value="APPROVED" <%= selectedStatus.equals("APPROVED") ? "selected" : "" %>>Approved</option>
-                                <option value="REJECTED" <%= selectedStatus.equals("REJECTED") ? "selected" : "" %>>Rejected</option>
+                                <option value=""        ${empty statusFilter                    ? 'selected' : ''}>Status: All Items</option>
+                                <option value="PENDING" ${statusFilter == 'PENDING'  ? 'selected' : ''}>Pending</option>
+                                <option value="APPROVED"${statusFilter == 'APPROVED' ? 'selected' : ''}>Approved</option>
+                                <option value="REJECTED"${statusFilter == 'REJECTED' ? 'selected' : ''}>Rejected</option>
                             </select>
                         </div>
 
@@ -235,100 +231,133 @@ ItemImageService imageService = new ItemImageService();
                             </tr>
                         </thead>
                         <tbody>
-							<%
-							String rejectItemIdStr = request.getParameter("rejectItemId");
-							for (Item eachItem : items) {
-								boolean showReject = rejectItemIdStr != null && rejectItemIdStr.equals(String.valueOf(eachItem.getItemId()));
-								if(eachItem.getType().equals("RETURNED")) continue;
-							%>
-							<tr>
-                                <td><a href="#" class="mr-report-id">#<%= eachItem.getItemId() %></a></td>
-                                <td>
-                                    <div class="mr-item-info">
-                                        <div class="mr-item-thumb">
-                                            <img src="<%= imageService.getImagesByItemId(eachItem.getItemId()).getFirst().getImagePath() %>"
-                                                 alt="<%= eachItem.getTitle() %>">
-                                        </div>
-                                        <div>
-                                            <p class="mr-item-name"><%= eachItem.getTitle() %></p>
-                                            <p class="mr-item-cat"><%= eachItem.getCategory() %></p>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="mr-reporter">
-                                        <p class="mr-reporter-name"><%= eachItem.getCategory() %></p>
-                                    </div>
-                                </td>
-                                <td>
-                                    <% if (eachItem.getStatus().equals(ItemStatus.PENDING.name())) { %>
-                                        <span class="mr-badge pending"><%= eachItem.getStatus() %></span>
-                                    <% } else if (eachItem.getStatus().equals(ItemStatus.REJECTED.name())) { %>
-                                        <span class="mr-badge urgent"><%= eachItem.getStatus() %></span>
-                                    <% } else if (eachItem.getStatus().equals(ItemStatus.APPROVED.name())) { %>
-                                        <span class="mr-badge resolved"><%= eachItem.getStatus() %></span>
-                                    <% } %>
-                                </td>
-                                <td>
-                                    <p class="mr-reason"><%= eachItem.getRejectionReason() == null ? "(N/A) No Reject Yet " : eachItem.getRejectionReason() %></p>
-                                </td>
-                                <td>
-                                    <p class="mr-date"><%= new SimpleDateFormat("MMM dd, yyyy").format(eachItem.getCreatedAt()) %></p>
-                                </td>
-                                <td>
-                                    <div class="mr-actions">
 
-                                        <!-- View -->
-                                        <form action="${pageContext.request.contextPath}/ViewDetails" method="POST">
-				                            <input type="hidden" name="itemId" value="<%=eachItem.getItemId()%>" />
-				                            <button class="mr-icon-btn view" type="submit">&#128065;</button>
-				                        </form>
+                            <%-- Loop through all items from the request attribute --%>
+                            <c:forEach var="eachItem" items="${items}">
 
-                                        <!-- Approve -->
-                                        <% if (eachItem.getStatus().equals(ItemStatus.PENDING.name()) ||
-                                               eachItem.getStatus().equals(ItemStatus.REJECTED.name())) { %>
-                                        <form action="${pageContext.request.contextPath}/ManageItem" method="POST">
-                                            <input type="hidden" name="action"  value="approve" />
-                                            <input type="hidden" name="itemId"  value="<%= eachItem.getItemId() %>" />
-                                            <input type="hidden" name="search"  value="<%= request.getAttribute("search") %>" />
-                                            <input type="hidden" name="status"  value="<%= request.getAttribute("statusFilter") %>" />
-                                            <button type="submit" class="mr-icon-btn approve">&#10003;</button>
-                                        </form>
-                                        <% } %>
+                                <%-- Skip items with type RETURNED — they should not appear in this list --%>
+                                <c:if test="${eachItem.type != 'RETURNED'}">
 
-                                        <!-- Rejecttog -->
-                                        <% if (eachItem.getStatus().equals(ItemStatus.PENDING.name()) ||
-                                               eachItem.getStatus().equals(ItemStatus.APPROVED.name())) { %>
-                                        <form action="${pageContext.request.contextPath}/ManageItem" method="GET">
-                                            <input type="hidden" name="search" value="<%= request.getAttribute("search") %>" />
-                                            <input type="hidden" name="status" value="<%= request.getAttribute("statusFilter") %>" />
-                                            <% if (!showReject) { %>
-                                            <input type="hidden" name="rejectItemId" value="<%= eachItem.getItemId() %>" />
-                                            <% } %>
-                                            <button type="submit" class="mr-icon-btn reject">&#10005;</button>
-                                        </form>
-                                        <% } %>
+                                    <%-- Check if this item's reject form should be shown inline.
+                                         rejectItemId is a GET param set when admin clicks the reject button.
+                                         If it matches current item's id, show the inline reason form. --%>
+                                    <c:set var="showReject" value="${param.rejectItemId == eachItem.itemId}" />
 
-                                    </div>
+                                    <tr>
+                                        <td><a href="#" class="mr-report-id">#${eachItem.itemId}</a></td>
+                                        <td>
+                                            <div class="mr-item-info">
+                                                <div class="mr-item-thumb">
+                                                    <%-- Display first image from the item's image list --%>
+                                                    <%-- Get first image path from the itemImages map using item id as key --%>
+													<c:set var="imgPath" value="${itemImages[eachItem.itemId]}" />
+													<c:if test="${not empty imgPath}">
+													    <img src="${imgPath}" alt="${eachItem.title}">
+													</c:if>
+                                                </div>
+                                                <div>
+                                                    <p class="mr-item-name">${eachItem.title}</p>
+                                                    <p class="mr-item-cat">${eachItem.category}</p>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="mr-reporter">
+                                                <p class="mr-reporter-name">${eachItem.category}</p>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <%-- Badge color changes based on item status --%>
+                                            <c:choose>
+                                                <c:when test="${eachItem.status == 'PENDING'}">
+                                                    <span class="mr-badge pending">${eachItem.status}</span>
+                                                </c:when>
+                                                <c:when test="${eachItem.status == 'REJECTED'}">
+                                                    <span class="mr-badge urgent">${eachItem.status}</span>
+                                                </c:when>
+                                                <c:when test="${eachItem.status == 'APPROVED'}">
+                                                    <span class="mr-badge resolved">${eachItem.status}</span>
+                                                </c:when>
+                                            </c:choose>
+                                        </td>
+                                        <td>
+                                            <%-- Show rejection reason if exists, otherwise show default N/A message --%>
+                                            <p class="mr-reason">
+                                                <c:choose>
+                                                    <c:when test="${empty eachItem.rejectionReason}">(N/A) No Reject Yet</c:when>
+                                                    <c:otherwise>${eachItem.rejectionReason}</c:otherwise>
+                                                </c:choose>
+                                            </p>
+                                        </td>
+                                        <td>
+                                            <%-- Format the createdAt date to readable format --%>
+                                            <p class="mr-date">
+                                                <fmt:formatDate value="${eachItem.createdAt}" pattern="MMM dd, yyyy" />
+                                            </p>
+                                        </td>
+                                        <td>
+                                            <div class="mr-actions">
 
-                                    <!-- Inline reject reason form -->
-                                    <% if (showReject) { %>
-                                    <div class="reject-inline-form">
-                                        <form action="${pageContext.request.contextPath}/ManageItem" method="POST">
-                                            <input type="hidden" name="action"  value="reject" />
-                                            <input type="hidden" name="itemId"  value="<%= eachItem.getItemId() %>" />
-                                            <input type="hidden" name="search"  value="<%= request.getAttribute("search") %>" />
-                                            <input type="hidden" name="status"  value="<%= request.getAttribute("statusFilter") %>" />
-                                            <input type="text"   name="reason"  placeholder="Rejection reason…"
-                                                   class="reject-reason-input" required />
-                                            <button type="submit" class="reject-confirm-btn">Reject</button>
-                                        </form>
-                                    </div>
-                                    <% } %>
+                                                <%-- View button — navigates to item detail page --%>
+                                                <form action="${pageContext.request.contextPath}/ViewDetails" method="POST">
+                                                    <input type="hidden" name="itemId" value="${eachItem.itemId}" />
+                                                    <button class="mr-icon-btn view" type="submit">&#128065;</button>
+                                                </form>
 
-                                </td>
-                            </tr>
-                            <% } %>
+                                                <%-- Approve button — only shown if item is PENDING or REJECTED --%>
+                                                <c:if test="${eachItem.status == 'PENDING' || eachItem.status == 'REJECTED'}">
+                                                    <form action="${pageContext.request.contextPath}/ManageItem" method="POST">
+                                                        <input type="hidden" name="action" value="approve" />
+                                                        <input type="hidden" name="itemId" value="${eachItem.itemId}" />
+                                                        <%-- Preserve current search and status filter values on form submit --%>
+                                                        <input type="hidden" name="search" value="${search}" />
+                                                        <input type="hidden" name="status" value="${statusFilter}" />
+                                                        <button type="submit" class="mr-icon-btn approve">&#10003;</button>
+                                                    </form>
+                                                </c:if>
+
+                                                <%-- Reject toggle button — only shown if item is PENDING or APPROVED.
+                                                     Clicking it adds rejectItemId to GET params to show inline form.
+                                                     If already showing (showReject=true), omit rejectItemId to hide/toggle it off. --%>
+                                                <c:if test="${eachItem.status == 'PENDING' || eachItem.status == 'APPROVED'}">
+                                                    <form action="${pageContext.request.contextPath}/ManageItem" method="GET">
+                                                        <input type="hidden" name="search" value="${search}" />
+                                                        <input type="hidden" name="status" value="${statusFilter}" />
+                                                        <%-- Only pass rejectItemId if the inline form is NOT already shown for this item --%>
+                                                        <c:if test="${!showReject}">
+                                                            <input type="hidden" name="rejectItemId" value="${eachItem.itemId}" />
+                                                        </c:if>
+                                                        <button type="submit" class="mr-icon-btn reject">&#10005;</button>
+                                                    </form>
+                                                </c:if>
+
+                                            </div>
+
+                                            <%-- Inline reject reason form — only visible when showReject is true for this item.
+                                                 Admin types a reason and submits to confirm the rejection. --%>
+                                            <c:if test="${showReject}">
+                                                <div class="reject-inline-form">
+                                                    <form action="${pageContext.request.contextPath}/ManageItem" method="POST">
+                                                        <input type="hidden" name="action" value="reject" />
+                                                        <input type="hidden" name="itemId" value="${eachItem.itemId}" />
+                                                        <input type="hidden" name="search" value="${search}" />
+                                                        <input type="hidden" name="status" value="${statusFilter}" />
+                                                        <input type="text" name="reason" placeholder="Rejection reason…"
+                                                               class="reject-reason-input" required />
+                                                        <button type="submit" class="reject-confirm-btn">Reject</button>
+                                                    </form>
+                                                </div>
+                                            </c:if>
+
+                                        </td>
+                                    </tr>
+
+                                </c:if>
+                                <%-- End skip RETURNED items --%>
+
+                            </c:forEach>
+                            <%-- End items loop --%>
+
                         </tbody>
                     </table>
                 </div>

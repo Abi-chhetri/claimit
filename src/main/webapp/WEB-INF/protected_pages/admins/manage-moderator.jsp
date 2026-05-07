@@ -109,16 +109,17 @@ List<Admin> admins= (List<Admin>) request.getAttribute("admins");
                         <p class="admin-function-name">Manage Users</p>
                     </a>
                 </div>
-                <div class="admin-aside-admin-function">
-                    <a href="${pageContext.request.contextPath}/ManageModerator" class="admin-functions active-nav"
-                        style="color:#1D4ED8;background:#1d4fd813;border-right:4px solid #1D4ED8;">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="18" viewBox="0 0 8 8">
-                            <rect width="8" height="8" fill="none" />
-                            <path fill="#1D4ED8" d="M4 4v3q2 0 3-3M4 4V1L1 2v2m3-4l4 2c0 8-8 8-8 0" />
-                        </svg>
-                        <p class="admin-function-name">Manage Moderators</p>
-                    </a>
-                </div>
+                <c:if test="${admin.role == 'ADMIN'}">
+                    <div class="admin-aside-admin-function">
+                        <a href="${pageContext.request.contextPath}/ManageModerator" class="admin-functions">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="18" viewBox="0 0 8 8">
+                                <rect width="8" height="8" fill="none" />
+                                <path fill="#475569" d="M4 4v3q2 0 3-3M4 4V1L1 2v2m3-4l4 2c0 8-8 8-8 0" />
+                            </svg>
+                            <p class="admin-function-name">Manage Moderators</p>
+                        </a>
+                    </div>
+                </c:if>
                 <div class="admin-aside-admin-function">
                     <a href="${pageContext.request.contextPath}/ManageContactMessage" class="admin-functions">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 32 32">
