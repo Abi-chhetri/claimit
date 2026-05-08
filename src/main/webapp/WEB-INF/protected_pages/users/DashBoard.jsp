@@ -4,7 +4,6 @@
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,15 +11,14 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/user_dashboard.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/header-footer.css">
 
-    <%-- Auto-redirect to Dashboard after 3s if flash message exists --%>
+    <!-- Auto-redirect to Dashboard after 3s if flash message exists -->
     <c:if test="${not empty sessionScope.flashMessage}">
         <meta http-equiv="refresh" content="3;url=${pageContext.request.contextPath}/DashBoard">
     </c:if>
 </head>
 
 <body>
-
-    <%-- Show flash message once then remove it from session --%>
+    <!-- Show flash message once then remove it from session -->
     <c:if test="${not empty sessionScope.flashMessage}">
         <div class="msg-box">
             ${sessionScope.flashMessage}
@@ -169,12 +167,11 @@
                         <a href="#" class="activity-one-link">Log Status</a>
                     </div>
 
-                    <%-- Loop over notifications; show message, formatted time, and type for each --%>
+                    <!-- Loop over notifications; show message, formatted time, and type for each -->
                     <c:forEach var="eachNot" items="${requestScope.notif}">
                         <div class="activity-box">
                             <div class="activity-main-txt">
                                 <p class="activity-txt">${eachNot.message}</p>
-                                <%-- Format createdAt timestamp to HH:mm a pattern --%>
                                 <p class="activity-status-txt">Time :
                                     <fmt:formatDate value="${eachNot.createdAt}" pattern="HH:mm a" />
                                 </p>

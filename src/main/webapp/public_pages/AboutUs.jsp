@@ -179,7 +179,7 @@
                 </div>
                 <div class="team-card">
                     <div class="team-photo">
-                        <img src="${pageContext.request.contextPath}/images/" alt="" width="100%" height="280px">
+                        <img src="${pageContext.request.contextPath}/images/shivam.jpg" alt="" width="100%" height="280px">
                     </div>
                     <h4 class="team-name">Shivam Jaiswal</h4>
                 </div>
