@@ -1,7 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@page import="com.claimit.utils.SessionManager"%>
-<% Integer userId=(Integer) SessionManager.getAttribute(request, "userId"); %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,43 +14,46 @@
         <div class="header1">
             <span class="claimit-onheader">ClaimIt</span>
             <nav class="navbar">
-                <%if(userId == null){ %>
-                <a href="${pageContext.request.contextPath}/Home" class="Active">Home</a>
-				<a href="${pageContext.request.contextPath}/About">About</a> 
-				<a href="${pageContext.request.contextPath}/Login"> Login</a> 
-				<a href="${pageContext.request.contextPath}/Register">Registration</a>
-                <%} else{%>
-                <a href="${pageContext.request.contextPath}/Home" class="Active">Home</a>
-                <a href="${pageContext.request.contextPath}/Browse">Browse</a>
-                <a href="${pageContext.request.contextPath}/DashBoard">Dashboard</a>
-                <a href="${pageContext.request.contextPath}/ReportFoundItem">Report Found Item</a>
-                <a href="${pageContext.request.contextPath}/MyClaim">Claims</a>
-                <a href="${pageContext.request.contextPath}/About">About</a>
-                <%} %>
+                <c:choose>
+                    <c:when test="${empty sessionScope.userId}">
+                        <a href="${pageContext.request.contextPath}/Home" class="Active">Home</a>
+                        <a href="${pageContext.request.contextPath}/About">About</a>
+                        <a href="${pageContext.request.contextPath}/Login">Login</a>
+                        <a href="${pageContext.request.contextPath}/Register">Registration</a>
+                    </c:when>
+                    <c:otherwise>
+                        <a href="${pageContext.request.contextPath}/Home" class="Active">Home</a>
+                        <a href="${pageContext.request.contextPath}/Browse">Browse</a>
+                        <a href="${pageContext.request.contextPath}/DashBoard">Dashboard</a>
+                        <a href="${pageContext.request.contextPath}/ReportFoundItem">Report Found Item</a>
+                        <a href="${pageContext.request.contextPath}/MyClaim">Claims</a>
+                        <a href="${pageContext.request.contextPath}/About">About</a>
+                    </c:otherwise>
+                </c:choose>
             </nav>
         </div>
-        <%if(userId != null){ %>
-        <div class="header2">
-			<form action="${pageContext.request.contextPath}/Notification" method="get">
-			    <button type="submit" class="noti-acc-button">
-			        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-			            <path fill="currentColor"
-			                d="M19.29 17.29L18 16v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-1.29 1.29c-.63.63-.19 1.71.7 1.71h13.17c.9 0 1.34-1.08.71-1.71M16 17H8v-6c0-2.48 1.51-4.5 4-4.5s4 2.02 4 4.5zm-4 5c1.1 0 2-.9 2-2h-4a2 2 0 0 0 2 2" />
-			        </svg>
-			    </button>
-			</form>
-			<form action="${pageContext.request.contextPath}/UserProfile" method="get">
-			  <button class="noti-acc-button" type="submit">
-			    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-			      <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10s10-4.48 10-10S17.52 2 12 2m0 4c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6m0 14c-2.03 0-4.43-.82-6.14-2.88a9.95 9.95 0 0 1 12.28 0C16.43 19.18 14.03 20 12 20" />
-			    </svg>
-			  </button>
-			</form>
-        </div>
-        <%} %>
+        <c:if test="${not empty sessionScope.userId}">
+            <div class="header2">
+                <form action="${pageContext.request.contextPath}/Notification" method="get">
+                    <button type="submit" class="noti-acc-button">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                            <path fill="currentColor"
+                                d="M19.29 17.29L18 16v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-1.29 1.29c-.63.63-.19 1.71.7 1.71h13.17c.9 0 1.34-1.08.71-1.71M16 17H8v-6c0-2.48 1.51-4.5 4-4.5s4 2.02 4 4.5zm-4 5c1.1 0 2-.9 2-2h-4a2 2 0 0 0 2 2" />
+                        </svg>
+                    </button>
+                </form>
+                <form action="${pageContext.request.contextPath}/UserProfile" method="get">
+                    <button class="noti-acc-button" type="submit">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                            <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10s10-4.48 10-10S17.52 2 12 2m0 4c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6m0 14c-2.03 0-4.43-.82-6.14-2.88a9.95 9.95 0 0 1 12.28 0C16.43 19.18 14.03 20 12 20" />
+                        </svg>
+                    </button>
+                </form>
+            </div>
+        </c:if>
     </header>
-    <main class="main-content">
 
+    <main class="main-content">
         <section class="hero-section">
             <div class="hero-left">
                 <span class="hero-tag">THE DIGITAL CONCIERGE</span>
@@ -88,6 +89,7 @@
             </div>
         </section>
     </main>
+
     <main class="main-content2">
         <section class="hiw-section">
             <div class="hiw-header">
@@ -95,7 +97,6 @@
                 <p class="hiw-subtitle">Three simple steps to reconnect you with your belongings.</p>
             </div>
             <div class="hiw-cards">
-
                 <article class="hiw-card">
                     <div class="hiw-icon-box hiw-icon-purple">
                         <img class="hiw-png" src="${pageContext.request.contextPath}/images/pencil.jpeg" width="48" height="48" alt="Report" />
@@ -105,7 +106,6 @@
                         precise locations help our concierge engine work faster.</p>
                     <span class="hiw-step-number">01</span>
                 </article>
-
                 <article class="hiw-card">
                     <div class="hiw-icon-box hiw-icon-green">
                         <img class="hiw-png" src="${pageContext.request.contextPath}/images/search.jpeg" width="48" height="48" alt="Report" />
@@ -115,7 +115,6 @@
                         descriptions and geographical metadata to find likely pairs.</p>
                     <span class="hiw-step-number">02</span>
                 </article>
-
                 <article class="hiw-card">
                     <div class="hiw-icon-box hiw-icon-yellow">
                         <img class="hiw-png" src="${pageContext.request.contextPath}/images/tick1.jpg" width="48" height="48" alt="Report" />
@@ -125,10 +124,10 @@
                         confirm ownership and coordinate a safe return.</p>
                     <span class="hiw-step-number">03</span>
                 </article>
-
             </div>
         </section>
     </main>
+
     <main class="main-content3">
         <section class="impact-section">
             <div class="impact-left">
@@ -148,6 +147,7 @@
             </div>
         </section>
     </main>
+
     <footer class="big-footer">
         <div class="big-footer-top">
             <div class="big-footer-brand">
@@ -156,8 +156,7 @@
                     trust, transparency, and rapid recovery.</p>
                 <div class="big-footer-icons">
                     <button class="big-footer-icon-btn">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
-                            fill="#475569">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="#475569">
                             <path
                                 d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z" />
                         </svg>
@@ -167,7 +166,6 @@
                     </button>
                 </div>
             </div>
-
             <div class="big-footer-col">
                 <h4 class="big-footer-col-title">Explore</h4>
                 <a href="#">Find Items</a>
@@ -175,7 +173,6 @@
                 <a href="#">Success Stories</a>
                 <a href="#">Locations</a>
             </div>
-
             <div class="big-footer-col">
                 <h4 class="big-footer-col-title">Company</h4>
                 <a href="#">Blog</a>
@@ -185,20 +182,20 @@
             </div>
         </div>
     </footer>
-    <footer class="site-footer">
-    <div class="footer-left">
-        <span class="footer-brand">ClaimIt</span>
-    </div>
-    <div class="footer-middle">
-        <a href="#">Privacy Policy</a>
-        <a href="#">Terms of Service</a>
-        <a href="#">Help Center</a>
-        <a href="#">Contact Us</a>
-    </div>
-    <div class="footer-right">
-        <p>&copy; 2026 ClaimIt Protocol. All rights reserved.</p>
-    </div>
-</footer>
-</body>
 
+    <footer class="site-footer">
+        <div class="footer-left">
+            <span class="footer-brand">ClaimIt</span>
+        </div>
+        <div class="footer-middle">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+            <a href="#">Help Center</a>
+            <a href="#">Contact Us</a>
+        </div>
+        <div class="footer-right">
+            <p>&copy; 2026 ClaimIt Protocol. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
 </html>

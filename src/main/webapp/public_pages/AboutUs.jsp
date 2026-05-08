@@ -1,18 +1,13 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<% 
-Integer userId=(Integer) request.getAttribute("userId"); 
-String erMsg= (String) request.getAttribute("erMsg");
-String suc = (String) request.getAttribute("suc");
-%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <%if(suc != null){ %>
-    <meta http-equiv="refresh" content="3">
-    <%} %>
+    <c:if test="${not empty suc}">
+        <meta http-equiv="refresh" content="3">
+    </c:if>
     <title>ClaimIt - About</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/AboutPage.css">
 </head>
@@ -22,46 +17,51 @@ String suc = (String) request.getAttribute("suc");
         <div class="header1">
             <span class="claimit-onheader">ClaimIt</span>
             <nav class="navbar">
-                <%if(userId == null){ %>
-                <a href="${pageContext.request.contextPath}/Home">Home</a>
-				<a href="${pageContext.request.contextPath}/About" class="Active">About</a> 
-				<a href="${pageContext.request.contextPath}/Login"> Login</a> 
-				<a href="${pageContext.request.contextPath}/Register">Registration</a>
-                <%} else{%>
-                <a href="${pageContext.request.contextPath}/Home">Home</a>
-                <a href="${pageContext.request.contextPath}/Browse">Browse</a>
-                <a href="${pageContext.request.contextPath}/DashBoard">Dashboard</a>
-                <a href="${pageContext.request.contextPath}/ReportFoundItem">Report Found Item</a>
-                <a href="${pageContext.request.contextPath}/MyClaim">Claims</a>
-                <a href="${pageContext.request.contextPath}/About" class="Active">About</a>
-                <%} %>
+                <c:choose>
+                    <c:when test="${empty userId}">
+                        <a href="${pageContext.request.contextPath}/Home">Home</a>
+                        <a href="${pageContext.request.contextPath}/About" class="Active">About</a>
+                        <a href="${pageContext.request.contextPath}/Login">Login</a>
+                        <a href="${pageContext.request.contextPath}/Register">Registration</a>
+                    </c:when>
+                    <c:otherwise>
+                        <a href="${pageContext.request.contextPath}/Home">Home</a>
+                        <a href="${pageContext.request.contextPath}/Browse">Browse</a>
+                        <a href="${pageContext.request.contextPath}/DashBoard">Dashboard</a>
+                        <a href="${pageContext.request.contextPath}/ReportFoundItem">Report Found Item</a>
+                        <a href="${pageContext.request.contextPath}/MyClaim">Claims</a>
+                        <a href="${pageContext.request.contextPath}/About" class="Active">About</a>
+                    </c:otherwise>
+                </c:choose>
             </nav>
         </div>
-        <%if(userId != null){ %>
-        <div class="header2">
-			<form action="${pageContext.request.contextPath}/Notification" method="get">
-			    <button type="submit" class="noti-acc-button">
-			        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-			            <path fill="currentColor"
-			                d="M19.29 17.29L18 16v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-1.29 1.29c-.63.63-.19 1.71.7 1.71h13.17c.9 0 1.34-1.08.71-1.71M16 17H8v-6c0-2.48 1.51-4.5 4-4.5s4 2.02 4 4.5zm-4 5c1.1 0 2-.9 2-2h-4a2 2 0 0 0 2 2" />
-			        </svg>
-			    </button>
-			</form>
-			<form action="${pageContext.request.contextPath}/UserProfile" method="get">
-			  <button class="noti-acc-button" type="submit">
-			    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-			      <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10s10-4.48 10-10S17.52 2 12 2m0 4c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6m0 14c-2.03 0-4.43-.82-6.14-2.88a9.95 9.95 0 0 1 12.28 0C16.43 19.18 14.03 20 12 20" />
-			    </svg>
-			  </button>
-			</form>
-        </div>
-        <%} %>
+        <c:if test="${not empty userId}">
+            <div class="header2">
+                <form action="${pageContext.request.contextPath}/Notification" method="get">
+                    <button type="submit" class="noti-acc-button">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                            <path fill="currentColor"
+                                d="M19.29 17.29L18 16v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-1.29 1.29c-.63.63-.19 1.71.7 1.71h13.17c.9 0 1.34-1.08.71-1.71M16 17H8v-6c0-2.48 1.51-4.5 4-4.5s4 2.02 4 4.5zm-4 5c1.1 0 2-.9 2-2h-4a2 2 0 0 0 2 2" />
+                        </svg>
+                    </button>
+                </form>
+                <form action="${pageContext.request.contextPath}/UserProfile" method="get">
+                    <button class="noti-acc-button" type="submit">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                            <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10s10-4.48 10-10S17.52 2 12 2m0 4c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6m0 14c-2.03 0-4.43-.82-6.14-2.88a9.95 9.95 0 0 1 12.28 0C16.43 19.18 14.03 20 12 20" />
+                        </svg>
+                    </button>
+                </form>
+            </div>
+        </c:if>
     </header>
-    <% if(suc != null){ %>
-	<p style="background:#ECFDF5; color:#065F46; border:1px solid #6EE7B7; border-radius:8px; padding:10px 16px; text-align:center; font-size:14px; font-weight:500; margin-bottom:16px;">
-	    <%= suc %>
-	</p>
-	<% } %>
+
+    <c:if test="${not empty suc}">
+        <p style="background:#ECFDF5; color:#065F46; border:1px solid #6EE7B7; border-radius:8px; padding:10px 16px; text-align:center; font-size:14px; font-weight:500; margin-bottom:16px;">
+            ${suc}
+        </p>
+    </c:if>
+
     <main class="main-content">
         <section class="about-hero">
             <div class="about-left">
@@ -74,7 +74,7 @@ String suc = (String) request.getAttribute("suc");
             <div class="about-right">
                 <div class="about-image-wrapper">
                     <div class="about-image-placeholder">
-                    	<img alt="handshake" width="100%" height="500px" src="${pageContext.request.contextPath}/images/group.jpg">
+                        <img alt="handshake" width="100%" height="500px" src="${pageContext.request.contextPath}/images/group.jpg">
                     </div>
                     <div class="about-float-card">
                         <div class="about-float-icon">
@@ -94,6 +94,7 @@ String suc = (String) request.getAttribute("suc");
             </div>
         </section>
     </main>
+
     <main class="main-content2">
         <section class="mission-section">
             <div class="mission-header">
@@ -163,70 +164,67 @@ String suc = (String) request.getAttribute("suc");
                 <span class="team-tag">OUR CURATORS</span>
                 <h2 class="team-title">Meet the Minds Behind ClaimIt</h2>
             </div>
-			<div class="team-grid">
-				<div class="team-card">
-					<div class="team-photo">
-						<img src="${pageContext.request.contextPath}/images/abi.jpg" width="100%" style="object-fit:cover; object-position:center" height="280px">
-					</div>
-					<h4 class="team-name">Abi Loniya</h4>
-				</div>
-				<div class="team-card">
-					<div class="team-photo">
-						<img src="${pageContext.request.contextPath}/images/Gaurav.jpg" alt="" width="100%" height="280px">
-					</div>
-					<h4 class="team-name">Gaurav Chaudhary</h4>
+            <div class="team-grid">
+                <div class="team-card">
+                    <div class="team-photo">
+                        <img src="${pageContext.request.contextPath}/images/abi.jpg" width="100%" style="object-fit:cover; object-position:center" height="280px">
+                    </div>
+                    <h4 class="team-name">Abi Loniya</h4>
+                </div>
+                <div class="team-card">
+                    <div class="team-photo">
+                        <img src="${pageContext.request.contextPath}/images/Gaurav.jpg" alt="" width="100%" height="280px">
+                    </div>
+                    <h4 class="team-name">Gaurav Chaudhary</h4>
+                </div>
+                <div class="team-card">
+                    <div class="team-photo">
+                        <img src="${pageContext.request.contextPath}/images/" alt="" width="100%" height="280px">
+                    </div>
+                    <h4 class="team-name">Shivam Jaiswal</h4>
+                </div>
+                <div class="team-card">
+                    <div class="team-photo">
+                        <img src="${pageContext.request.contextPath}/images/sajal.jpg" alt="" width="100%" height="280px">
+                    </div>
+                    <h4 class="team-name">Sajal Dangal</h4>
+                </div>
+                <div class="team-card">
+                    <div class="team-photo">
+                        <img src="${pageContext.request.contextPath}/images/sachin.jpg" alt="" width="100%" height="280px">
+                    </div>
+                    <h4 class="team-name">Sachin Jaiswal</h4>
+                </div>
+            </div>
+        </section>
 
-				</div>
-				<div class="team-card">
-					<div class="team-photo">
-						<img src="${pageContext.request.contextPath}/images/" alt="" width="100%" height="280px">
-					</div>
-					<h4 class="team-name">Shivam Jaiswal</h4>
-
-				</div>
-				<div class="team-card">
-					<div class="team-photo">
-						<img src="${pageContext.request.contextPath}/images/" alt="" width="100%" height="280px">
-					</div>
-					<h4 class="team-name">Sajal Dangal</h4>
-
-				</div>
-				<div class="team-card">
-					<div class="team-photo">
-						<img src="${pageContext.request.contextPath}/images/sachin.jpg" alt="" width="100%" height="280px">
-					</div>
-					<h4 class="team-name">Sachin Jaiswal</h4>
-
-				</div>
-			</div>
-		</section>
-        
         <section class="contact-section" id="contact">
-		    <div class="contact-header">
-		        <span class="contact-tag">GET IN TOUCH</span>
-		        <h2 class="contact-title">Contact Us</h2>
-		        <p class="contact-subtitle">Have a question or need help? We'd love to hear from you.</p>
-		    </div>
-		    <div class="contact-wrapper">
-		        <form class="contact-form" action="${pageContext.request.contextPath}/About" method="POST">
-		        <span style="text-align: center; color:red; width:100%;"><%=erMsg != null ? erMsg : ""%></span>
-		        <%
-		        if (userId == null) {
-		        %>
-		        	<div class="contact-form-group">
-		                <label class="contact-label" for="contact-email">Email Address</label>
-		                <input class="contact-input" type="email" id="contact-email" name="email" placeholder="abcd@gmail.com"/>
-		            </div>
-		        <%} %>
-		            <div class="contact-form-group">
-		                <label class="contact-label" for="contact-message">Message</label>
-		                <textarea class="contact-input contact-textarea" id="contact-message" name="message" placeholder="Write your message here..."></textarea>
-		            </div>
-		            <button class="contact-submit-btn" type="submit">Send Message</button>
-		        </form>
-		    </div>
-		</section>
+            <div class="contact-header">
+                <span class="contact-tag">GET IN TOUCH</span>
+                <h2 class="contact-title">Contact Us</h2>
+                <p class="contact-subtitle">Have a question or need help? We'd love to hear from you.</p>
+            </div>
+            <div class="contact-wrapper">
+                <form class="contact-form" action="${pageContext.request.contextPath}/About" method="POST">
+                    <c:if test="${not empty erMsg}">
+                        <span style="text-align: center; color:red; width:100%;">${erMsg}</span>
+                    </c:if>
+                    <c:if test="${empty userId}">
+                        <div class="contact-form-group">
+                            <label class="contact-label" for="contact-email">Email Address</label>
+                            <input class="contact-input" type="email" id="contact-email" name="email" placeholder="abcd@gmail.com"/>
+                        </div>
+                    </c:if>
+                    <div class="contact-form-group">
+                        <label class="contact-label" for="contact-message">Message</label>
+                        <textarea class="contact-input contact-textarea" id="contact-message" name="message" placeholder="Write your message here..."></textarea>
+                    </div>
+                    <button class="contact-submit-btn" type="submit">Send Message</button>
+                </form>
+            </div>
+        </section>
     </main>
+
     <footer class="site-footer">
         <div class="footer-left">
             <span class="footer-brand">ClaimIt</span>
@@ -242,5 +240,4 @@ String suc = (String) request.getAttribute("suc");
         </div>
     </footer>
 </body>
-
 </html>
