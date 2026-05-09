@@ -19,8 +19,19 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/manage-item.css">
 </head>
+<c:if test="${not empty reject}">
+	<meta http-equiv="refresh" content="3;URL='${pageContext.request.contextPath}/ManageItem'">
+</c:if>
+
+
 
 <body>
+	<c:if test="${not empty reject}">
+	    <div class="rej-box">
+	        ${reject}
+	    </div>
+	    <c:remove var="reject" scope="session"/>
+	</c:if>
 	<aside>
 		<section class="admin-aside-outer">
 			<div class="admin-aside-claimit-console">
@@ -386,7 +397,7 @@
 														<input type="hidden" name="search" value="${search}" /> <input
 															type="hidden" name="status" value="${statusFilter}" /> <input
 															type="text" name="reason" placeholder="Rejection reason…"
-															class="reject-reason-input" required />
+															class="reject-reason-input"/>
 														<button type="submit" class="reject-confirm-btn">Reject</button>
 													</form>
 												</div>

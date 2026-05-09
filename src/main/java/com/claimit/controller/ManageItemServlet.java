@@ -104,7 +104,6 @@ public class ManageItemServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         // Read action (approve/reject) and target item id from form
         String action = request.getParameter("action");
         String itemIdStr = request.getParameter("itemId");
@@ -138,7 +137,13 @@ public class ManageItemServlet extends HttpServlet {
                 } else if ("reject".equals(action)) {
                     // Read rejection reason from form input
                     String reason = request.getParameter("reason");
-
+                    
+                    if(reason==null || reason.isEmpty()) {
+                    	SessionManager.setAttribute(request, "reject", "Please give reject reason");
+                    	response.sendRedirect(request.getContextPath()+"/ManageItem");
+                    	return;
+                    }
+                    
                     // Update item status to REJECTED with reason in database
                     itemService.updateItemStatusWithReason(itemId, reason);
 
