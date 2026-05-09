@@ -300,12 +300,6 @@
                                     </a>
                                 </section>
                             </section>
-
-                            <section class="admin-dash-guideline-sec">
-                                <a href="" class="admin-dash-guideline">
-                                    <img class="guideline-img" src="image.png" alt="">
-                                </a>
-                            </section>
                         </section>
                     </section>
                 </article>

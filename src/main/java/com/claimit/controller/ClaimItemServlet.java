@@ -32,18 +32,27 @@ public class ClaimItemServlet extends HttpServlet {
     
     
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	// TODO Auto-generated method stub
-    	super.doGet(req, resp);
+    	request.getRequestDispatcher("/WEB-INF/protected_pages/users/ViewDetails.jsp").forward(request, response);
     }
     
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+    	
+        String ownershipDescription = request.getParameter("ownershipDescription");
         int itemId = Integer.parseInt(request.getParameter("itemId"));
         int userId = (int) request.getSession().getAttribute("userId");
-        String ownershipDescription = request.getParameter("ownershipDescription");
+        
+       
+        if (ownershipDescription == null || ownershipDescription.trim().isEmpty()) {
+            request.setAttribute("err", "Ownership decription cannot be empty. Please try again.");
+            request.getRequestDispatcher("/WEB-INF/protected_pages/users/ViewDetails.jsp").forward(request, response);
+            return;
+        }
+        
+
 
         ImageUploadUtil imageUtil = new ImageUploadUtil();
         String rootPath = getServletContext().getRealPath("/uploads");

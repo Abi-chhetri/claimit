@@ -84,10 +84,10 @@
 					<div class="search-group">
 						<label for="keyword">Keyword Search</label>
 						<div class="search-input-wrapper">
-							<%--
+							<!--
                                 Re-populate the search field with whatever the user last typed
                                 using the "keyword" request parameter via EL.
-                            --%>
+                            -->
 							<input type="text" id="keyword" name="keyword"
 								placeholder="What are you looking for?"
 								value="${fn:trim(param.keyword)}" />
@@ -97,10 +97,10 @@
 					<div class="date-group">
 						<label for="dateRange">Date Range</label>
 						<div class="date-input-wrapper">
-							<%--
+							<!--
                                 Each option checks if its value matches the current "dateRange"
                                 param; if so, marks itself as selected to persist the user's choice.
-                            --%>
+                            -->
 							<select id="dateRange" name="dateRange">
 								<option value=""
 									<c:if test="${empty param.dateRange}">selected</c:if>>All
@@ -142,22 +142,22 @@
 
 		<section class="cards-section">
 
-			<%--
+			<!--
                 A search is considered active if either the keyword or dateRange
                 param is non-empty. Used to conditionally show the result count bar
                 and context-aware empty messages below.
-            --%>
+            -->
 			<c:set var="isSearching"
 				value="${not empty param.keyword or not empty param.dateRange}" />
 
-			<%--
+			<!--
                 Only shown when a search is active. Displays how many FOUND items
                 were returned (resultCount pre-computed in the servlet), and echoes
                 back the keyword and/or date range the user searched for.
-            --%>
+            -->
+            <!-- Pluralize "result/results" based on count -->
 			<c:if test="${isSearching}">
 				<p class="results-count">
-					<%-- Pluralize "result/results" based on count --%>
 					${requestScope.resultCount} result
 					<c:if test="${requestScope.resultCount ne 1}">s</c:if>
 					found
@@ -172,10 +172,10 @@
 
 			<div class="cards-grid">
 
-				<%--
+				<!--
                     If the servlet returned no items at all, show a generic empty message
                     and skip the loop entirely.
-                --%>
+                -->
 				<c:choose>
 					<c:when test="${empty requestScope.items}">
 						<p class="no-results-msg">No items found. Try adjusting your
@@ -183,16 +183,9 @@
 					</c:when>
 
 					<c:otherwise>
-						<%--
-                            Only render a card if the item type is "FOUND" AND its
-                            status is "APPROVED" — other types (LOST) and pending/rejected
-                            items are silently skipped.
-                        --%>
 						<c:set var="anyFound" value="false" />
 
 						<c:forEach var="item" items="${requestScope.items}">
-
-							<%-- Filter: show only approved FOUND items --%>
 							<c:if
 								test="${item.type eq 'FOUND' and item.status eq 'APPROVED'}">
 								<c:set var="anyFound" value="true" />
@@ -226,11 +219,11 @@
 												Details</button>
 										</form>
 
-										<%--
+										<!--
                                             Only show "Report This Item" if the logged-in user
                                             is NOT the owner of this item. Prevents users from
                                             reporting their own uploads. Hidden if not logged in.
-                                        --%>
+                                        -->
 										<c:if
 											test="${not empty sessionScope.userId and sessionScope.userId ne item.userId}">
 											<form action="${pageContext.request.contextPath}/Browse"
@@ -248,11 +241,6 @@
 
 						</c:forEach>
 
-						<%--
-                            After iterating, if no FOUND+APPROVED item was rendered:
-                            - If a search was active → tell the user no items matched their filters.
-                            - If no search was active → tell the user no items have been uploaded yet.
-                        --%>
 						<c:if test="${not anyFound}">
 							<c:choose>
 								<c:when test="${isSearching}">

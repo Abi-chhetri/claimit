@@ -78,7 +78,7 @@
                     </a>
                 </div>
 
-                <c:if test="${admin.role == 'ADMIN'}">
+                <c:if test="${sessionScope.adminRole == 'ADMIN'}">
                     <div class="admin-aside-admin-function">
                         <a href="${pageContext.request.contextPath}/ManageModerator" class="admin-functions">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="18" viewBox="0 0 8 8">

@@ -81,7 +81,7 @@
                     </a>
                 </div>
 
-                <c:if test="${admin.role == 'ADMIN'}">
+                <c:if test="${sessionScope.adminRole == 'ADMIN'}">
                     <div class="admin-aside-admin-function">
                         <a href="${pageContext.request.contextPath}/ManageModerator" class="admin-functions">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="18" viewBox="0 0 8 8">
@@ -240,17 +240,14 @@
 
                             <c:forEach var="eachClaim" items="${claims}">
 
-                                <%-- status filter --%>
                                 <c:set var="statusMatch" value="${empty param.status || eachClaim.claimStatus == param.status}" />
 
-                                <%-- search filter --%>
                                 <c:set var="searchParam" value="${fn:toLowerCase(fn:trim(param.search))}" />
 								<c:set var="claimIdStr" value="${eachClaim.claimId}" />
 								<c:set var="searchMatch" value="${empty searchParam
 								    || fn:contains(claimIdStr, searchParam)
 								    || fn:contains(fn:toLowerCase(eachClaim.itemTitle), searchParam)}" />
 
-                                <%-- date filter --%>
                                 <c:set var="dateParam" value="${empty param.date ? '30' : param.date}" />
                                 <c:choose>
                                     <c:when test="${dateParam == 'all'}">

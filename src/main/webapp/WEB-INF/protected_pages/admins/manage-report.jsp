@@ -6,7 +6,6 @@
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -88,8 +87,8 @@
                     </a>
                 </div>
 
-                <%-- Show Manage Moderators link only if the logged-in admin has ADMIN role --%>
-                <c:if test="${admin.role == 'ADMIN'}">
+				<!-- Only super admins see the moderator management link -->
+                <c:if test="${sessionScope.adminRole == 'ADMIN'}">
                     <div class="admin-aside-admin-function">
                         <a href="${pageContext.request.contextPath}/ManageModerator" class="admin-functions">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="18" viewBox="0 0 8 8">
@@ -183,12 +182,12 @@
                     <div class="mr-header-stats">
                         <div class="mr-header-stat">
                             <p class="mr-header-stat-label red">PENDING</p>
-                            <%-- Display count of pending reports passed from servlet --%>
+                            
                             <p class="mr-header-stat-value red">${pending}</p>
                         </div>
                         <div class="mr-header-stat">
                             <p class="mr-header-stat-label green">RESOLVED</p>
-                            <%-- Display count of resolved reports passed from servlet --%>
+                            
                             <p class="mr-header-stat-value green">${resolved}</p>
                         </div>
                     </div>
@@ -202,7 +201,7 @@
                             <path fill="#636567"
                                 d="M4 5v6h6V5zm2 2h2v2H6zm6 0v2h15V7zm-8 6v6h6v-6zm2 2h2v2H6zm6 0v2h15v-2zm-8 6v6h6v-6zm2 2h2v2H6zm6 0v2h15v-2z" />
                         </svg>
-                        <%-- Status filter dropdown — pre-selects the current filter from request param and resubmits on change --%>
+                        
                         <select name="status" onchange="this.form.submit()">
                             <option value="">Status: All Reports</option>
                             <option value="PENDING" ${param.status == 'PENDING' ? 'selected' : ''}>Pending</option>
@@ -227,20 +226,18 @@
                         </thead>
                         <tbody>
 
-                            <%-- Loop through each item report in the itemReports list set by the servlet --%>
+                            
                             <c:forEach var="eachIR" items="${itemReports}">
                                 <tr>
-                                    <%-- Display the report ID --%>
+                                    
                                     <td><a href="#" class="mr-report-id">#${eachIR.itemReportId}</a></td>
 
                                     <td>
                                         <div class="mr-item-info">
                                             <div class="mr-item-thumb">
-                                                <%-- Display the item thumbnail image --%>
                                                 <img src="${eachIR.itemImage}">
                                             </div>
                                             <div>
-                                                <%-- Display the reported item name --%>
                                                 <p class="mr-item-name">${eachIR.itemName}</p>
                                             </div>
                                         </div>
@@ -248,39 +245,32 @@
 
                                     <td>
                                         <div class="mr-reporter">
-                                            <%-- Avatar initials: split full name by space, take first char of first and last name parts --%>
                                             <c:set var="nameParts" value="${fn:split(eachIR.userName, ' ')}" />
                                             <div class="mr-reporter-av" style="background:#dbeafe;color:#1e40af;">
                                                 <c:choose>
-                                                    <%-- If name has at least two parts, show two initials --%>
                                                     <c:when test="${fn:length(nameParts) >= 2}">
                                                         ${fn:substring(nameParts[0], 0, 1)}${fn:substring(nameParts[1], 0, 1)}
                                                     </c:when>
-                                                    <%-- Otherwise show only the first initial --%>
                                                     <c:otherwise>
                                                         ${fn:substring(eachIR.userName, 0, 1)}
                                                     </c:otherwise>
                                                 </c:choose>
                                             </div>
-                                            <%-- Display the full name of the reporter --%>
                                             <p class="mr-reporter-name">${eachIR.userName}</p>
                                         </div>
                                     </td>
 
                                     <td>
-                                        <%-- Display the report reason --%>
                                         <p class="mr-reason">${eachIR.reason}</p>
                                     </td>
 
                                     <td>
-                                        <%-- Format and display the report creation date --%>
                                         <p class="mr-date">
                                             <fmt:formatDate value="${eachIR.createdAt}" pattern="MMM dd, yyyy" />
                                         </p>
                                     </td>
 
                                     <td>
-                                        <%-- Show 'pending' badge if status is PENDING, otherwise show 'urgent' badge --%>
                                         <c:choose>
                                             <c:when test="${eachIR.status == 'PENDING'}">
                                                 <span class="mr-badge pending">${eachIR.status}</span>
@@ -293,11 +283,9 @@
 
                                     <td>
                                         <div class="mr-actions">
-                                            <%-- Show Block Item form only if report status is PENDING; otherwise show N/A --%>
                                             <c:choose>
                                                 <c:when test="${eachIR.status == 'PENDING'}">
                                                     <form action="${pageContext.request.contextPath}/ManageReport" method="POST" style="display:inline;">
-                                                        <%-- Pass the item ID and reason to the servlet for the block action --%>
                                                         <input type="hidden" name="itemId" value="${eachIR.itemId}">
                                                         <input type="hidden" name="reason" value="${eachIR.reason}">
                                                         <button type="submit" class="mc-btn mc-btn-view">Block Item</button>
@@ -311,7 +299,6 @@
                                     </td>
                                 </tr>
                             </c:forEach>
-                            <%-- End of item reports loop --%>
 
                         </tbody>
                     </table>
