@@ -90,7 +90,10 @@ public class UserProfileServlet extends HttpServlet {
 	            String current = request.getParameter("current_password");
 	            String newPass  = request.getParameter("new_password");
 	            String confirm  = request.getParameter("confirm_password");
-	            if (!HashPasswordUtil.checkPassword(current, user.getPassword())) {
+	            if(current== null || current.isEmpty()) {
+	                msg = "All fields are required";
+	                msgType = "error";
+	            }else if(!HashPasswordUtil.checkPassword(current, user.getPassword())) {
 	                msg = "Current password is incorrect.";
 	                msgType = "error";
 	            } else if (!newPass.equals(confirm)) {
