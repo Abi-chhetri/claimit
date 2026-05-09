@@ -104,8 +104,8 @@
 					</a>
 				</div>
 
-				<%-- Show Manage Moderators only if logged-in admin has ADMIN role --%>
-				<c:if test="${admin.role == 'ADMIN'}">
+				<!-- Only  admins see the moderator management link -->
+				<c:if test="${sessionScope.adminRole == 'ADMIN'}">
 					<div class="admin-aside-admin-function">
 						<a href="${pageContext.request.contextPath}/ManageModerator"
 							class="admin-functions"> <svg
@@ -237,7 +237,6 @@
                                 <path fill="#636567"
 									d="M9.5 16q-2.725 0-4.612-1.888T3 9.5t1.888-4.612T9.5 3t4.613 1.888T16 9.5q0 1.1-.35 2.075T14.7 13.3l5.6 5.6q.275.275.275.7t-.275.7t-.7.275t-.7-.275l-5.6-5.6q-.75.6-1.725.95T9.5 16m0-2q1.875 0 3.188-1.312T14 9.5t-1.312-3.187T9.5 5T6.313 6.313T5 9.5t1.313 3.188T9.5 14" />
                             </svg>
-							<%-- Pre-fill search input with current search value from request attribute --%>
 							<input type="text" name="search"
 								placeholder="Search items by ID or title" value="${search}" />
 						</div>
@@ -259,8 +258,6 @@
                                 <path fill="#636567"
 									d="M4 5v6h6V5zm2 2h2v2H6zm6 0v2h15V7zm-8 6v6h6v-6zm2 2h2v2H6zm6 0v2h15v-2zm-8 6v6h6v-6zm2 2h2v2H6zm6 0v2h15v-2z" />
                             </svg>
-
-							<%-- Status dropdown — pre-selects the option matching the current statusFilter attribute --%>
 							<select name="status" onchange="this.form.submit()">
 								<option value=""
 									${empty statusFilter                    ? 'selected' : ''}>Status:
@@ -292,16 +289,8 @@
 							</tr>
 						</thead>
 						<tbody>
-
-							<%-- Loop through all items from the request attribute --%>
 							<c:forEach var="eachItem" items="${items}">
-
-								<%-- Skip items with type RETURNED — they should not appear in this list --%>
 								<c:if test="${eachItem.type != 'RETURNED'}">
-
-									<%-- Check if this item's reject form should be shown inline.
-                                         rejectItemId is a GET param set when admin clicks the reject button.
-                                         If it matches current item's id, show the inline reason form. --%>
 									<c:set var="showReject"
 										value="${param.rejectItemId == eachItem.itemId}" />
 
@@ -310,8 +299,6 @@
 										<td>
 											<div class="mr-item-info">
 												<div class="mr-item-thumb">
-													<%-- Display first image from the item's image list --%>
-													<%-- Get first image path from the itemImages map using item id as key --%>
 													<c:set var="imgPath" value="${itemImages[eachItem.itemId]}" />
 													<c:if test="${not empty imgPath}">
 														<img src="${imgPath}" alt="${eachItem.title}">
@@ -328,8 +315,7 @@
 												<p class="mr-reporter-name">${eachItem.category}</p>
 											</div>
 										</td>
-										<td>
-											<%-- Badge color changes based on item status --%> <c:choose>
+										<td><c:choose>
 												<c:when test="${eachItem.status == 'PENDING'}">
 													<span class="mr-badge pending">${eachItem.status}</span>
 												</c:when>
@@ -339,10 +325,8 @@
 												<c:when test="${eachItem.status == 'APPROVED'}">
 													<span class="mr-badge resolved">${eachItem.status}</span>
 												</c:when>
-											</c:choose>
-										</td>
+											</c:choose></td>
 										<td>
-											<%-- Show rejection reason if exists, otherwise show default N/A message --%>
 											<p class="mr-reason">
 												<c:choose>
 													<c:when test="${empty eachItem.rejectionReason}">(N/A) No Reject Yet</c:when>
@@ -351,7 +335,6 @@
 											</p>
 										</td>
 										<td>
-											<%-- Format the createdAt date to readable format --%>
 											<p class="mr-date">
 												<fmt:formatDate value="${eachItem.createdAt}"
 													pattern="MMM dd, yyyy" />
@@ -359,8 +342,6 @@
 										</td>
 										<td>
 											<div class="mr-actions">
-
-												<%-- View button — navigates to item detail page --%>
 												<form
 													action="${pageContext.request.contextPath}/ViewDetails"
 													method="POST">
@@ -368,8 +349,6 @@
 														value="${eachItem.itemId}" />
 													<button class="mr-icon-btn view" type="submit">&#128065;</button>
 												</form>
-
-												<%-- Approve button — only shown if item is PENDING or REJECTED --%>
 												<c:if
 													test="${eachItem.status == 'PENDING' || eachItem.status == 'REJECTED'}">
 													<form
@@ -377,16 +356,11 @@
 														method="POST">
 														<input type="hidden" name="action" value="approve" /> <input
 															type="hidden" name="itemId" value="${eachItem.itemId}" />
-														<%-- Preserve current search and status filter values on form submit --%>
 														<input type="hidden" name="search" value="${search}" /> <input
 															type="hidden" name="status" value="${statusFilter}" />
 														<button type="submit" class="mr-icon-btn approve">&#10003;</button>
 													</form>
 												</c:if>
-
-												<%-- Reject toggle button — only shown if item is PENDING or APPROVED.
-                                                     Clicking it adds rejectItemId to GET params to show inline form.
-                                                     If already showing (showReject=true), omit rejectItemId to hide/toggle it off. --%>
 												<c:if
 													test="${eachItem.status == 'PENDING' || eachItem.status == 'APPROVED'}">
 													<form
@@ -394,7 +368,6 @@
 														method="GET">
 														<input type="hidden" name="search" value="${search}" /> <input
 															type="hidden" name="status" value="${statusFilter}" />
-														<%-- Only pass rejectItemId if the inline form is NOT already shown for this item --%>
 														<c:if test="${!showReject}">
 															<input type="hidden" name="rejectItemId"
 																value="${eachItem.itemId}" />
@@ -403,9 +376,7 @@
 													</form>
 												</c:if>
 
-											</div> <%-- Inline reject reason form — only visible when showReject is true for this item.
-                                                 Admin types a reason and submits to confirm the rejection. --%>
-											<c:if test="${showReject}">
+											</div> <c:if test="${showReject}">
 												<div class="reject-inline-form">
 													<form
 														action="${pageContext.request.contextPath}/ManageItem"
@@ -425,18 +396,13 @@
 									</tr>
 
 								</c:if>
-								<%-- End skip RETURNED items --%>
-
 							</c:forEach>
-							<%-- End items loop --%>
-
 						</tbody>
 					</table>
 				</div>
 
 			</section>
 		</main>
-
 		<footer class="admin-dash-nav">
 			<div class="footer-left">
 				<p class="footer-brand">ClaimIt Admin Console</p>
