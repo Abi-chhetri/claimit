@@ -74,7 +74,7 @@
             <div class="about-right">
                 <div class="about-image-wrapper">
                     <div class="about-image-placeholder">
-                        <img alt="handshake" width="100%" height="500px" src="${pageContext.request.contextPath}/images/group.jpg">
+                        <img alt="handshake" width="100%" height="500px" src="${pageContext.request.contextPath}/images/lost.jpeg">
                     </div>
                     <div class="about-float-card">
                         <div class="about-float-icon">
@@ -167,9 +167,9 @@
             <div class="team-grid">
                 <div class="team-card">
                     <div class="team-photo">
-                        <img src="${pageContext.request.contextPath}/images/abi.jpg" width="100%" style="object-fit:cover; object-position:center" height="280px">
+                        <img src="${pageContext.request.contextPath}/images/abi.jpg" width="100%" style="object-fit:cover; object-position:center;" height="280px">
                     </div>
-                    <h4 class="team-name">Abi Loniya</h4>
+                    <h4 class="team-name">Lokendra Loniya</h4>
                 </div>
                 <div class="team-card">
                     <div class="team-photo">
@@ -179,7 +179,7 @@
                 </div>
                 <div class="team-card">
                     <div class="team-photo">
-                        <img src="${pageContext.request.contextPath}/images/shivam.jpg" alt="" width="100%" height="280px">
+                        <img src="${pageContext.request.contextPath}/images/shivam.jpeg" style="object-fit:cover; object-position:center" alt="" width="100%" height="280px">
                     </div>
                     <h4 class="team-name">Shivam Jaiswal</h4>
                 </div>
