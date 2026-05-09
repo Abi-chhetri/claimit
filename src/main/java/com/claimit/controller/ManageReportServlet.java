@@ -42,7 +42,7 @@ public class ManageReportServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String filterStatus = request.getParameter("status");
         
-        List<ItemReport> itemReports = itemReportService.getAllItemReport();
+        List<ItemReport> itemReports = itemReportService.getAllItemReport().reversed();
         
         int pending = 0;
         int resolved = 0;

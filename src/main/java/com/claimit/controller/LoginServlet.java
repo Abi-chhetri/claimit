@@ -135,9 +135,9 @@ public class LoginServlet extends HttpServlet {
 			String encryptedPassword= admin.getPassword();
 			if(HashPasswordUtil.checkPassword(password.trim(), encryptedPassword)) {
 				SessionManager.setAttribute(request, "adminId", admin.getAdminId());
+				SessionManager.setAttribute(request, "adminRole", admin.getRole());
 				SessionManager.setAttribute(request,"flashMessage", "Successfully Logged In");
 				CookieManager.addCookie(response, "adminId", String.valueOf(admin.getAdminId()), 60*60);
-//				CookieManager.addCookie(response, "role", admin.getRole(), 60*60);
 				if(admin.getRole().equals(AdminRoles.ADMIN.name())) {
 					adminLogService.createAdminLog(admin.getAdminId(), "Login", "Login "+new SimpleDateFormat("MMM dd, yyyy HH:mm:ss").format(new Date()), "Admin : "+admin.getAdminId());
 				}else {
