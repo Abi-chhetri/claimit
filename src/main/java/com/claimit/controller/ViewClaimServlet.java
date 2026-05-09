@@ -45,6 +45,10 @@ public class ViewClaimServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		if((String) request.getParameter("claimId") == null) {
+			response.sendRedirect(request.getContextPath() + "/ManageClaim");
+			return;
+		}
 		int claimId= Integer.parseInt(request.getParameter("claimId"));
 		Claim claim=claimService.getClaimById(claimId);
 		User user= userService.getUserByID(String.valueOf(claim.getUserId()));

@@ -7,6 +7,7 @@ public class SessionManager {
 
 	public static void setAttribute(HttpServletRequest request, String key, Object value) {
 		HttpSession session = request.getSession(); // if nothing is provided in param of getSession that means true and which mean create a session
+		session.setMaxInactiveInterval(40*60);
 		session.setAttribute(key, value);
 	}
 	
