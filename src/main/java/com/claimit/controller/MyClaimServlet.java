@@ -33,7 +33,11 @@ public class MyClaimServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int userId= (int) SessionManager.getAttribute(request,"userId");
+		Integer userId = (Integer) SessionManager.getAttribute(request, "userId");
+		if (userId == null) {
+		    response.sendRedirect(request.getContextPath() + "/Login");
+		    return;
+		}
 		List<Claim> claim= claimService.getClaimByUserId(userId);
 		int requestedClaimCount=0;
 		for(Claim eachClaim: claim) {
