@@ -191,7 +191,7 @@
                 </div>
                 <div class="team-card">
                     <div class="team-photo">
-                        <img src="${pageContext.request.contextPath}/images/sachin.jpg" alt="" width="100%" height="280px">
+                        <img src="${pageContext.request.contextPath}/images/sachin.jpg"  style="object-fit:cover; object-position:center" alt="" width="100%" height="280px">
                     </div>
                     <h4 class="team-name">Sachin Jaiswal</h4>
                 </div>
