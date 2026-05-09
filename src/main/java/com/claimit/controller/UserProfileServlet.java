@@ -24,7 +24,7 @@ public class UserProfileServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private final UserService userService = new UserService();
 	private final ImageUploadUtil imageUploadUtil = new ImageUploadUtil();
-	private final NotificationService notificationService=new NotificationService();
+	private final NotificationService notificationService = new NotificationService();
 
 	private void loadProfile(HttpServletRequest request, HttpServletResponse response, boolean editMode)
 			throws ServletException, IOException {
@@ -34,94 +34,107 @@ public class UserProfileServlet extends HttpServlet {
 		request.getRequestDispatcher("/WEB-INF/protected_pages/users/UserProfile.jsp").forward(request, response);
 	}
 
-	
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		loadProfile(request, response, "edit".equals(request.getParameter("action")));
 	}
-	
-	
-	
-	
+
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-	        throws ServletException, IOException {
+			throws ServletException, IOException {
 
-	    String userId = String.valueOf(SessionManager.getAttribute(request, "userId"));
-	    User user = userService.getUserByID(userId);
-	    String formType = request.getParameter("formType");
-	    String msg = null;
-	    String msgType = "success";
+		String userId = String.valueOf(SessionManager.getAttribute(request, "userId"));
+		User user = userService.getUserByID(userId);
+		String formType = request.getParameter("formType");
+		String msg = null;
+		String msgType = "success";
 
-	    try {
-	        switch (formType) {
+		try {
+			switch (formType) {
 
-	        case "personalInfo":
-	            String field = request.getParameter("field");
-	            if ("fullName".equals(field)) {
-	                user.setFullName(request.getParameter("fullName").trim());
-	            } else if ("phoneNumber".equals(field)) {
-	                user.setPhoneNumber(request.getParameter("phoneNumber").trim());
-	            }
-	            user.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
-	            userService.updatePersonalInfo(user);
-	            msg = "Profile updated successfully.";
-	            notificationService.insertNotification(user.getUserId(), "Profile Update", msg);
-	            break;
+			case "personalInfo":
+				String field = request.getParameter("field");
+				if ("fullName".equals(field)) {
+					String name= request.getParameter("fullName");
+					if (name == null || name.trim().isEmpty()) {
+						msg = "Name Fields cannot be empty";
+						msgType = "error";
+					} else {
+						user.setFullName(name.trim());
+						user.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
+						userService.updatePersonalInfo(user);
+						msg = "Profile updated successfully.";
+						notificationService.insertNotification(user.getUserId(), "Profile Update", msg);
+					}
+				} else if ("phoneNumber".equals(field)) {
+					String phone= request.getParameter("phoneNumber");
+					if (phone == null || phone.trim().isEmpty()) {
+						msg = "Phone number Fields cannot be empty";
+						msgType = "error";
+					} else {
+						user.setPhoneNumber(phone.trim());
+						user.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
+						userService.updatePersonalInfo(user);
+						msg = "Profile updated successfully.";
+						notificationService.insertNotification(user.getUserId(), "Profile Update", msg);
+					}
+				}
+				break;
 
-	        case "profilePic":
-	            Part filePart = request.getPart("profilePic");
-	            if (filePart != null && filePart.getSize() > 0 && imageUploadUtil.isValidImage(filePart)) {
-	                String imageName = imageUploadUtil.getImageNameFromPart(filePart);
-	                imageUploadUtil.uploadImage(filePart, getServletContext().getRealPath(""), "uploads/profile-pics", imageName);
-	                user.setProfilePhoto("uploads/profile-pics/" + imageName);
-	                user.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
-	                userService.updatePersonalInfo(user);
-	                msg = "Profile picture updated successfully.";
-	                notificationService.insertNotification(user.getUserId(), "Profile Picture updated", msg);
-	            } else {
-	                msg = "Invalid image. Please upload a JPG or PNG under 100MB.";
-	                msgType = "error";
-	            }
-	            break;
+			case "profilePic":
+				Part filePart = request.getPart("profilePic");
+				if (filePart != null && filePart.getSize() > 0 && imageUploadUtil.isValidImage(filePart)) {
+					String imageName = imageUploadUtil.getImageNameFromPart(filePart);
+					imageUploadUtil.uploadImage(filePart, getServletContext().getRealPath(""), "uploads/profile-pics",
+							imageName);
+					user.setProfilePhoto("uploads/profile-pics/" + imageName);
+					user.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
+					userService.updatePersonalInfo(user);
+					msg = "Profile picture updated successfully.";
+					notificationService.insertNotification(user.getUserId(), "Profile Picture updated", msg);
+				} else {
+					msg = "Invalid image. Please upload a JPG or PNG under 100MB.";
+					msgType = "error";
+				}
+				break;
 
-	        case "changePassword":
-	            String current = request.getParameter("current_password");
-	            String newPass  = request.getParameter("new_password");
-	            String confirm  = request.getParameter("confirm_password");
-	            if(current== null || current.isEmpty()) {
-	                msg = "All fields are required";
-	                msgType = "error";
-	            }else if(!HashPasswordUtil.checkPassword(current, user.getPassword())) {
-	                msg = "Current password is incorrect.";
-	                msgType = "error";
-	            } else if (!newPass.equals(confirm)) {
-	                msg = "New passwords do not match.";
-	                msgType = "error";
-	            } else if (newPass.length() < 8) {
-	                msg = "Password must be at least 8 characters.";
-	                msgType = "error";
-	            } else {
-	                user.setPassword(HashPasswordUtil.encryptPassword(newPass));
-	                user.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
-	                userService.updatePersonalInfo(user);
-	                msg = "Password changed successfully.";
-	                notificationService.insertNotification(user.getUserId(), "Password Update", msg);
-	            }
-	            break;
-	        }
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	        msg = "Something went wrong. Please try again.";
-	        msgType = "error";
-	    }
+			case "changePassword":
+				String current = request.getParameter("current_password");
+				String newPass = request.getParameter("new_password");
+				String confirm = request.getParameter("confirm_password");
+				if (current == null || current.isEmpty()) {
+					msg = "All fields are required";
+					msgType = "error";
+				} else if (!HashPasswordUtil.checkPassword(current, user.getPassword())) {
+					msg = "Current password is incorrect.";
+					msgType = "error";
+				} else if (!newPass.equals(confirm)) {
+					msg = "New passwords do not match.";
+					msgType = "error";
+				} else if (newPass.length() < 8) {
+					msg = "Password must be at least 8 characters.";
+					msgType = "error";
+				} else {
+					user.setPassword(HashPasswordUtil.encryptPassword(newPass));
+					user.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
+					userService.updatePersonalInfo(user);
+					msg = "Password changed successfully.";
+					notificationService.insertNotification(user.getUserId(), "Password Update", msg);
+				}
+				break;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			msg = "Something went wrong. Please try again.";
+			msgType = "error";
+		}
 
-	    // reload fresh user from DB so updated values show immediately
-	    user = userService.getUserByID(userId);
-	    request.setAttribute("user", user);
-	    request.setAttribute("msg", msg);
-	    request.setAttribute("msgType", msgType);
-	    request.getRequestDispatcher("/WEB-INF/protected_pages/users/UserProfile.jsp").forward(request, response);
+		// reload fresh user from DB so updated values show immediately
+		user = userService.getUserByID(userId);
+		request.setAttribute("user", user);
+		request.setAttribute("msg", msg);
+		request.setAttribute("msgType", msgType);
+		request.getRequestDispatcher("/WEB-INF/protected_pages/users/UserProfile.jsp").forward(request, response);
 	}
 }

@@ -120,7 +120,7 @@
 								<input type="hidden" name="formType" value="personalInfo" /> <input
 									type="hidden" name="field" value="fullName" /> <input
 									class="field-input" type="text" name="fullName"
-									value="${user.fullName}" required />
+									value="${user.fullName}" />
 
 								<button type="submit" class="save-btn">Save</button>
 
@@ -189,7 +189,7 @@
 								<input type="hidden" name="formType" value="personalInfo" /> <input
 									type="hidden" name="field" value="phoneNumber" /> <input
 									class="field-input" type="tel" name="phoneNumber"
-									value="${user.phoneNumber}" required />
+									value="${user.phoneNumber}" />
 
 								<button type="submit" class="save-btn">Save</button>
 
