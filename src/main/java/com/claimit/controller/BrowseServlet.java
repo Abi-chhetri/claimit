@@ -120,7 +120,7 @@ public class BrowseServlet extends HttpServlet {
         String reason    = request.getParameter("reason");
 
         if (itemIdStr == null || itemIdStr.isEmpty() || reason == null || reason.trim().isEmpty()) {
-            SessionManager.setAttribute(request, "flashMessage", "Invalid report. Please try again.");
+            SessionManager.setAttribute(request, "flashMessage", "All fields are required. Please try again.");
             response.sendRedirect(request.getContextPath() + "/Browse");
             return;
         }
