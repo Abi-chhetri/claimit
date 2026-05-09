@@ -100,8 +100,8 @@
 					</a>
 				</div>
 
-				<%-- Only super admins see the moderator management link --%>
-				<c:if test="${admin.role == 'ADMIN'}">
+				<!-- Only super admins see the moderator management link -->
+				<c:if test="${sessionScope.adminRole == 'ADMIN'}">
 					<div class="admin-aside-admin-function">
 						<a href="${pageContext.request.contextPath}/ManageModerator"
 							class="admin-functions"> <svg
@@ -212,13 +212,13 @@
                                 <line x1="21" y1="21" x2="16.65"
 									y2="16.65" />
                             </svg>
-							<%-- Pre-fill the search box with whatever the user previously typed --%>
+							<!-- Pre-fill the search box with whatever the user previously typed -->
 							<input type="text" placeholder="Search by name or email..."
 								form="search-form" name="search" value="${param.search}" />
 							<button type="submit" form="search-form" class="mu-search-btn">Search</button>
 						</div>
 
-						<%-- Hidden form that submits the search term while keeping the current status filter intact --%>
+						<!-- Hidden form that submits the search term while keeping the current status filter intact -->
 						<form id="search-form" method="get"
 							action="${pageContext.request.contextPath}/ManageUser">
 							<input type="hidden" name="approveStatus"
@@ -232,12 +232,12 @@
 							Filters
 							<form method="get"
 								action="${pageContext.request.contextPath}/ManageUser">
-								<%-- Keep search term when status filter changes --%>
+								<!-- Keep search term when status filter changes -->
 								<input type="hidden" name="search" value="${param.search}" /> <select
 									name="approveStatus" onchange="this.form.submit()"
 									style="padding: 6px 10px; border: 1px solid #E2E8F0; border-radius: 8px; font-size: 13px; color: #374151; background: #fff; cursor: pointer; outline: none;">
 									<option value="">All</option>
-									<%-- Keep option selected if it match current filter param --%>
+									
 									<option value="APPROVED"
 										<c:if test="${param.approveStatus == 'APPROVED'}">selected</c:if>>Approved</option>
 									<option value="PENDING"
@@ -255,15 +255,12 @@
 
 				<!-- Stats Cards -->
 				<div class="mu-stats">
-
-					<%-- Total users is just the full list size --%>
 					<div class="mu-stat-card">
 						<p class="mu-stat-label">TOTAL USERS</p>
 						<p class="mu-stat-value">${fn:length(users)}</p>
 						<p class="mu-stat-note green">↗ Increased</p>
 					</div>
 
-					<%-- Count active users — status field equals "ACTIVE" --%>
 					<div class="mu-stat-card">
 						<p class="mu-stat-label">ACTIVE NOW</p>
 						<p class="mu-stat-value">
@@ -278,7 +275,6 @@
 						<p class="mu-stat-note gray">Real-time engagement</p>
 					</div>
 
-					<%-- Count users whose registration has been approved --%>
 					<div class="mu-stat-card">
 						<p class="mu-stat-label">Total</p>
 						<p class="mu-stat-value">
@@ -294,7 +290,6 @@
 						<p class="mu-stat-note green">Verified registrations</p>
 					</div>
 
-					<%-- Count users still waiting for admin review --%>
 					<div class="mu-stat-card">
 						<p class="mu-stat-label">REQUEST</p>
 						<p class="mu-stat-value red">
@@ -310,7 +305,6 @@
 					</div>
 				</div>
 
-				<!-- Filter Panel -->
 				<div class="mu-filter-panel">
 					<div class="mu-filter-group">
 						<label>Status</label> <select>
@@ -351,16 +345,12 @@
 						</thead>
 						<tbody>
 
-							<%-- Track how many rows actually render after filtering, used for the empty-state row --%>
 							<c:set var="visibleRows" value="0" />
 
 							<c:forEach var="user" items="${users}">
 
-								<%-- Skip this user if a status filter is active and this user doesn't match it --%>
 								<c:set var="statusMatch"
 									value="${empty param.approveStatus or user.approveStatus == param.approveStatus}" />
-
-								<%-- Skip this user if a search term is active and neither name nor email contains it --%>
 								<c:set var="searchLower" value="${fn:toLowerCase(param.search)}" />
 								<c:set var="nameLower" value="${fn:toLowerCase(user.fullName)}" />
 								<c:set var="emailLower" value="${fn:toLowerCase(user.email)}" />
@@ -368,8 +358,6 @@
 									value="${empty param.search or fn:contains(nameLower, searchLower) or fn:contains(emailLower, searchLower)}" />
 
 								<c:if test="${statusMatch and searchMatch}">
-
-									<%-- This user passed both filters, count it --%>
 									<c:set var="visibleRows" value="${visibleRows + 1}" />
 
 									<tr>
@@ -378,13 +366,11 @@
 											<div class="mu-user-info">
 												<div class="mu-avatar"
 													style="background: #fce7f3; color: #9d174d;">
-													<%-- Show profile photo if available, otherwise fall back to initials --%>
 													<c:choose>
 														<c:when test="${not empty user.profilePhoto}">
 															<img src="${user.profilePhoto}" alt="Profile Photo">
 														</c:when>
 														<c:otherwise>
-															<%-- Split full name on space and grab first char of each part --%>
 															<c:set var="nameParts"
 																value="${fn:split(user.fullName, ' ')}" />
                                                             ${fn:toUpperCase(fn:substring(nameParts[0], 0, 1))}${fn:toUpperCase(fn:substring(nameParts[1], 0, 1))}
@@ -393,7 +379,6 @@
 												</div>
 												<div>
 													<p class="mu-name">${user.fullName}</p>
-													<%-- Show un-verified label for any status that isn't APPROVED --%>
 													<c:choose>
 														<c:when
 															test="${user.approveStatus == 'PENDING' or user.approveStatus == 'SUSPENDED' or user.approveStatus == 'REJECTED'}">
@@ -408,7 +393,7 @@
 											</div>
 										</td>
 										<td>
-											<p class="mu-email">${user.email}</p> <%-- Show N/A when no phone number is stored --%>
+											<p class="mu-email">${user.email}</p> 
 											<p class="mu-phone">
 												<c:choose>
 													<c:when test="${empty user.phoneNumber}">N/A</c:when>
@@ -417,7 +402,6 @@
 											</p>
 										</td>
 										<td>
-											<%-- Show only the date part (first 10 chars) of the approval timestamp --%>
 											<p class="mu-date">
 												<c:choose>
 													<c:when test="${not empty user.approvedAt}">
@@ -426,7 +410,7 @@
 													</c:when>
 													<c:otherwise>N/A</c:otherwise>
 												</c:choose>
-											</p> <%-- Format the time portion of the timestamp as hh:mm AM/PM --%>
+											</p> 
 											<p class="mu-time">
 												<c:if test="${not empty user.approvedAt}">
 													<fmt:formatDate value="${user.approvedAt}"
@@ -435,7 +419,6 @@
 											</p>
 										</td>
 										<td>
-											<%-- Render the correct badge colour based on registration status --%>
 											<c:choose>
 												<c:when test="${user.approveStatus == 'REJECTED'}">
 													<span class="mu-badge blocked">${user.approveStatus}</span>
@@ -453,10 +436,7 @@
 										</td>
 										<td>
 											<div class="mu-actions">
-												<%-- Show the appropriate action button based on current status --%>
 												<c:choose>
-
-													<%-- Approved users can be suspended --%>
 													<c:when test="${user.approveStatus == 'APPROVED'}">
 														<form method="POST"
 															action="${pageContext.request.contextPath}/ManageUser">
@@ -465,8 +445,6 @@
 															<button type="submit" class="mu-btn">Suspend</button>
 														</form>
 													</c:when>
-
-													<%-- Pending users can be approved or rejected --%>
 													<c:when test="${user.approveStatus == 'PENDING'}">
 														<form method="POST"
 															action="${pageContext.request.contextPath}/ManageUser">
@@ -482,7 +460,6 @@
 														</form>
 													</c:when>
 
-													<%-- Suspended users can be reinstated --%>
 													<c:when test="${user.approveStatus == 'SUSPENDED'}">
 														<form method="POST"
 															action="${pageContext.request.contextPath}/ManageUser">
@@ -492,7 +469,6 @@
 														</form>
 													</c:when>
 
-													<%-- Rejected users can be given a second chance via approve --%>
 													<c:when test="${user.approveStatus == 'REJECTED'}">
 														<form method="POST"
 															action="${pageContext.request.contextPath}/ManageUser">
@@ -510,7 +486,6 @@
 								</c:if>
 							</c:forEach>
 
-							<%-- If no rows rendered after filtering, show the empty-state message --%>
 							<c:if test="${visibleRows == 0}">
 								<tr>
 									<td colspan="6" class="mu-no-results"><svg
@@ -522,7 +497,7 @@
                                             <line x1="21" y1="21"
 												x2="16.65" y2="16.65" />
                                         </svg>
-										<p>No results found</p> <%-- Tell the user what filter produced zero results --%>
+										<p>No results found</p>
 										<c:choose>
 											<c:when test="${not empty param.search}">
 												<span>No users match "<strong>${param.search}</strong>"

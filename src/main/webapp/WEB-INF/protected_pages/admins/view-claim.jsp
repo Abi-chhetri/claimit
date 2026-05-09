@@ -49,7 +49,7 @@
 				</div>
 				<div class="admin-aside-admin-function">
 					<a href="${pageContext.request.contextPath}/ManageClaim"
-						class="admin-functions"> <svg
+						class="admin-functions active-nav"> <svg
 							xmlns="http://www.w3.org/2000/svg" width="20" height="20"
 							viewBox="0 0 24 24">
 							<rect width="24" height="24" fill="none" />
@@ -85,7 +85,7 @@
 						<p class="admin-function-name">Manage Users</p>
 					</a>
 				</div>
-                <c:if test="${admin.role == 'ADMIN'}">
+                <c:if test="${sessionScope.adminRole == 'ADMIN'}">
                     <div class="admin-aside-admin-function">
                         <a href="${pageContext.request.contextPath}/ManageModerator" class="admin-functions">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="18" viewBox="0 0 8 8">
@@ -174,7 +174,7 @@
 								stroke="currentColor" stroke-width="2">
                                 <line x1="19" y1="12" x2="5" y2="12" />
                                 <polyline points="12 19 5 12 12 5" />
-                            </svg> Back to Claims
+                            </svg> Back to Manage Claims
 						</a>
 						<div>
 							<h1 class="vc-title">Claim #${claim.claimId}</h1>
@@ -356,7 +356,7 @@
 											<input type="hidden" name="pendingAction"
 												value="${pendingAction}">
 											<textarea name="adminNotes" class="vc-notes-input" rows="4"
-												placeholder="Write your admin note here..."><c:out
+												placeholder="Write your admin note here..." required="required"><c:out
 													value="${not empty claim.adminNotes ? claim.adminNotes : ''}" /></textarea>
 											<div class="vc-notes-actions">
 												<button type="submit" class="vc-btn vc-btn-${pendingAction}">
