@@ -76,8 +76,21 @@ public class ViewClaimServlet extends HttpServlet {
 	    Claim claim = claimService.getClaimById(id);
 	    User user = userService.getUserByID(String.valueOf(claim.getUserId()));
 	    Item item = itemService.getItemById(claim.getItemId());
-	    
+	        
 	    if (adminNotes != null) {
+	    	
+		    if (adminNotes.trim().isEmpty()) {
+		        request.setAttribute("claim", claim);
+		        request.setAttribute("user", user);
+		        request.setAttribute("item", item);
+//		        request.setAttribute("showNotesForm", true);
+//		        request.setAttribute("pendingAction", action);
+		        request.setAttribute("errorMessage", "Admin notes cannot be empty.");
+		        request.getRequestDispatcher("/WEB-INF/protected_pages/admins/view-claim.jsp")
+		               .forward(request, response);
+		        return;
+		    }
+		    
 		    String pendingAction = request.getParameter("pendingAction");
 	        int adminId = (Integer) SessionManager.getAttribute(request, "adminId");
 	        claimService.updateClaimStatus(Integer.parseInt(claimId), pendingAction, adminNotes, adminId, item.getItemId());

@@ -16,6 +16,9 @@
 	href="${pageContext.request.contextPath}/css/view-claim.css">
 </head>
 <body>
+	<c:if test="${not empty errorMessage}">
+		<p class="error-msg">${errorMessage}</p>
+	</c:if>
 	<aside>
 		<section class="admin-aside-outer">
 			<div class="admin-aside-claimit-console">
@@ -356,7 +359,7 @@
 											<input type="hidden" name="pendingAction"
 												value="${pendingAction}">
 											<textarea name="adminNotes" class="vc-notes-input" rows="4"
-												placeholder="Write your admin note here..." required="required"><c:out
+												placeholder="Write your admin note here..."><c:out
 													value="${not empty claim.adminNotes ? claim.adminNotes : ''}" /></textarea>
 											<div class="vc-notes-actions">
 												<button type="submit" class="vc-btn vc-btn-${pendingAction}">
