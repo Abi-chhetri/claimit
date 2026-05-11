@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
+import com.claimit.enums.ClaimStatus;
 import com.claimit.model.Claim;
 import com.claimit.services.ClaimService;
 import com.claimit.utils.SessionManager;
@@ -34,7 +35,14 @@ public class MyRequestedClaimServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int userId= (int) SessionManager.getAttribute(request, "userId");
 		List<Claim> claims= claimService.getClaimByUserId(userId);
+		int pending=0;
+		for(Claim each:claims) {
+			if(!each.getClaimStatus().contains(ClaimStatus.PENDING.name())) continue;
+			pending++;
+			
+		}
 		request.setAttribute("claims", claims);
+		request.setAttribute("pending", pending);
 		request.getRequestDispatcher("/WEB-INF/protected_pages/users/My_request.jsp").forward(request, response);
 	}
 
