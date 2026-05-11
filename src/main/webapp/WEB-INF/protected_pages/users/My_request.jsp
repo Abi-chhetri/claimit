@@ -17,7 +17,6 @@
 <body>
 	<c:set var="returned" value="0" />
 	<c:set var="rejected" value="0" />
-	<c:set var="pending" value="0" />
 	<header class="header">
 		<div class="header1">
 			<span class="claimit-onheader">ClaimIt</span>
@@ -78,7 +77,7 @@
 			<section class="content">
 				<!-- Check if no claims exist -->
 				<c:choose>
-					<c:when test="${empty claims}">
+					<c:when test="${empty claims or pending==0}">
 						<h1>You have not requested any claim yet to show.</h1>
 					</c:when>
 
@@ -87,7 +86,7 @@
 						<c:forEach var="eachClaim" items="${claims}">
 							<!-- Check pending claims -->
 							<c:if test="${eachClaim.claimStatus eq 'PENDING' or eachClaim.claimStatus eq 'IN_REVIEW' }">
-								<c:set var="pending" value="${pending + 1}" />
+								
 								<article class="claim-card">
 									<div class="image">
 										<img src="${eachClaim.proofImage}" alt="wallet image">
