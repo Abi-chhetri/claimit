@@ -486,3 +486,15 @@ body {
     object-fit: cover;
 }
 
+.mc-search-btn {
+    padding: 0 12px;
+    height: 28px;
+    background: #005BBF;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 12px;
+    cursor: pointer;
+    white-space: nowrap;
+}
+

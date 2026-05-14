@@ -193,13 +193,14 @@
                         <form method="get" action="${pageContext.request.contextPath}/ManageClaim">
                             <input type="hidden" name="search" value="${param.search}" />
                             <input type="hidden" name="date" value="${param.date}" />
-                            <select name="status" onchange="this.form.submit()">
+                            <select name="status">
                                 <option value="">Status: All</option>
                                 <option value="PENDING"    ${param.status == 'PENDING'    ? 'selected' : ''}>Pending</option>
                                 <option value="IN_REVIEW"  ${param.status == 'IN_REVIEW'  ? 'selected' : ''}>In Review</option>
                                 <option value="APPROVED"   ${param.status == 'APPROVED'   ? 'selected' : ''}>Approved</option>
                                 <option value="REJECTED"   ${param.status == 'REJECTED'   ? 'selected' : ''}>Rejected</option>
                             </select>
+                            <button type="submit" class="mc-search-btn">Filter</button>
                         </form>
                     </div>
 
@@ -207,12 +208,13 @@
                         <form method="get" action="${pageContext.request.contextPath}/ManageClaim">
                             <input type="hidden" name="search" value="${param.search}" />
                             <input type="hidden" name="status" value="${param.status}" />
-                            <select name="date" onchange="this.form.submit()">
+                            <select name="date">
                                 <option value="30"  ${empty param.date || param.date == '30'  ? 'selected' : ''}>Last 30 Days</option>
                                 <option value="7"   ${param.date == '7'   ? 'selected' : ''}>Last 7 Days</option>
                                 <option value="90"  ${param.date == '90'  ? 'selected' : ''}>Last 90 Days</option>
                                 <option value="all" ${param.date == 'all' ? 'selected' : ''}>All Time</option>
                             </select>
+                            <button type="submit" class="mc-search-btn">Filter</button>
                         </form>
                     </div>
 
