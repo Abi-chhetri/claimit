@@ -64,8 +64,8 @@
                 <p class="hero-subtitle">ClaimIt bridges the gap between misplaced belongings and their owners through
                     elegant, effortless recovery.<br>Experience the high-end standard for lost and found.</p>
                 <div class="hero-buttons">
-                    <button class="btn-primary" onclick="window.location.href='${pageContext.request.contextPath}/About#contact'">Contact Us</button>
-                    <button class="btn-secondary" onclick="window.location.href='${pageContext.request.contextPath}/ReportFoundItem'">Found an Item</button>
+                    <a href="${pageContext.request.contextPath}/About#contact" class="btn-primary">Contact Us</a>
+					<a href="${pageContext.request.contextPath}/ReportFoundItem" class="btn-secondary">Found an Item</a>
                 </div>
             </div>
             <div class="hero-right">

@@ -69,7 +69,7 @@
                 <h1 class="about-heading">About<span class="about-heading-blue"> ClaimIt</span></h1>
                 <p class="about-desc">Redefining the lost and found experience with a premium, digital-first approach.
                     We connect missing memories with their rightful owners through an elegant, high-trust ecosystem.</p>
-                <button class="about-btn" onclick="window.location.href='${pageContext.request.contextPath}/Browse'">Start Searching</button>
+                <a href="${pageContext.request.contextPath}/Browse" class="about-btn">Start Searching</a>
             </div>
             <div class="about-right">
                 <div class="about-image-wrapper">
