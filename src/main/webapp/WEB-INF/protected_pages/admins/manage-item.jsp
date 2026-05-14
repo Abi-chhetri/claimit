@@ -269,7 +269,7 @@
                                 <path fill="#636567"
 									d="M4 5v6h6V5zm2 2h2v2H6zm6 0v2h15V7zm-8 6v6h6v-6zm2 2h2v2H6zm6 0v2h15v-2zm-8 6v6h6v-6zm2 2h2v2H6zm6 0v2h15v-2z" />
                             </svg>
-							<select name="status" onchange="this.form.submit()">
+							<select name="status">
 								<option value=""
 									${empty statusFilter                    ? 'selected' : ''}>Status:
 									All Items</option>
@@ -280,8 +280,8 @@
 								<option value="REJECTED"
 									${statusFilter == 'REJECTED' ? 'selected' : ''}>Rejected</option>
 							</select>
+							<button type="submit" class="mc-search-btn">Filter</button>
 						</div>
-
 					</form>
 				</div>
 

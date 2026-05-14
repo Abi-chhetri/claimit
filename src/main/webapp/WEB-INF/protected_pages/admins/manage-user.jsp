@@ -229,15 +229,14 @@
 						<input type="checkbox" id="mu-filter-toggle"
 							class="mu-filter-checkbox" />
 						<div for="mu-filter-toggle" class="mu-filter-btn">
-							Filters
+					
 							<form method="get"
 								action="${pageContext.request.contextPath}/ManageUser">
 								<!-- Keep search term when status filter changes -->
 								<input type="hidden" name="search" value="${param.search}" /> <select
-									name="approveStatus" onchange="this.form.submit()"
+									name="approveStatus"
 									style="padding: 6px 10px; border: 1px solid #E2E8F0; border-radius: 8px; font-size: 13px; color: #374151; background: #fff; cursor: pointer; outline: none;">
 									<option value="">All</option>
-									
 									<option value="APPROVED"
 										<c:if test="${param.approveStatus == 'APPROVED'}">selected</c:if>>Approved</option>
 									<option value="PENDING"
@@ -247,6 +246,7 @@
 									<option value="SUSPENDED"
 										<c:if test="${param.approveStatus == 'SUSPENDED'}">selected</c:if>>Suspended</option>
 								</select>
+								<button type="submit" style="padding: 6px 12px; background: #1D4ED8; color: #fff; border: none; border-radius: 8px; font-size: 13px; cursor: pointer;">Filter</button>
 							</form>
 						</div>
 

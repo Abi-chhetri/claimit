@@ -323,11 +323,7 @@
 										d="M3.25 7A.75.75 0 0 1 4 6.25h16a.75.75 0 0 1 0 1.5H4A.75.75 0 0 1 3.25 7m0 5a.75.75 0 0 1 .75-.75h11a.75.75 0 0 1 0 1.5H4a.75.75 0 0 1-.75-.75m0 5a.75.75 0 0 1 .75-.75h5a.75.75 0 0 1 0 1.5H4a.75.75 0 0 1-.75-.75"
 										clip-rule="evenodd" />
                                 </svg>
-								<span id="filter-label"
-									style="font-size: 13px; color: #475569; font-weight: 500;">
-									${not empty selectedStatus ? selectedStatus : 'All'} </span> <select
-									name="status" class="mm-status-filter"
-									onchange="this.form.submit()">
+								<select name="status" class="mm-status-filter">
 									<option value=""
 										${empty selectedStatus              ? 'selected' : ''}>All</option>
 									<option value="ACTIVE"
@@ -337,6 +333,7 @@
 									<option value="SUSPENDED"
 										${selectedStatus == 'SUSPENDED' ? 'selected' : ''}>Suspended</option>
 								</select>
+								<button type="submit" style="padding: 6px 12px; margin-left: 20px; background: #1D4ED8; color: #fff; border: none; border-radius: 8px; font-size: 13px; cursor: pointer;">Filter</button>
 							</form>
 						</div>
 					</div>

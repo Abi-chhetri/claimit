@@ -202,11 +202,12 @@
                                 d="M4 5v6h6V5zm2 2h2v2H6zm6 0v2h15V7zm-8 6v6h6v-6zm2 2h2v2H6zm6 0v2h15v-2zm-8 6v6h6v-6zm2 2h2v2H6zm6 0v2h15v-2z" />
                         </svg>
                         
-                        <select name="status" onchange="this.form.submit()">
+                        <select name="status">
                             <option value="">Status: All Reports</option>
                             <option value="PENDING" ${param.status == 'PENDING' ? 'selected' : ''}>Pending</option>
                             <option value="ACTED"   ${param.status == 'ACTED'   ? 'selected' : ''}>Acted</option>
                         </select>
+                        <button type="submit" class="mc-search-btn">Filter</button>
                     </form>
                 </div>
 
