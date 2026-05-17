@@ -150,7 +150,6 @@ aside {
 	color: #64748B;
 }
 
-/* ── Right side ── */
 
 .rightside {
     flex: 1;
@@ -159,7 +158,7 @@ aside {
     min-width: 0;
 }
 
-/* ── Header ── */
+
 .head {
 	width: 100%;
 	display: flex;
@@ -197,7 +196,7 @@ aside {
 	color: #1D4ED8;
 }
 
-/* ── Table ── */
+
 table {
     width: 100%;
     border-collapse: collapse;
@@ -273,7 +272,7 @@ td a {
 	color: #191C23;
 }
 
-/* ── Footer ── */
+
 .site-footer {
 	margin-top: auto;
 	display: flex;
