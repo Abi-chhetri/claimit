@@ -14,14 +14,14 @@ body {
     color: #1f2937;
 }
 
-/* ───── HEADER ───── */
+
 .header {
     display: flex;
     align-items: center;
     justify-content: space-between;
     background-color: #ffffff;
     padding: 0 32px;
-    height: 60px;          /* changed from 64px */
+    height: 60px;         
     border-bottom: 1px solid #e0e0e0;
     position: sticky;
     top: 0;
@@ -31,19 +31,19 @@ body {
 .header1 {
     display: flex;
     align-items: center;
-    gap: 48px;             /* changed from 40px */
+    gap: 48px;             
 }
 
 .navbar {
     display: flex;
     align-items: center;
-    gap: 24px;             /* changed from 4px */
-    padding: 0px 60px;     /* changed from 0 */
+    gap: 24px;            
+    padding: 0px 60px;    
 }
 
 .navbar a {
     text-decoration: none;
-    font-size: 16px;       /* changed from 15px */
+    font-size: 16px;      
     font-weight: 500;
     color: #475569;
     padding-bottom: 2px;
@@ -81,7 +81,7 @@ body {
     color: #1D4ED8;
 }
 
-/* ───── TABS ───── */
+
 .tabs-cont {
     display: flex;
     justify-content: center;
@@ -117,7 +117,6 @@ body {
     border-bottom: 2px solid #1D4ED8;
 }
 
-/* ───── MAIN ───── */
 .container {
     max-width: 1200px;
     margin: 0 auto;
@@ -142,14 +141,14 @@ body {
     max-width: 700px;
 }
 
-/* ───── MIDDLE LAYOUT ───── */
+
 .middle {
     display: flex;
     margin-top: 20px;
     gap: 40px;
 }
 
-/* ───── LEFT SIDE ───── */
+
 .left-side {
     width: 390px;
     flex-shrink: 0;
@@ -208,12 +207,12 @@ body {
     border-bottom: none;
 }
 
-/* ───── RIGHT SIDE ───── */
+
 .right-side {
     flex: 1;
 }
 
-/* ───── CLAIM CARD ───── */
+
 .claim-card {
     display: flex;
     width: 100%;
@@ -296,7 +295,7 @@ body {
     color: #005BBF;
 }
 
-/* ───── PAGINATION ───── */
+
 .slide {
     display: flex;
     justify-content: center;
@@ -329,7 +328,7 @@ body {
     color: #e2e8f0;
 }
 
-/* ───── FOOTER ───── */
+
 .site-footer {
     display: flex;
     align-items: center;
