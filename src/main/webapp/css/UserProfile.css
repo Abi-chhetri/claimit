@@ -11,7 +11,7 @@ body {
     min-width: 1200px;
 }
 
-/* ── Header ── */
+
 .header {
     display: flex;
     align-items: center;
@@ -94,7 +94,7 @@ body {
     color: #1D4ED8;
 }
 
-/* ── Main ── */
+
 .main-content {
     padding: 25px 130px;
 }
@@ -116,7 +116,7 @@ body {
     font-weight: 500;
 }
 
-/* ── Alerts ── */
+
 .alert {
     padding: 12px 20px;
     border-radius: 8px;
@@ -137,7 +137,7 @@ body {
     border: 1px solid #fca5a5;
 }
 
-/* ── Profile Grid ── */
+
 .profile-grid {
     display: grid;
     grid-template-columns: 1fr 0.6fr;
@@ -167,7 +167,7 @@ body {
     color: #191C23;
 }
 
-/* ── Personal Info ── */
+
 .edit-btn {
     display: flex;
     align-items: center;
@@ -275,7 +275,7 @@ body {
     background: #003f8a;
 }
 
-/* ── Identity Verified ── */
+
 .identity-verified {
     display: flex;
     align-items: flex-start;
@@ -301,14 +301,14 @@ body {
     font-weight: 400;
 }
 
-/* ── Right Column ── */
+
 .right-column {
     display: flex;
     flex-direction: column;
     gap: 24px;
 }
 
-/* ── Concierge Card ── */
+
 .concierge-card {
     border: none;
     padding: 0;
@@ -350,7 +350,7 @@ body {
     color: #cbd5e1;
 }
 
-/* ── Preferences Card ── */
+
 .preferences-card {
     background-color: #E6E8F280;
     padding: 20px;
@@ -429,7 +429,7 @@ body {
     color: #191C23;
 }
 
-/* ── Change Password ── */
+
 .change-password {
     background-color: #FFFFFF;
     border: 1px solid #C1C6D626;
@@ -518,7 +518,7 @@ body {
     background-color: #1a44c2;
 }
 
-/* ── Footer ── */
+
 .site-footer {
     display: flex;
     align-items: center;
