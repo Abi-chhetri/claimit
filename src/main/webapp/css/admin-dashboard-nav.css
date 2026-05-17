@@ -14,7 +14,7 @@ body {
 	overflow-x: hidden;
 }
 
-/* ── Aside ── */
+
 aside {
 	display: flex;
 	flex-shrink: 0;
@@ -143,7 +143,7 @@ aside {
 	color: #64748B;
 }
 
-/* ── Main + Footer layout ── */
+
 .main-footer {
 	display: flex;
 	flex-direction: column;
@@ -158,7 +158,7 @@ main {
 	min-width: 0;
 }
 
-/* ── Dashboard Nav ── */
+
 .admin-main-outer {
 	padding: 0 32px 32px 32px;
 }
@@ -274,7 +274,7 @@ main {
 	align-items: center;
 }
 
-/* ── Footer ── */
+
 .admin-dash-nav {
 	border-top: 1px solid #E2E8F0;
 	background-color: #F8FAFC;
